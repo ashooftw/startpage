@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEXUS • Quick Access</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=Space+Grotesk:wght@500;600&amp;display=swap');
+        
+        :root {
+            --accent: #22d3ee;
+        }
+        
+        body {
+            font-family: 'Inter', system_ui, sans-serif;
+        }
+        
+        .font-display {
+            font-family: 'Space Grotesk', 'Inter', sans-serif;
+            font-weight: 600;
+        }
+
+        .glass {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 40%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255,255,255,0.08),
+                transparent
+            );
+            transition: 0.6s;
+        }
+        
+        .card:hover::before {
+            left: 250%;
+        }
+
+        .card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 
+                       0 8px 10px -6px rgb(0 0 0 / 0.1),
+                       0 0 0 1px rgba(103, 232, 249, 0.1);
+        }
+
+        .section-title {
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-weight: 600;
+            color: #64748b;
+        }
+
+        .nav-active {
+            color: white;
+            position: relative;
+        }
+        
+        .nav-active:after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(to right, #22d3ee, #a78bfa);
+        }
+
+        .link-card {
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(148, 163, 184, 0.1);
+        }
+
+        .link-card:hover {
+            border-color: rgba(103, 232, 249, 0.3);
+            background: rgba(15, 23, 42, 0.8);
+        }
+
+        .glow-cyan {
+            box-shadow: 0 0 15px rgba(103, 232, 249, 0.15);
+        }
+
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .cyber-grid {
+            background-image: 
+                linear-gradient(rgba(103, 232, 249, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(103, 232, 249, 0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+            pointer-events: none;
+        }
+
+        .stat {
+            font-variant-numeric: tabular-nums;
+        }
+    </style>
+</head>
+<body class="bg-zinc-950 text-white overflow-x-hidden">
+    <!-- Animated Background -->
+    <div class="fixed inset-0 z-0">
+        <!-- Gradient Background -->
+        <div class="absolute inset-0 bg-[radial-gradient(#1e2937_0.8px,transparent_1px)] bg-[length:4px_4px]"></div>
+        <div class="absolute inset-0 bg-gradient-to-br from-zinc-950 via-zinc-900 to-black"></div>
+        
+        <!-- Subtle Cyber Grid -->
+        <div class="absolute inset-0 cyber-grid opacity-40"></div>
+        
+        <!-- Canvas Particles -->
+        <canvas id="particles" class="absolute inset-0 z-10"></canvas>
+        
+        <!-- Floating gradient orbs -->
+        <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl animate-pulse"></div>
+        <div class="absolute bottom-1/3 right-1/4 w-80 h-80 bg-violet-500/10 rounded-full blur-3xl animate-pulse" style="animation-delay: 2s;"></div>
+    </div>
+
+    <!-- Content -->
+    <div class="relative z-20">
+        <!-- Navbar -->
+        <nav class="border-b border-white/10 bg-zinc-950/80 backdrop-blur-xl sticky top-0 z-50">
+            <div class="max-w-screen-2xl mx-auto">
+                <div class="px-8 py-5 flex items-center justify-between">
+                    <div class="flex items-center gap-x-3">
+                        <!-- Logo -->
+                        <div class="flex items-center gap-x-2.5">
+                            <div class="w-9 h-9 rounded-2xl bg-gradient-to-br from-cyan-400 to-violet-500 flex items-center justify-center shadow-lg shadow-cyan-500/25">
+                                <i class="fas fa-infinity text-white text-2xl"></i>
+                            </div>
+                            <div>
+                                <span class="font-display text-3xl font-semibold tracking-tighter">NEXUS</span>
+                            </div>
+                        </div>
+                        <div class="hidden md:block px-3 py-1 rounded-full bg-white/5 text-xs font-medium text-cyan-400 border border-white/10">
+                            v1.0
+                        </div>
+                    </div>
+
+                    <!-- Right side nav -->
+                    <div class="flex items-center gap-x-8 text-sm">
+                        <div class="hidden md:flex items-center gap-x-6 text-zinc-400">
+                            <a href="#learning" class="hover:text-white transition-colors">Learning</a>
+                            <a href="#certs" class="hover:text-white transition-colors">Certs</a>
+                            <a href="#community" class="hover:text-white transition-colors">Community</a>
+                        </div>
+                        
+                        <!-- Live Clock -->
+                        <div class="flex items-center gap-x-2 px-4 py-1.5 rounded-2xl bg-white/5 border border-white/10">
+                            <i class="fas fa-clock text-cyan-400"></i>
+                            <span id="clock" class="font-mono text-sm font-medium tabular-nums"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Hero / Greeting + Search -->
+        <div class="max-w-screen-2xl mx-auto px-8 pt-14 pb-8">
+            <div class="max-w-3xl">
+                <!-- Greeting -->
+                <div class="flex items-center gap-x-3 mb-3">
+                    <div class="px-4 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-semibold tracking-widest flex items-center gap-x-2">
+                        <div class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></div>
+                        ONLINE
+                    </div>
+                    <span id="greeting" class="text-zinc-400 text-lg"></span>
+                </div>
+                
+                <h1 class="font-display text-7xl md:text-7xl font-semibold tracking-tighter leading-none">
+                    Good to see you.<br>
+                    <span class="bg-gradient-to-r from-white to-zinc-400 bg-clip-text text-transparent">Let's build something.</span>
+                </h1>
+                
+                <p class="mt-4 text-xl text-zinc-400 max-w-md">
+                    Your personal command center for learning, hacking, and shipping.
+                </p>
+            </div>
+
+            <!-- Search Bar -->
+            <div class="mt-10 max-w-2xl">
+                <div class="relative group">
+                    <div class="absolute -inset-1 bg-gradient-to-r from-cyan-500/20 to-violet-500/20 rounded-3xl blur-xl opacity-75 group-hover:opacity-100 transition-all"></div>
+                    
+                    <div class="relative flex items-center glass border border-white/10 rounded-3xl px-2 py-2 shadow-2xl">
+                        <div class="pl-6 pr-4">
+                            <i class="fas fa-search text-zinc-400 text-xl"></i>
+                        </div>
+                        <input 
+                            id="search-input"
+                            type="text" 
+                            placeholder="Search anything... (press / to focus)" 
+                            class="flex-1 bg-transparent border-none outline-none text-lg placeholder:text-zinc-500 py-3 pr-6"
+                        >
+                        <div class="hidden md:flex items-center gap-x-1.5 pr-5 text-xs">
+                            <div class="px-2.5 py-1 rounded-lg bg-white/5 border border-white/10 text-zinc-400 font-mono">⌘K</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex items-center justify-between px-2 mt-2 text-[10px] text-zinc-500">
+                    <div>Press <span class="font-mono">Enter</span> to search Google</div>
+                    <div class="hidden md:block">or <span class="font-mono">DDG</span></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="max-w-screen-2xl mx-auto px-8 pb-20">
+            
+            <!-- Learning Platforms -->
+            <div id="learning" class="mb-12">
+                <div class="flex items-end justify-between mb-6 px-1">
+                    <div>
+                        <div class="section-title mb-1">Learning Platforms</div>
+                        <h2 class="text-3xl font-semibold tracking-tight">Level up your skills</h2>
+                    </div>
+                    <a href="https://labex.io/learn" target="_blank" 
+                       class="hidden md:flex items-center gap-x-2 text-sm text-cyan-400 hover:text-cyan-300 transition-colors group">
+                        Explore all <i class="fas fa-arrow-right group-hover:translate-x-0.5 transition"></i>
+                    </a>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+                    
+                    <!-- LabEx Card -->
+                    <a href="https://labex.io/learn" target="_blank" class="card link-card group rounded-3xl p-6 flex flex-col h-full">
+                        <div class="flex justify-between items-start mb-5">
+                            <div class="w-14 h-14 flex items-center justify-center">
+                                <img src="https://file.labex.io/static/labex-logo-icon-white.svg" 
+                                     alt="LabEx" class="w-14 h-14 object-contain" 
+                                     onerror="this.outerHTML='<div class=\'w-14 h-14 bg-sky-500/10 rounded-2xl flex items-center justify-center\'><i class=\'fas fa-flask text-sky-400 text-3xl\'></i></div>'">
+                            </div>
+                            <div class="px-3 py-1 rounded-full bg-sky-500/10 text-sky-400 text-xs font-medium">HANDS-ON</div>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="font-semibold text-2xl tracking-tight">LabEx</h3>
+                            <p class="text-zinc-400 mt-1.5 text-[15px]">Interactive labs for Linux, DevOps, Cloud &amp; Cybersecurity</p>
+                        </div>
+                        <div class="flex items-center justify-between mt-6 pt-4 border-t border-white/10">
+                            <span class="text-xs text-zinc-400">labex.io/learn</span>
+                            <span class="text-sky-400 group-hover:translate-x-1 transition inline-flex items-center gap-x-1 text-sm font-medium">
+                                Open <i class="fas fa-external-link-alt text-xs ml-1"></i>
+                            </span>
+                        </div>
+                    </a>
+
+                    <!-- TryHackMe Card -->
+                    <a href="https://tryhackme.com/hacktivities" target="_blank" class="card link-card group rounded-3xl p-6 flex flex-col h-full">
+                        <div class="flex justify-between items-start mb-5">
+                            <div class="w-14 h-14 flex items-center justify-center">
+                                <div class="w-14 h-14 bg-emerald-500/10 rounded-2xl flex items-center justify-center ring-1 ring-emerald-500/30">
+                                    <i class="fas fa-user-secret text-emerald-400 text-4xl"></i>
+                                </div>
+                            </div>
+                            <div class="px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 text-xs font-medium">GAMIFIED</div>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="font-semibold text-2xl tracking-tight">TryHackMe</h3>
+                            <p class="text-zinc-400 mt-1.5 text-[15px]">Gamified cybersecurity training with real machines &amp; challenges</p>
+                        </div>
+                        <div class="flex items-center justify-between mt-6 pt-4 border-t border-white/10">
+                            <span class="text-xs text-zinc-400">tryhackme.com</span>
+                            <span class="text-emerald-400 group-hover:translate-x-1 transition inline-flex items-center gap-x-1 text-sm font-medium">
+                                Hack Now <i class="fas fa-external-link-alt text-xs ml-1"></i>
+                            </span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Certification Playlists -->
+            <div id="certs" class="mb-12">
+                <div class="flex items-end justify-between mb-6 px-1">
+                    <div>
+                        <div class="section-title mb-1">Certification Prep</div>
+                        <h2 class="text-3xl font-semibold tracking-tight">Professor Messer • Full Courses</h2>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    
+                    <!-- Network+ -->
+                    <a href="https://www.youtube.com/watch?v=k7IOn3TiUc8&list=PLG49S3nxzAnl_tQe3kvnmeMid0mjF8Le8" target="_blank" 
+                       class="card link-card group rounded-3xl p-6 flex flex-col">
+                        <div class="flex items-start gap-x-4">
+                            <div class="mt-1">
+                                <div class="w-12 h-12 bg-red-500/10 rounded-2xl flex items-center justify-center">
+                                    <i class="fab fa-youtube text-red-500 text-4xl"></i>
+                                </div>
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <div class="flex items-center gap-x-2">
+                                    <h3 class="font-semibold text-2xl tracking-tight">CompTIA Network+</h3>
+                                    <span class="text-[10px] px-2 py-0.5 rounded bg-red-500/10 text-red-400 font-mono">N10-009</span>
+                                </div>
+                                <p class="text-zinc-400 text-sm mt-1">Complete training course • 87 lessons</p>
+                                <div class="mt-3 text-xs text-zinc-500">Professor Messer • Official Playlist</div>
+                            </div>
+                        </div>
+                        <div class="mt-auto pt-5 flex justify-end">
+                            <span class="inline-flex items-center text-red-400 text-sm font-medium group-hover:gap-x-2 gap-x-1.5 transition-all">
+                                Watch Playlist <i class="fas fa-play ml-1.5"></i>
+                            </span>
+                        </div>
+                    </a>
+
+                    <!-- Security+ -->
+                    <a href="https://www.youtube.com/watch?v=KiEptGbnEBc&list=PLG49S3nxzAnl4QDVqK-hOnoqcSKEIDDuv" target="_blank" 
+                       class="card link-card group rounded-3xl p-6 flex flex-col">
+                        <div class="flex items-start gap-x-4">
+                            <div class="mt-1">
+                                <div class="w-12 h-12 bg-red-500/10 rounded-2xl flex items-center justify-center">
+                                    <i class="fab fa-youtube text-red-500 text-4xl"></i>
+                                </div>
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <div class="flex items-center gap-x-2">
+                                    <h3 class="font-semibold text-2xl tracking-tight">CompTIA Security+</h3>
+                                    <span class="text-[10px] px-2 py-0.5 rounded bg-red-500/10 text-red-400 font-mono">SY0-701</span>
+                                </div>
+                                <p class="text-zinc-400 text-sm mt-1">Complete training course • 121 lessons</p>
+                                <div class="mt-3 text-xs text-zinc-500">Professor Messer • Official Playlist</div>
+                            </div>
+                        </div>
+                        <div class="mt-auto pt-5 flex justify-end">
+                            <span class="inline-flex items-center text-red-400 text-sm font-medium group-hover:gap-x-2 gap-x-1.5 transition-all">
+                                Watch Playlist <i class="fas fa-play ml-1.5"></i>
+                            </span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Quick Links Grid -->
+            <div id="community" class="mb-8">
+                <div class="flex items-end justify-between mb-6 px-1">
+                    <div>
+                        <div class="section-title mb-1">Quick Access</div>
+                        <h2 class="text-3xl font-semibold tracking-tight">Everything you need</h2>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
+                    
+                    <!-- GitHub -->
+                    <a href="https://github.com" target="_blank" class="card link-card rounded-2xl p-5 group">
+                        <div class="flex items-center gap-x-4">
+                            <i class="fab fa-github text-3xl text-white group-hover:text-zinc-100 transition-colors"></i>
+                            <div>
+                                <div class="font-semibold">GitHub</div>
+                                <div class="text-xs text-zinc-400">Code &amp; repos</div>
+                            </div>
+                        </div>
+                    </a>
+
+                    <!-- Reddit -->
+                    <a href="https://reddit.com" target="_blank" class="card link-card rounded-2xl p-5 group">
+                        <div class="flex items-center gap-x-4">
+                            <i class="fab fa-reddit text-3xl text-orange-400 group-hover:text-orange-300 transition-colors"></i>
+                            <div>
+                                <div class="font-semibold">Reddit</div>
+                                <div class="text-xs text-zinc-400">Communities</div>
+                            </div>
+                        </div>
+                    </a>
+
+                    <!-- LinkedIn -->
+                    <a href="https://linkedin.com" target="_blank" class="card link-card rounded-2xl p-5 group">
+                        <div class="flex items-center gap-x-4">
+                            <i class="fab fa-linkedin text-3xl text-sky-400 group-hover:text-sky-300 transition-colors"></i>
+                            <div>
+                                <div class="font-semibold">LinkedIn</div>
+                                <div class="text-xs text-zinc-400">Professional network</div>
+                            </div>
+                        </div>
+                    </a>
+
+                    <!-- Discord -->
+                    <a href="https://discord.com" target="_blank" class="card link-card rounded-2xl p-5 group">
+                        <div class="flex items-center gap-x-4">
+                            <i class="fab fa-discord text-3xl text-indigo-400 group-hover:text-indigo-300 transition-colors"></i>
+                            <div>
+                                <div class="font-semibold">Discord</div>
+                                <div class="text-xs text-zinc-400">Chat &amp; communities</div>
+                            </div>
+                        </div>
+                    </a>
+
+                    <!-- X / Twitter -->
+                    <a href="https://x.com" target="_blank" class="card link-card rounded-2xl p-5 group">
+                        <div class="flex items-center gap-x-4">
+                            <i class="fab fa-x-twitter text-3xl text-white group-hover:text-zinc-100 transition-colors"></i>
+                            <div>
+                                <div class="font-semibold">X</div>
+                                <div class="text-xs text-zinc-400">News &amp; updates</div>
+                            </div>
+                        </div>
+                    </a>
+
+                    <!-- YouTube -->
+                    <a href="https://youtube.com" target="_blank" class="card link-card rounded-2xl p-5 group">
+                        <div class="flex items-center gap-x-4">
+                            <i class="fab fa-youtube text-3xl text-red-500 group-hover:text-red-400 transition-colors"></i>
+                            <div>
+                                <div class="font-semibold">YouTube</div>
+                                <div class="text-xs text-zinc-400">Watch &amp; learn</div>
+                            </div>
+                        </div>
+                    </a>
+
+                    <!-- Google -->
+                    <a href="https://google.com" target="_blank" class="card link-card rounded-2xl p-5 group">
+                        <div class="flex items-center gap-x-4">
+                            <i class="fab fa-google text-3xl text-white group-hover:text-zinc-100 transition-colors"></i>
+                            <div>
+                                <div class="font-semibold">Google</div>
+                                <div class="text-xs text-zinc-400">Search &amp; more</div>
+                            </div>
+                        </div>
+                    </a>
+
+                    <!-- Gmail -->
+                    <a href="https://mail.google.com" target="_blank" class="card link-card rounded-2xl p-5 group">
+                        <div class="flex items-center gap-x-4">
+                            <i class="fas fa-envelope text-3xl text-red-400 group-hover:text-red-300 transition-colors"></i>
+                            <div>
+                                <div class="font-semibold">Gmail</div>
+                                <div class="text-xs text-zinc-400">Email</div>
+                            </div>
+                        </div>
+                    </a>
+
+                    <!-- Hack The Box -->
+                    <a href="https://www.hackthebox.com" target="_blank" class="card link-card rounded-2xl p-5 group">
+                        <div class="flex items-center gap-x-4">
+                            <div class="w-8 h-8 flex items-center justify-center">
+                                <i class="fas fa-box text-emerald-400 text-3xl"></i>
+                            </div>
+                            <div>
+                                <div class="font-semibold">Hack The Box</div>
+                                <div class="text-xs text-zinc-400">Penetration labs</div>
+                            </div>
+                        </div>
+                    </a>
+
+                    <!-- PortSwigger -->
+                    <a href="https://portswigger.net/web-security" target="_blank" class="card link-card rounded-2xl p-5 group">
+                        <div class="flex items-center gap-x-4">
+                            <div class="w-8 h-8 flex items-center justify-center">
+                                <i class="fas fa-shield-alt text-violet-400 text-3xl"></i>
+                            </div>
+                            <div>
+                                <div class="font-semibold">Web Security Academy</div>
+                                <div class="text-xs text-zinc-400">PortSwigger</div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Footer bar -->
+            <div class="mt-12 pt-6 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-y-3 text-xs text-zinc-500 px-1">
+                <div>
+                    Made with <span class="text-red-400">♥</span> for builders &amp; hackers • Open source friendly
+                </div>
+                <div class="flex items-center gap-x-5">
+                    <button onclick="copyToClipboard()" 
+                            class="flex items-center gap-x-2 hover:text-white transition-colors">
+                        <i class="fas fa-copy"></i> 
+                        <span>Copy page URL</span>
+                    </button>
+                    <a href="https://github.com" target="_blank" class="hover:text-white transition-colors flex items-center gap-x-1.5">
+                        <i class="fab fa-github"></i> 
+                        <span>Host on GitHub</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tailwind script
+        function initializeTailwind() {
+            document.documentElement.style.setProperty('--accent', '#22d3ee');
+        }
+
+        // Live Clock
+        function updateClock() {
+            const clockEl = document.getElementById('clock');
+            
+            function tick() {
+                const now = new Date();
+                const hours = now.getHours().toString().padStart(2, '0');
+                const minutes = now.getMinutes().toString().padStart(2, '0');
+                clockEl.textContent = `${hours}:${minutes}`;
+            }
+            
+            tick();
+            setInterval(tick, 30000); // Update every 30s is enough
+        }
+
+        // Dynamic Greeting
+        function setGreeting() {
+            const greetingEl = document.getElementById('greeting');
+            const hour = new Date().getHours();
+            
+            let greeting = "Good evening";
+            if (hour < 12) greeting = "Good morning";
+            else if (hour < 17) greeting = "Good afternoon";
+            
+            greetingEl.textContent = `${greeting}, ready to build?`;
+        }
+
+        // Search functionality
+        function setupSearch() {
+            const searchInput = document.getElementById('search-input');
+            
+            // Focus with / key (like many dashboards)
+            document.addEventListener('keydown', function(e) {
+                if (e.key === '/' && document.activeElement.tagName === 'BODY') {
+                    e.preventDefault();
+                    searchInput.focus();
+                }
+                
+                if (e.key === 'Escape' && document.activeElement === searchInput) {
+                    searchInput.blur();
+                }
+            });
+            
+            // Search on Enter
+            searchInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter' && searchInput.value.trim() !== '') {
+                    const query = encodeURIComponent(searchInput.value.trim());
+                    window.open(`https://www.google.com/search?q=${query}`, '_blank');
+                    searchInput.value = '';
+                }
+            });
+            
+            // Bonus: Cmd/Ctrl + K to focus
+            document.addEventListener('keydown', function(e) {
+                if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+                    e.preventDefault();
+                    searchInput.focus();
+                }
+            });
+        }
+
+        // Canvas Particle System (Cyber feel)
+        function initParticles() {
+            const canvas = document.getElementById('particles');
+            const ctx = canvas.getContext('2d', { alpha: true });
+            
+            function resize() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+            window.addEventListener('resize', resize);
+            resize();
+
+            const particles = [];
+            const particleCount = Math.min(70, Math.floor(window.innerWidth / 25));
+            
+            class Particle {
+                constructor() {
+                    this.reset();
+                }
+                
+                reset() {
+                    this.x = Math.random() * canvas.width;
+                    this.y = Math.random() * canvas.height;
+                    this.size = Math.random() * 2.2 + 0.6;
+                    this.speedX = (Math.random() - 0.5) * 0.35;
+                    this.speedY = (Math.random() - 0.5) * 0.35;
+                    this.alpha = Math.random() * 0.5 + 0.15;
+                }
+                
+                update() {
+                    this.x += this.speedX;
+                    this.y += this.speedY;
+                    
+                    if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+                    if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+                    
+                    // Occasionally reset for fresh look
+                    if (Math.random() < 0.0008) this.reset();
+                }
+                
+                draw() {
+                    ctx.fillStyle = `rgba(103, 232, 249, ${this.alpha})`;
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            }
+            
+            // Create particles
+            for (let i = 0; i < particleCount; i++) {
+                particles.push(new Particle());
+            }
+            
+            // Connect close particles with faint lines
+            function connectParticles() {
+                const maxDistance = 130;
+                
+                for (let i = 0; i < particles.length; i++) {
+                    for (let j = i + 1; j < particles.length; j++) {
+                        const dx = particles[i].x - particles[j].x;
+                        const dy = particles[i].y - particles[j].y;
+                        const distance = Math.sqrt(dx * dx + dy * dy);
+                        
+                        if (distance < maxDistance) {
+                            const opacity = (1 - distance / maxDistance) * 0.12;
+                            ctx.strokeStyle = `rgba(103, 232, 249, ${opacity})`;
+                            ctx.lineWidth = 0.6;
+                            ctx.beginPath();
+                            ctx.moveTo(particles[i].x, particles[i].y);
+                            ctx.lineTo(particles[j].x, particles[j].y);
+                            ctx.stroke();
+                        }
+                    }
+                }
+            }
+            
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                
+                // Update and draw particles
+                for (let particle of particles) {
+                    particle.update();
+                    particle.draw();
+                }
+                
+                connectParticles();
+                requestAnimationFrame(animate);
+            }
+            
+            animate();
+            
+            // Pause on tab hidden for performance
+            document.addEventListener('visibilitychange', () => {
+                if (document.hidden) {
+                    // Could pause but requestAnimationFrame handles it well
+                }
+            });
+        }
+
+        // Copy current page URL (useful when hosted)
+        function copyToClipboard() {
+            const url = window.location.href;
+            navigator.clipboard.writeText(url).then(() => {
+                const originalText = event.currentTarget ? event.currentTarget.innerHTML : '';
+                
+                // Create toast
+                const toast = document.createElement('div');
+                toast.className = `fixed bottom-6 left-1/2 -translate-x-1/2 px-5 py-3 rounded-2xl glass border border-white/20 text-sm flex items-center gap-x-2 shadow-xl z-[100]`;
+                toast.innerHTML = `
+                    <i class="fas fa-check text-emerald-400"></i> 
+                    <span>Link copied to clipboard!</span>
+                `;
+                document.body.appendChild(toast);
+                
+                setTimeout(() => {
+                    toast.style.transition = 'all 0.2s ease';
+                    toast.style.opacity = '0';
+                    setTimeout(() => toast.remove(), 200);
+                }, 2200);
+            }).catch(() => {
+                // Fallback
+                prompt('Copy this URL:', url);
+            });
+        }
+
+        // Keyboard hint for power users
+        function addKeyboardHints() {
+            // Already handled in search setup
+            console.log('%c[NEXUS] Keyboard shortcuts ready: / or ⌘K to search', 'color:#64748b');
+        }
+
+        // Initialize everything
+        function init() {
+            initializeTailwind();
+            updateClock();
+            setGreeting();
+            setupSearch();
+            initParticles();
+            addKeyboardHints();
+            
+            // Easter egg: Konami code or just console
+            console.log('%c[NEXUS] Beautiful start page initialized. Press "/" to search.', 'color:#334155');
+            
+            // Optional: Make cards slightly more interactive with soundless hover (already CSS)
+        }
+
+        // Boot
+        window.onload = init;
+        
+        // Make copy function globally available if needed
+        window.copyToClipboard = copyToClipboard;
+    </script>
+</body>
+</html>
