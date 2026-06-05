@@ -34,10 +34,6 @@
             box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
         }
 
-        .nav-link {
-            position: relative;
-            transition: color 0.2s ease;
-        }
         .nav-link:hover { color: #67e8f9; }
         .nav-link.active:after {
             content: '';
@@ -47,10 +43,6 @@
             width: 100%;
             height: 2px;
             background: linear-gradient(to right, #67e8f9, #a78bfa);
-        }
-
-        .premium-shadow {
-            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
         }
     </style>
 </head>
@@ -64,7 +56,7 @@
 
     <div class="relative z-20 max-w-screen-2xl mx-auto">
         
-        <!-- Improved Navbar -->
+        <!-- Navbar -->
         <nav class="sticky top-0 z-50 bg-zinc-950/95 backdrop-blur-xl border-b border-white/10">
             <div class="px-8 py-4 flex items-center justify-between">
                 <div class="flex items-center gap-x-4">
@@ -79,7 +71,6 @@
                     </div>
                 </div>
 
-                <!-- Desktop Navigation -->
                 <div class="hidden md:flex items-center gap-x-8 text-sm">
                     <a href="#learning" class="nav-link px-3 py-1 text-zinc-300">Learning</a>
                     <a href="#certs" class="nav-link px-3 py-1 text-zinc-300">Certs</a>
@@ -89,8 +80,7 @@
                 </div>
 
                 <div class="flex items-center gap-x-3">
-                    <button onclick="showShortcutsModal()" 
-                            class="flex items-center gap-x-2 px-4 py-2 text-sm rounded-2xl bg-white/5 hover:bg-white/10 transition-colors">
+                    <button onclick="showShortcutsModal()" class="flex items-center gap-x-2 px-4 py-2 text-sm rounded-2xl bg-white/5 hover:bg-white/10 transition-colors">
                         <i class="fas fa-keyboard text-xs"></i>
                         <span class="hidden md:inline text-xs">Shortcuts</span>
                     </button>
@@ -103,7 +93,7 @@
             </div>
         </nav>
 
-        <!-- Hero Section -->
+        <!-- Hero -->
         <div class="px-8 pt-14 pb-10">
             <div class="max-w-4xl">
                 <div class="inline-flex items-center gap-x-2 px-4 py-1.5 rounded-3xl bg-emerald-500/10 border border-emerald-500/20 mb-6">
@@ -124,8 +114,7 @@
                         <div class="absolute -inset-1 bg-gradient-to-r from-cyan-500/20 via-violet-500/20 to-emerald-500/20 rounded-3xl blur-2xl opacity-60 group-hover:opacity-90 transition-all"></div>
                         <div class="relative glass border border-white/10 rounded-3xl p-2 flex items-center">
                             <div class="pl-5 pr-4"><i class="fas fa-search text-zinc-400"></i></div>
-                            <input id="search-input" type="text" placeholder="Search anything... (press /)" 
-                                   class="flex-1 bg-transparent border-none outline-none text-lg placeholder:text-zinc-500">
+                            <input id="search-input" type="text" placeholder="Search anything... (press /)" class="flex-1 bg-transparent border-none outline-none text-lg placeholder:text-zinc-500">
                             
                             <select id="search-engine" class="bg-zinc-900 border border-white/10 rounded-2xl px-3 py-2 text-sm mr-1">
                                 <option value="google">Google</option>
@@ -139,41 +128,8 @@
             </div>
         </div>
 
-        <!-- Stats -->
-        <div class="px-8 pb-10">
-            <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
-                <div onclick="incrementStreak()" class="glass rounded-3xl p-5 border border-white/10 cursor-pointer active:scale-[0.985] transition-all">
-                    <div class="text-xs text-zinc-400">CURRENT STREAK</div>
-                    <div class="flex items-baseline gap-x-1 mt-1">
-                        <div id="streak-count" class="text-4xl font-semibold">47</div>
-                        <div class="text-emerald-400">days</div>
-                    </div>
-                </div>
-
-                <div onclick="incrementStat('labs')" class="glass rounded-3xl p-5 border border-white/10 cursor-pointer active:scale-[0.985] transition-all">
-                    <div class="text-xs text-zinc-400">LABS COMPLETED</div>
-                    <div id="labs-count" class="text-4xl font-semibold mt-1">128</div>
-                </div>
-
-                <div onclick="incrementStat('machines')" class="glass rounded-3xl p-5 border border-white/10 cursor-pointer active:scale-[0.985] transition-all">
-                    <div class="text-xs text-zinc-400">MACHINES ROOTED</div>
-                    <div id="machines-count" class="text-4xl font-semibold mt-1">63</div>
-                </div>
-
-                <div onclick="incrementStat('certs')" class="glass rounded-3xl p-5 border border-white/10 cursor-pointer active:scale-[0.985] transition-all">
-                    <div class="text-xs text-zinc-400">CERTS IN PROGRESS</div>
-                    <div id="certs-count" class="text-4xl font-semibold mt-1">2</div>
-                </div>
-
-                <div onclick="editFocus()" class="glass rounded-3xl p-5 border border-white/10 cursor-pointer active:scale-[0.985] transition-all">
-                    <div class="text-xs text-zinc-400">TODAY'S FOCUS</div>
-                    <div id="focus-text" class="text-lg font-medium mt-2">Active Directory</div>
-                </div>
-            </div>
-        </div>
-
         <!-- Quick Links (Top) -->
-        <div id="quick-access-top" class="px-8 pb-12">
+        <div id="quick-access-top" class="px-8 pb-10">
             <div class="flex items-center justify-between mb-4">
                 <h3 class="font-semibold text-lg">Quick Links</h3>
             </div>
@@ -190,7 +146,7 @@
         <!-- Main Content -->
         <div class="px-8 space-y-14">
             
-            <!-- Learning + Certs + Roadmaps -->
+            <!-- Learning Platforms -->
             <div id="learning">
                 <div class="flex items-center justify-between mb-6">
                     <div><div class="section-title">Learning Platforms</div><h2 class="section-header">Level up your skills</h2></div>
@@ -205,6 +161,23 @@
                         <div class="w-12 h-12 bg-emerald-500/10 rounded-2xl flex items-center justify-center mb-4"><i class="fas fa-user-secret text-emerald-400 text-3xl"></i></div>
                         <h3 class="font-semibold text-2xl">TryHackMe</h3>
                         <p class="text-zinc-400 mt-1">Gamified cybersecurity training</p>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Certifications -->
+            <div id="certs">
+                <div class="flex items-center justify-between mb-6">
+                    <div><div class="section-title">Certification Prep</div><h2 class="section-header">Professor Messer</h2></div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <a href="https://www.youtube.com/watch?v=k7IOn3TiUc8&list=PLG49S3nxzAnl_tQe3kvnmeMid0mjF8Le8" target="_blank" class="card glass p-6 rounded-3xl border border-white/10 hover:border-red-400/40 flex gap-x-4">
+                        <i class="fab fa-youtube text-red-500 text-5xl mt-1"></i>
+                        <div><h3 class="font-semibold text-2xl">Network+</h3><p class="text-zinc-400">87 lessons • N10-009</p></div>
+                    </a>
+                    <a href="https://www.youtube.com/watch?v=KiEptGbnEBc&list=PLG49S3nxzAnl4QDVqK-hOnoqcSKEIDDuv" target="_blank" class="card glass p-6 rounded-3xl border border-white/10 hover:border-red-400/40 flex gap-x-4">
+                        <i class="fab fa-youtube text-red-500 text-5xl mt-1"></i>
+                        <div><h3 class="font-semibold text-2xl">Security+</h3><p class="text-zinc-400">121 lessons • SY0-701</p></div>
                     </a>
                 </div>
             </div>
@@ -307,70 +280,6 @@
             setInterval(tick, 30000);
         }
 
-        // Stats System
-        let stats = {
-            streak: parseInt(localStorage.getItem('streak')) || 47,
-            labs: parseInt(localStorage.getItem('labs')) || 128,
-            machines: parseInt(localStorage.getItem('machines')) || 63,
-            certs: parseInt(localStorage.getItem('certs')) || 2,
-            focus: localStorage.getItem('focus') || 'Active Directory'
-        };
-
-        function saveStats() {
-            localStorage.setItem('streak', stats.streak);
-            localStorage.setItem('labs', stats.labs);
-            localStorage.setItem('machines', stats.machines);
-            localStorage.setItem('certs', stats.certs);
-            localStorage.setItem('focus', stats.focus);
-        }
-
-        function updateStatsDisplay() {
-            document.getElementById('streak-count').textContent = stats.streak;
-            document.getElementById('labs-count').textContent = stats.labs;
-            document.getElementById('machines-count').textContent = stats.machines;
-            document.getElementById('certs-count').textContent = stats.certs;
-            document.getElementById('focus-text').textContent = stats.focus;
-        }
-
-        function incrementStreak() {
-            stats.streak++;
-            saveStats();
-            updateStatsDisplay();
-        }
-
-        function incrementStat(type) {
-            stats[type]++;
-            saveStats();
-            updateStatsDisplay();
-        }
-
-        function editFocus() {
-            const newFocus = prompt('What are you focusing on today?', stats.focus);
-            if (newFocus && newFocus.trim()) {
-                stats.focus = newFocus.trim();
-                saveStats();
-                updateStatsDisplay();
-            }
-        }
-
-        function resetAllStats() {
-            if (confirm('Reset all stats?')) {
-                stats = { streak: 0, labs: 0, machines: 0, certs: 0, focus: 'Active Directory' };
-                saveStats();
-                updateStatsDisplay();
-            }
-        }
-
-        function exportStats() {
-            const dataStr = JSON.stringify(stats, null, 2);
-            const dataUri = 'data:application/json;charset=utf-8,' + encodeURIComponent(dataStr);
-            const link = document.createElement('a');
-            link.setAttribute('href', dataUri);
-            link.setAttribute('download', 'ashoo_stats.json');
-            link.click();
-        }
-
-        // Search
         function setupSearch() {
             const input = document.getElementById('search-input');
             const engine = document.getElementById('search-engine');
@@ -398,7 +307,6 @@
             });
         }
 
-        // Particles
         function initParticles() {
             const canvas = document.getElementById('particles');
             const ctx = canvas.getContext('2d', { alpha: true });
@@ -443,7 +351,6 @@
             animate();
         }
 
-        // Todo
         let todos = JSON.parse(localStorage.getItem('todos')) || [];
 
         function renderTodos() {
@@ -527,7 +434,6 @@
         function init() {
             initTailwind();
             updateClock();
-            updateStatsDisplay();
             setupSearch();
             initParticles();
             renderTodos();
@@ -535,7 +441,6 @@
             loadDailyQuote();
             renderMiniCalendar();
 
-            // Keyboard shortcuts
             document.addEventListener('keydown', function(e) {
                 if (e.key.toLowerCase() === 'n' && document.activeElement.tagName === 'BODY') {
                     e.preventDefault();
@@ -547,11 +452,6 @@
         window.onload = init;
         window.addTodo = addTodo;
         window.saveNote = saveNote;
-        window.incrementStreak = incrementStreak;
-        window.incrementStat = incrementStat;
-        window.editFocus = editFocus;
-        window.resetAllStats = resetAllStats;
-        window.exportStats = exportStats;
     </script>
 </body>
 </html>
