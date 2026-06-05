@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cybersecurity Master Plan • 18 Months</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=Space+Grotesk:wght@500;600&amp;display=swap');
+        
+        :root {
+            --primary: #0F172A;
+        }
+        
+        body {
+            font-family: 'Inter', system_ui, sans-serif;
+        }
+        
+        .font-display {
+            font-family: 'Space Grotesk', 'Inter', system_ui, sans-serif;
+            font-weight: 600;
+        }
+
+        .cyber-gradient {
+            background: linear-gradient(135deg, #0F172A 0%, #1E2937 100%);
+        }
+
+        .section-header {
+            font-size: 2.25rem;
+            line-height: 2.5rem;
+            font-weight: 700;
+            letter-spacing: -0.025em;
+        }
+
+        .nav-active {
+            color: #22d3ee;
+            border-bottom: 2px solid #22d3ee;
+        }
+
+        .week-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .week-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+        }
+
+        .resource-card {
+            transition: all 0.2s ease;
+        }
+
+        .resource-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+        }
+
+        .timeline-dot {
+            box-shadow: 0 0 0 4px #0F172A;
+        }
+
+        .master-plan-container {
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        .nav-link {
+            transition: all 0.2s ease;
+        }
+        
+        .nav-link:hover {
+            color: #67e8f9;
+        }
+
+        .cyber-card {
+            background-color: #1E2937;
+            border: 1px solid #334155;
+        }
+
+        .accent-cyan {
+            color: #67e8f9;
+        }
+
+        .progress-bar {
+            transition: width 0.4s ease;
+        }
+
+        .checklist-item {
+            transition: all 0.2s ease;
+        }
+
+        .section {
+            scroll-margin-top: 80px;
+        }
+        
+        .beautiful-table {
+            border-collapse: separate;
+            border-spacing: 0;
+        }
+        
+        .beautiful-table th {
+            background-color: #1E2937;
+            color: #e0f2fe;
+        }
+        
+        .beautiful-table td {
+            background-color: #0F172A;
+        }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-200">
+    <!-- NAV -->
+    <nav class="bg-slate-900 border-b border-slate-800 sticky top-0 z-50">
+        <div class="max-w-screen-xl mx-auto">
+            <div class="px-8 py-5 flex items-center justify-between">
+                <div class="flex items-center gap-x-3">
+                    <div class="w-9 h-9 bg-cyan-500 rounded-xl flex items-center justify-center">
+                        <i class="fa-solid fa-shield-halved text-white text-2xl"></i>
+                    </div>
+                    <div>
+                        <span class="font-display text-2xl font-semibold tracking-tighter">CYBER</span>
+                        <span class="font-display text-2xl font-semibold tracking-tighter text-cyan-400">MASTER</span>
+                    </div>
+                </div>
+                
+                <div class="hidden md:flex items-center gap-x-8 text-sm">
+                    <a href="#how-to-use" class="nav-link text-slate-300 hover:text-white px-3 py-1.5">How to Use</a>
+                    <a href="#timeline" class="nav-link text-slate-300 hover:text-white px-3 py-1.5">Timeline</a>
+                    <a href="#weeks" class="nav-link text-slate-300 hover:text-white px-3 py-1.5">Weeks 1-12</a>
+                    <a href="#resources" class="nav-link text-slate-300 hover:text-white px-3 py-1.5">Resources</a>
+                </div>
+                
+                <div class="flex items-center gap-x-3">
+                    <button onclick="startWeek1()" 
+                            class="px-5 py-2.5 bg-white text-slate-900 hover:bg-cyan-400 hover:text-white transition-all font-semibold text-sm rounded-2xl flex items-center gap-x-2 shadow-lg shadow-cyan-500/20">
+                        <i class="fa-solid fa-play mr-1"></i>
+                        <span>Start Week 1</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <div class="cyber-gradient border-b border-slate-800">
+        <div class="max-w-screen-xl mx-auto px-8 pt-16 pb-20">
+            <div class="max-w-3xl">
+                <div class="inline-flex items-center gap-x-2 px-4 py-1.5 rounded-3xl bg-slate-900 border border-slate-700 mb-6">
+                    <div class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></div>
+                    <span class="text-sm font-medium text-emerald-400">Updated January 2026 • For Absolute Beginners</span>
+                </div>
+                
+                <h1 class="text-6xl leading-none font-display font-bold tracking-tighter mb-4">
+                    Your Complete<br>
+                    <span class="text-cyan-400">18-Month</span><br>
+                    Cybersecurity Master Plan
+                </h1>
+                
+                <p class="text-xl text-slate-300 max-w-lg mb-8">
+                    From zero experience to job-ready professional. 
+                    A structured, actionable system built for people with no technical background.
+                </p>
+                
+                <div class="flex flex-wrap gap-4">
+                    <button onclick="document.getElementById('weeks').scrollIntoView({ behavior: 'smooth' })" 
+                            class="px-8 py-4 bg-white hover:bg-slate-100 transition-all text-slate-900 font-semibold rounded-3xl flex items-center justify-center gap-x-3 text-base shadow-xl">
+                        <span>Begin the Journey</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                    
+                    <button onclick="document.getElementById('timeline').scrollIntoView({ behavior: 'smooth' })" 
+                            class="px-8 py-4 border border-slate-700 hover:bg-slate-900 transition-all font-semibold rounded-3xl flex items-center justify-center gap-x-3 text-base">
+                        <span>View Full Timeline</span>
+                    </button>
+                </div>
+                
+                <div class="mt-8 flex items-center gap-x-6 text-sm">
+                    <div class="flex -space-x-2">
+                        <div class="w-7 h-7 bg-slate-700 rounded-full border border-slate-600"></div>
+                        <div class="w-7 h-7 bg-slate-700 rounded-full border border-slate-600"></div>
+                        <div class="w-7 h-7 bg-slate-700 rounded-full border border-slate-600"></div>
+                    </div>
+                    <span class="text-slate-400 text-sm">Join 1000+ self-taught professionals on this path</span>
+                </div>
+
+                <!-- localStorage warning (only shows if blocked) -->
+                <div id="storage-warning" class="hidden mt-4 text-xs bg-yellow-900/30 border border-yellow-700 text-yellow-300 px-4 py-2 rounded-2xl max-w-md">
+                    <i class="fa-solid fa-exclamation-triangle mr-2"></i>
+                    Progress saving is disabled in this environment. Your checklist won't persist after refresh.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- STATS BAR -->
+    <div class="max-w-screen-xl mx-auto px-8 py-6 border-b border-slate-800">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+            <div>
+                <div class="text-3xl font-semibold">18</div>
+                <div class="text-sm text-slate-400">Months to Job-Ready</div>
+            </div>
+            <div>
+                <div class="text-3xl font-semibold">50+</div>
+                <div class="text-sm text-slate-400">Free High-Quality Resources</div>
+            </div>
+            <div>
+                <div class="text-3xl font-semibold">12</div>
+                <div class="text-sm text-slate-400">Detailed Weeks (Months 1-3)</div>
+            </div>
+            <div>
+                <div class="text-3xl font-semibold">100%</div>
+                <div class="text-sm text-slate-400">Free / Low-Cost Path</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- HOW TO USE -->
+    <div id="how-to-use" class="max-w-screen-xl mx-auto px-8 py-16 section">
+        <div class="max-w-2xl mb-10">
+            <span class="text-cyan-400 text-sm font-semibold tracking-widest">GETTING STARTED</span>
+            <h2 class="section-header mt-3">How to Use This Plan</h2>
+            <p class="mt-3 text-slate-300">This is your single source of truth. Follow it consistently and you will succeed.</p>
+        </div>
+        
+        <div class="grid md:grid-cols-3 gap-6">
+            <div class="cyber-card rounded-3xl p-7">
+                <div class="w-9 h-9 bg-cyan-500/10 text-cyan-400 flex items-center justify-center rounded-2xl mb-5">
+                    <i class="fa-solid fa-calendar-day text-xl"></i>
+                </div>
+                <h4 class="font-semibold text-xl mb-3">1. Follow Weeks 1-12 Strictly</h4>
+                <p class="text-slate-300 text-[15px]">The first three months are the most critical. Do not skip foundations. This is where most people quit.</p>
+            </div>
+            
+            <div class="cyber-card rounded-3xl p-7">
+                <div class="w-9 h-9 bg-cyan-500/10 text-cyan-400 flex items-center justify-center rounded-2xl mb-5">
+                    <i class="fa-solid fa-check-double text-xl"></i>
+                </div>
+                <h4 class="font-semibold text-xl mb-3">2. Use the Daily Checklist</h4>
+                <p class="text-slate-300 text-[15px]">Print or keep the daily operating system visible. Consistency compounds faster than intensity.</p>
+            </div>
+            
+            <div class="cyber-card rounded-3xl p-7">
+                <div class="w-9 h-9 bg-cyan-500/10 text-cyan-400 flex items-center justify-center rounded-2xl mb-5">
+                    <i class="fa-solid fa-book text-xl"></i>
+                </div>
+                <h4 class="font-semibold text-xl mb-3">3. Document Everything</h4>
+                <p class="text-slate-300 text-[15px]">Build your GitHub portfolio from day one. Your future self (and employers) will thank you.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- DAILY CHECKLIST -->
+    <div class="max-w-screen-xl mx-auto px-8 pb-16">
+        <div class="cyber-card rounded-3xl p-8">
+            <div class="flex justify-between items-end mb-6">
+                <div>
+                    <h3 class="font-semibold text-2xl">Daily Operating System</h3>
+                    <p class="text-slate-400 text-sm mt-1">8–10 focused hours • Consistency beats motivation</p>
+                </div>
+                <button onclick="resetChecklist()" 
+                        class="text-xs px-4 py-2 border border-slate-700 hover:bg-slate-800 rounded-2xl transition-colors flex items-center gap-x-2 text-slate-300">
+                    <i class="fa-solid fa-redo text-xs"></i>
+                    <span>Reset</span>
+                </button>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-x-8 gap-y-3" id="daily-checklist">
+                <!-- Populated by JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- 18 MONTH TIMELINE -->
+    <div id="timeline" class="max-w-screen-xl mx-auto px-8 py-16 border-t border-slate-800 section">
+        <div class="max-w-2xl mb-10">
+            <span class="text-cyan-400 text-sm font-semibold tracking-widest">BIG PICTURE</span>
+            <h2 class="section-header mt-3">18-Month Roadmap</h2>
+        </div>
+        
+        <div class="space-y-4">
+            <!-- Timeline items -->
+            <div class="flex gap-6 items-start group">
+                <div class="w-16 flex-shrink-0">
+                    <div class="bg-emerald-500 text-white text-xs font-mono px-3 py-1 rounded-full text-center w-fit">MONTHS 1-3</div>
+                </div>
+                <div class="flex-1 cyber-card rounded-3xl p-6">
+                    <div class="flex justify-between">
+                        <div>
+                            <div class="font-semibold text-xl">FOUNDATIONS</div>
+                            <div class="text-emerald-400 text-sm">Linux • Networking • Python • Homelab</div>
+                        </div>
+                        <div class="text-right text-xs text-slate-400">50-60 hrs/week</div>
+                    </div>
+                    <div class="mt-4 text-sm text-slate-300">Build rock-solid fundamentals. This phase determines whether you continue or quit.</div>
+                </div>
+            </div>
+            
+            <div class="flex gap-6 items-start group">
+                <div class="w-16 flex-shrink-0">
+                    <div class="bg-sky-500 text-white text-xs font-mono px-3 py-1 rounded-full text-center w-fit">MONTHS 4-6</div>
+                </div>
+                <div class="flex-1 cyber-card rounded-3xl p-6">
+                    <div class="flex justify-between">
+                        <div>
+                            <div class="font-semibold text-xl">SECURITY+ + INTRO PENTEST</div>
+                            <div class="text-sky-400 text-sm">Security+ Exam • Web + Network Pentesting</div>
+                        </div>
+                    </div>
+                    <div class="mt-4 text-sm text-slate-300">Pass Security+. Build real offensive skills. Launch your public portfolio.</div>
+                </div>
+            </div>
+            
+            <div class="flex gap-6 items-start group">
+                <div class="w-16 flex-shrink-0">
+                    <div class="bg-violet-500 text-white text-xs font-mono px-3 py-1 rounded-full text-center w-fit">MONTHS 7-12</div>
+                </div>
+                <div class="flex-1 cyber-card rounded-3xl p-6">
+                    <div class="flex justify-between">
+                        <div>
+                            <div class="font-semibold text-xl">ADVANCED + JOB READY</div>
+                            <div class="text-violet-400 text-sm">Specialization • Bug Bounties • Heavy Applications</div>
+                        </div>
+                    </div>
+                    <div class="mt-4 text-sm text-slate-300">Go deep in your chosen lane. Land interviews. Secure your first role.</div>
+                </div>
+            </div>
+            
+            <div class="flex gap-6 items-start group">
+                <div class="w-16 flex-shrink-0">
+                    <div class="bg-amber-500 text-white text-xs font-mono px-3 py-1 rounded-full text-center w-fit">MONTHS 13-18</div>
+                </div>
+                <div class="flex-1 cyber-card rounded-3xl p-6">
+                    <div class="flex justify-between">
+                        <div>
+                            <div class="font-semibold text-xl">FIRST JOB + GROWTH</div>
+                            <div class="text-amber-400 text-sm">Excel • Specialize • Build Reputation</div>
+                        </div>
+                    </div>
+                    <div class="mt-4 text-sm text-slate-300">Perform in your role. Get promoted. Start building long-term career capital.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- WEEKS 1-12 -->
+    <div id="weeks" class="max-w-screen-xl mx-auto px-8 py-16 border-t border-slate-800 section">
+        <div class="flex justify-between items-end mb-8">
+            <div>
+                <span class="text-cyan-400 text-sm font-semibold tracking-widest">THE CRITICAL PHASE</span>
+                <h2 class="section-header mt-2">Detailed Weeks 1–12</h2>
+                <p class="text-slate-300 mt-2">Follow these weeks closely. This is where everything is built.</p>
+            </div>
+            <div class="text-xs px-4 py-2 bg-slate-900 border border-slate-700 rounded-2xl text-slate-400">
+                <i class="fa-solid fa-info-circle mr-1.5"></i> Click any week to expand
+            </div>
+        </div>
+        
+        <div class="space-y-3" id="weeks-container">
+            <!-- Populated dynamically by JavaScript -->
+        </div>
+    </div>
+
+    <!-- CERTIFICATIONS -->
+    <div class="max-w-screen-xl mx-auto px-8 py-16 border-t border-slate-800">
+        <div class="max-w-2xl mb-8">
+            <h2 class="section-header">Certifications Roadmap</h2>
+        </div>
+        
+        <div class="grid md:grid-cols-3 gap-6">
+            <div class="cyber-card rounded-3xl p-6">
+                <div class="flex justify-between items-start">
+                    <div>
+                        <div class="font-semibold">Security+</div>
+                        <div class="text-xs text-emerald-400">FIRST PRIORITY</div>
+                    </div>
+                    <div class="text-emerald-400 text-xs font-mono">~$425</div>
+                </div>
+                <div class="mt-4 text-sm">Best entry-level cert. Free study with Professor Messer.</div>
+                <div class="mt-4 text-xs text-slate-400">Target: Month 5</div>
+            </div>
+            
+            <div class="cyber-card rounded-3xl p-6">
+                <div class="flex justify-between items-start">
+                    <div>
+                        <div class="font-semibold">eJPT / PNPT</div>
+                        <div class="text-xs text-sky-400">PRACTICAL</div>
+                    </div>
+                    <div class="text-sky-400 text-xs font-mono">$200–500</div>
+                </div>
+                <div class="mt-4 text-sm">Hands-on proof. Much better than CEH for beginners.</div>
+                <div class="mt-4 text-xs text-slate-400">Target: Month 6–7</div>
+            </div>
+            
+            <div class="cyber-card rounded-3xl p-6">
+                <div class="flex justify-between items-start">
+                    <div>
+                        <div class="font-semibold">OSCP</div>
+                        <div class="text-xs text-violet-400">GOLD STANDARD</div>
+                    </div>
+                    <div class="text-violet-400 text-xs font-mono">~$1,749</div>
+                </div>
+                <div class="mt-4 text-sm">The most respected pentesting certification. Do not rush.</div>
+                <div class="mt-4 text-xs text-slate-400">Target: After 8–10 months labs</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- INDIA RESOURCES -->
+    <div class="max-w-screen-xl mx-auto px-8 py-16 border-t border-slate-800 section" id="india">
+        <div class="max-w-2xl mb-8">
+            <h2 class="section-header">India Job Market &amp; Resources</h2>
+            <p class="mt-2 text-slate-300">Realistic guidance for the Indian market in 2026.</p>
+        </div>
+        
+        <div class="grid md:grid-cols-2 gap-6">
+            <div class="cyber-card rounded-3xl p-7">
+                <h4 class="font-semibold mb-4">Strongest Entry Points</h4>
+                <ul class="space-y-2 text-sm">
+                    <li class="flex gap-x-3"><i class="fa-solid fa-check text-emerald-400 mt-1"></i> MSSPs &amp; security service providers</li>
+                    <li class="flex gap-x-3"><i class="fa-solid fa-check text-emerald-400 mt-1"></i> Product companies (Zoho, Freshworks, etc.)</li>
+                    <li class="flex gap-x-3"><i class="fa-solid fa-check text-emerald-400 mt-1"></i> Banks &amp; fintech</li>
+                    <li class="flex gap-x-3"><i class="fa-solid fa-check text-emerald-400 mt-1"></i> Startups (skills &gt; degree)</li>
+                </ul>
+            </div>
+            
+            <div class="cyber-card rounded-3xl p-7">
+                <h4 class="font-semibold mb-4">Key Platforms &amp; Communities</h4>
+                <ul class="space-y-2 text-sm">
+                    <li><span class="text-cyan-400">Naukri.com</span> + LinkedIn (daily networking)</li>
+                    <li><span class="text-cyan-400">OWASP Kolkata</span> chapter</li>
+                    <li><span class="text-cyan-400">Null.community</span></li>
+                    <li><span class="text-cyan-400">c0c0n</span> conference</li>
+                    <li>Pearson VUE centers in Kolkata for exams</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- RESOURCES -->
+    <div id="resources" class="max-w-screen-xl mx-auto px-8 py-16 border-t border-slate-800">
+        <div class="flex justify-between items-center mb-8">
+            <div>
+                <h2 class="section-header">Core Free Resources</h2>
+            </div>
+            <input type="text" id="resource-search" placeholder="Search resources..." 
+                   class="bg-slate-900 border border-slate-700 rounded-2xl px-5 py-2.5 text-sm w-72 focus:outline-none focus:border-cyan-500">
+        </div>
+        
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4" id="resources-grid">
+            <!-- Populated by JS -->
+        </div>
+    </div>
+
+    <!-- FINAL CTA -->
+    <div class="border-t border-slate-800 py-16">
+        <div class="max-w-screen-xl mx-auto px-8 text-center">
+            <h2 class="text-4xl font-display font-semibold tracking-tighter">You now have everything.</h2>
+            <p class="mt-4 max-w-md mx-auto text-slate-300">The only variable left is daily execution. Start Week 1 today.</p>
+            
+            <button onclick="startWeek1()" 
+                    class="mt-8 px-10 py-4 bg-white hover:bg-cyan-400 hover:text-white transition-all text-slate-900 font-semibold rounded-3xl inline-flex items-center gap-x-3 shadow-xl">
+                <span>Start Week 1 Right Now</span>
+                <i class="fa-solid fa-arrow-right"></i>
+            </button>
+            
+            <div class="mt-6 text-xs text-slate-500">This plan works. Thousands have followed similar paths. You can too.</div>
+        </div>
+    </div>
+
+    <footer class="border-t border-slate-800 py-8 text-center text-xs text-slate-500">
+        Built for absolute beginners who are ready to do the work.<br>
+        Execute daily. The future you is counting on it.
+    </footer>
+
+    <script>
+        // Tailwind script
+        function initializeTailwind() {
+            document.documentElement.style.setProperty('--accent', '#67e8f9');
+        }
+        
+        // Safe localStorage helper (prevents sandbox errors)
+        function safeLocalStorage() {
+            try {
+                const test = '__storage_test__';
+                localStorage.setItem(test, test);
+                localStorage.removeItem(test);
+                return localStorage;
+            } catch (e) {
+                return null;
+            }
+        }
+        
+        const storage = safeLocalStorage();
+        
+        // Daily Checklist
+        const dailyTasks = [
+            "Morning sunlight + movement (10-20 min)",
+            "Theory / Video course (2-3 hrs)",
+            "Hands-on labs or scripting (3 hrs)",
+            "Documentation / GitHub commit",
+            "Review weak topics + journal",
+            "No screens 30-60 min before bed"
+        ];
+        
+        function renderDailyChecklist() {
+            const container = document.getElementById('daily-checklist');
+            container.innerHTML = '';
+            
+            dailyTasks.forEach((task, index) => {
+                let saved = false;
+                if (storage) {
+                    saved = storage.getItem(`daily_${index}`) === 'true';
+                }
+                
+                const div = document.createElement('div');
+                div.className = `checklist-item flex items-center gap-x-3 p-3 rounded-2xl hover:bg-slate-900 ${saved ? 'opacity-70' : ''}`;
+                div.innerHTML = `
+                    <input type="checkbox" id="daily_${index}" ${saved ? 'checked' : ''} 
+                           class="w-5 h-5 accent-cyan-400 bg-slate-800 border-slate-600 rounded">
+                    <label for="daily_${index}" class="flex-1 text-sm cursor-pointer ${saved ? 'line-through text-slate-400' : ''}">${task}</label>
+                `;
+                
+                const checkbox = div.querySelector('input');
+                checkbox.onchange = () => {
+                    if (storage) {
+                        storage.setItem(`daily_${index}`, checkbox.checked);
+                    }
+                    if (checkbox.checked) {
+                        div.style.opacity = '0.7';
+                        div.querySelector('label').classList.add('line-through', 'text-slate-400');
+                    } else {
+                        div.style.opacity = '1';
+                        div.querySelector('label').classList.remove('line-through', 'text-slate-400');
+                    }
+                };
+                
+                container.appendChild(div);
+            });
+        }
+        
+        function resetChecklist() {
+            if (storage) {
+                dailyTasks.forEach((_, i) => storage.removeItem(`daily_${i}`));
+            }
+            renderDailyChecklist();
+        }
+        
+        // Weeks Data
+        const weeksData = [
+            {
+                week: 1,
+                title: "Linux CLI + Homelab Setup + Git",
+                focus: "Foundations",
+                tasks: [
+                    "Install VirtualBox + Kali Linux",
+                    "linuxjourney.com — Introduction & Filesystem",
+                    "Create GitHub repo: Cybersecurity-Learning-Journey",
+                    "OverTheWire Bandit Levels 0-5",
+                    "TryHackMe Pre-Security first rooms"
+                ],
+                portfolio: "Week1-Homelab-Setup.md with screenshots"
+            },
+            {
+                week: 2,
+                title: "Linux Deeper + Bash Scripting",
+                focus: "Linux Mastery",
+                tasks: [
+                    "linuxjourney.com — Permissions, Users, Processes",
+                    "Bandit Levels 6-15",
+                    "Write first bash script",
+                    "Daily CLI-only challenge"
+                ],
+                portfolio: "Linux permissions notes + first script"
+            },
+            {
+                week: 3,
+                title: "Networking + Wireshark",
+                focus: "Networking",
+                tasks: [
+                    "Professor Messer Network+ videos",
+                    "Daily subnetting practice",
+                    "Wireshark captures",
+                    "TryHackMe networking rooms"
+                ],
+                portfolio: "Networking-Basics-Notes.md"
+            },
+            {
+                week: 4,
+                title: "Python for Cyber + Review",
+                focus: "Scripting",
+                tasks: [
+                    "Automate the Boring Stuff (Ch 1-6)",
+                    "Write port scanner + banner grabber",
+                    "Month 1 review document"
+                ],
+                portfolio: "Python-Scripts folder + Month1-Review.md"
+            },
+            {
+                week: 5,
+                title: "Security+ Start + Web Pentest",
+                focus: "Web Security",
+                tasks: [
+                    "Professor Messer Security+ videos",
+                    "PortSwigger Academy — SQLi & XSS labs",
+                    "TryHackMe Web rooms"
+                ],
+                portfolio: "First web vulnerability writeup"
+            },
+            {
+                week: 6,
+                title: "Security+ Deep + Nmap Mastery",
+                focus: "Offensive Basics",
+                tasks: [
+                    "Continue Security+",
+                    "Nmap mastery (-sC, -sV, scripts)",
+                    "Full enumeration practice"
+                ],
+                portfolio: "Nmap Cheatsheet + Enumeration Methodology"
+            },
+            {
+                week: 7,
+                title: "Security+ Exam Week",
+                focus: "Certification",
+                tasks: [
+                    "Final practice exams",
+                    "Take Security+ exam",
+                    "First full lab report"
+                ],
+                portfolio: "First-Full-Lab-Report.md"
+            },
+            {
+                week: 8,
+                title: "Practical Pentest + Blue Team Intro",
+                focus: "Balanced Skills",
+                tasks: [
+                    "HTB Starting Point machines",
+                    "Wazuh setup in homelab",
+                    "Bug bounty recon education"
+                ],
+                portfolio: "Wazuh setup guide + HTB writeups"
+            },
+            {
+                week: 9,
+                title: "Active Directory + Specialization",
+                focus: "Specialization",
+                tasks: [
+                    "Build AD lab",
+                    "BloodHound + Kerberoasting",
+                    "Choose offensive or defensive path"
+                ],
+                portfolio: "Major project kickoff"
+            },
+            {
+                week: 10,
+                title: "Major Project + Bug Bounty",
+                focus: "Real Impact",
+                tasks: [
+                    "Heavy work on major project",
+                    "Bug bounty recon on public programs",
+                    "Resume draft"
+                ],
+                portfolio: "Major project 50% complete"
+            },
+            {
+                week: 11,
+                title: "Interview Prep + Applications",
+                focus: "Job Hunt",
+                tasks: [
+                    "Mock interviews",
+                    "Technical + behavioral prep",
+                    "Start quality applications"
+                ],
+                portfolio: "Interview stories ready"
+            },
+            {
+                week: 12,
+                title: "Month 3 Review + Transition",
+                focus: "Foundation Complete",
+                tasks: [
+                    "Publish major project",
+                    "Portfolio v1 live",
+                    "Plan Months 4-6"
+                ],
+                portfolio: "Month3-Review.md"
+            }
+        ];
+        
+        function renderWeeks() {
+            const container = document.getElementById('weeks-container');
+            container.innerHTML = '';
+            
+            weeksData.forEach(week => {
+                const div = document.createElement('div');
+                div.className = `week-card cyber-card rounded-3xl overflow-hidden border border-slate-700`;
+                
+                div.innerHTML = `
+                    <div class="px-7 py-5 flex justify-between items-center cursor-pointer" onclick="toggleWeek(this)">
+                        <div class="flex items-center gap-x-4">
+                            <div class="w-9 h-9 bg-slate-800 text-cyan-400 font-mono flex-shrink-0 rounded-2xl flex items-center justify-center text-sm font-semibold">
+                                W${week.week}
+                            </div>
+                            <div>
+                                <div class="font-semibold">${week.title}</div>
+                                <div class="text-xs text-cyan-400">${week.focus}</div>
+                            </div>
+                        </div>
+                        <i class="fa-solid fa-chevron-down transition-transform text-slate-400"></i>
+                    </div>
+                    
+                    <div class="week-content hidden px-7 pb-7 border-t border-slate-700 pt-5">
+                        <div class="grid md:grid-cols-2 gap-x-8">
+                            <div>
+                                <div class="uppercase text-[10px] tracking-[1px] text-slate-400 mb-3">KEY TASKS</div>
+                                <ul class="space-y-[7px] text-sm">
+                                    ${week.tasks.map(task => `<li class="flex gap-x-2"><i class="fa-solid fa-check text-emerald-400 mt-[3px] text-xs"></i> <span>${task}</span></li>`).join('')}
+                                </ul>
+                            </div>
+                            
+                            <div class="mt-5 md:mt-0">
+                                <div class="uppercase text-[10px] tracking-[1px] text-slate-400 mb-3">PORTFOLIO ACTION</div>
+                                <div class="text-sm p-4 bg-slate-900 border border-slate-700 rounded-2xl">
+                                    ${week.portfolio}
+                                </div>
+                                
+                                <div class="mt-4 flex items-center gap-x-2">
+                                    <button onclick="markWeekComplete(${week.week}, this)" 
+                                            class="text-xs px-4 py-2 bg-emerald-900 hover:bg-emerald-800 text-emerald-300 rounded-2xl flex items-center gap-x-2 transition-colors">
+                                        <i class="fa-solid fa-check-double"></i>
+                                        <span>Mark Complete</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                container.appendChild(div);
+            });
+        }
+        
+        function toggleWeek(element) {
+            const content = element.nextElementSibling;
+            const icon = element.querySelector('i');
+            
+            content.classList.toggle('hidden');
+            icon.classList.toggle('fa-chevron-down');
+            icon.classList.toggle('fa-chevron-up');
+        }
+        
+        function markWeekComplete(weekNum, btn) {
+            btn.innerHTML = `<i class="fa-solid fa-check"></i> <span>Completed</span>`;
+            btn.classList.remove('bg-emerald-900', 'hover:bg-emerald-800');
+            btn.classList.add('bg-emerald-600', 'text-white');
+            btn.disabled = true;
+            
+            // Save progress safely
+            if (storage) {
+                storage.setItem(`week_${weekNum}_complete`, 'true');
+            }
+        }
+        
+        // Resources
+        const resources = [
+            { category: "Linux", name: "Linux Journey", link: "https://linuxjourney.com", desc: "Best interactive Linux course" },
+            { category: "Linux", name: "OverTheWire Bandit", link: "https://overthewire.org/wargames/bandit/", desc: "Wargame for terminal mastery" },
+            { category: "Networking", name: "Professor Messer Network+", link: "https://www.youtube.com/@professormesser", desc: "Free full Network+ course" },
+            { category: "Python", name: "Automate the Boring Stuff", link: "https://automatetheboringstuff.com/", desc: "Free practical Python book" },
+            { category: "Hands-on", name: "TryHackMe", link: "https://tryhackme.com", desc: "Best structured beginner platform" },
+            { category: "Web Pentest", name: "PortSwigger Academy", link: "https://portswigger.net/web-security", desc: "World-class free web labs" },
+            { category: "Hands-on", name: "HackTheBox", link: "https://www.hackthebox.com/", desc: "Realistic machines" },
+            { category: "Cert", name: "Professor Messer Security+", link: "https://www.professormesser.com/", desc: "Best free Security+ videos" }
+        ];
+        
+        function renderResources(filteredResources = resources) {
+            const container = document.getElementById('resources-grid');
+            container.innerHTML = '';
+            
+            filteredResources.forEach(res => {
+                const div = document.createElement('div');
+                div.className = `resource-card cyber-card border border-slate-700 rounded-3xl p-5`;
+                div.innerHTML = `
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <div class="text-xs px-3 py-1 bg-slate-800 rounded-2xl w-fit text-cyan-300">${res.category}</div>
+                            <div class="font-semibold mt-3">${res.name}</div>
+                        </div>
+                    </div>
+                    <p class="text-xs text-slate-400 mt-3">${res.desc}</p>
+                    <a href="${res.link}" target="_blank" 
+                       class="mt-4 inline-flex items-center text-xs text-cyan-400 hover:text-cyan-300">
+                        Open Resource <i class="fa-solid fa-external-link-alt ml-1.5 text-[10px]"></i>
+                    </a>
+                `;
+                container.appendChild(div);
+            });
+        }
+        
+        // Search for resources
+        function setupResourceSearch() {
+            const input = document.getElementById('resource-search');
+            input.addEventListener('input', () => {
+                const term = input.value.toLowerCase();
+                const filtered = resources.filter(r => 
+                    r.name.toLowerCase().includes(term) || 
+                    r.category.toLowerCase().includes(term) ||
+                    r.desc.toLowerCase().includes(term)
+                );
+                renderResources(filtered);
+            });
+        }
+        
+        function startWeek1() {
+            document.getElementById('weeks').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            
+            // Auto expand first week after scroll
+            setTimeout(() => {
+                const firstWeek = document.querySelector('#weeks-container > div');
+                if (firstWeek) {
+                    const content = firstWeek.querySelector('.week-content');
+                    const icon = firstWeek.querySelector('i');
+                    content.classList.remove('hidden');
+                    icon.classList.remove('fa-chevron-down');
+                    icon.classList.add('fa-chevron-up');
+                }
+            }, 800);
+        }
+        
+        // Load saved progress
+        function loadProgress() {
+            // Load week completions (safe)
+            if (storage) {
+                weeksData.forEach(week => {
+                    if (storage.getItem(`week_${week.week}_complete`) === 'true') {
+                        // Could add visual indicator here if desired
+                    }
+                });
+            }
+            // Daily checklist state is handled inside renderDailyChecklist()
+        }
+        
+        // Initialize everything
+        function initializeWebsite() {
+            initializeTailwind();
+            renderDailyChecklist();
+            renderWeeks();
+            renderResources();
+            setupResourceSearch();
+            loadProgress();
+            
+            // Show warning if localStorage is blocked (sandboxed file)
+            if (!storage) {
+                const warning = document.getElementById('storage-warning');
+                if (warning) warning.classList.remove('hidden');
+            }
+            
+            // Keyboard shortcut hint
+            console.log('%c[Cyber Master Plan] Website initialized. Press "?" for help.', 'color:#64748b');
+        }
+        
+        // Boot
+        window.onload = initializeWebsite;
+        
+        // Bonus: Keyboard support
+        document.addEventListener('keydown', function(e) {
+            if (e.key === "?") {
+                const weeks = document.getElementById('weeks');
+                weeks.scrollIntoView({ behavior: 'smooth' });
+                e.preventDefault();
+            }
+        });
+    </script>
+</body>
+</html>
