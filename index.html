@@ -3,15 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Security Headers -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com; font-src 'self' https://cdnjs.cloudflare.com https://fonts.gstatic.com; img-src 'self' https: data:; connect-src 'self'; frame-ancestors 'none';">
+    <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-Frame-Options" content="DENY">
+
     <title>Ashoo • Quick Access</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" 
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+          integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+          crossorigin="anonymous" 
+          referrerpolicy="no-referrer">
+    
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=Space+Grotesk:wght@500;600&amp;display=swap');
-        
-        :root {
-            --accent: #22d3ee;
-        }
         
         body {
             font-family: 'Inter', system_ui, sans-serif;
@@ -34,31 +42,10 @@
             overflow: hidden;
         }
         
-        .card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 40%;
-            height: 100%;
-            background: linear-gradient(
-                90deg,
-                transparent,
-                rgba(255,255,255,0.08),
-                transparent
-            );
-            transition: 0.6s;
-        }
-        
-        .card:hover::before {
-            left: 250%;
-        }
-
         .card:hover {
             transform: translateY(-8px) scale(1.02);
             box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 
-                       0 8px 10px -6px rgb(0 0 0 / 0.1),
-                       0 0 0 1px rgba(103, 232, 249, 0.1);
+                       0 8px 10px -6px rgb(0 0 0 / 0.1);
         }
 
         .section-title {
@@ -167,15 +154,8 @@
                         <div class="pl-6 pr-4">
                             <i class="fas fa-search text-zinc-400 text-xl"></i>
                         </div>
-                        <input 
-                            id="search-input"
-                            type="text" 
-                            placeholder="Search anything... (press / to focus)" 
-                            class="flex-1 bg-transparent border-none outline-none text-lg placeholder:text-zinc-500 py-3 pr-6"
-                        >
-                        <div class="hidden md:flex items-center gap-x-1.5 pr-5 text-xs">
-                            <div class="px-2.5 py-1 rounded-lg bg-white/5 border border-white/10 text-zinc-400 font-mono">⌘K</div>
-                        </div>
+                        <input id="search-input" type="text" placeholder="Search anything... (press / to focus)" 
+                               class="flex-1 bg-transparent border-none outline-none text-lg placeholder:text-zinc-500 py-3 pr-6">
                     </div>
                 </div>
             </div>
@@ -298,7 +278,7 @@
                 </div>
             </div>
 
-            <!-- Career Acceleration / Roadmaps Section -->
+            <!-- Career Acceleration Section -->
             <div id="roadmaps" class="mb-12">
                 <div class="flex items-end justify-between mb-6 px-1">
                     <div>
@@ -309,66 +289,36 @@
                 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
                     
-                    <!-- Full Roadmap Card -->
+                    <!-- Full Roadmap -->
                     <a href="roadmap.html" class="card link-card group rounded-3xl p-7 flex flex-col h-full border border-white/10 hover:border-emerald-400/40">
-                        <div class="flex items-start justify-between">
+                        <div class="flex items-center gap-x-3 mb-4">
+                            <div class="w-11 h-11 bg-emerald-500/10 rounded-2xl flex items-center justify-center">
+                                <i class="fas fa-route text-emerald-400 text-2xl"></i>
+                            </div>
                             <div>
-                                <div class="flex items-center gap-x-3">
-                                    <div class="w-11 h-11 bg-emerald-500/10 rounded-2xl flex items-center justify-center">
-                                        <i class="fas fa-route text-emerald-400 text-2xl"></i>
-                                    </div>
-                                    <div>
-                                        <h3 class="font-semibold text-2xl tracking-tight">Zero to Professional</h3>
-                                        <p class="text-emerald-400 text-sm">18-Month Cybersecurity Roadmap</p>
-                                    </div>
-                                </div>
+                                <h3 class="font-semibold text-2xl tracking-tight">Zero to Professional</h3>
+                                <p class="text-emerald-400 text-sm">18-Month Cybersecurity Roadmap</p>
                             </div>
                         </div>
-                        
-                        <div class="flex-1 mt-6">
-                            <p class="text-zinc-400 text-[15px]">The complete step-by-step guide from absolute beginner to job-ready professional. Includes mindset, skills, certifications, projects, income strategies &amp; detailed timeline.</p>
-                            
-                            <div class="flex flex-wrap gap-2 mt-5">
-                                <span class="text-xs px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400">Mindset</span>
-                                <span class="text-xs px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400">Certs</span>
-                                <span class="text-xs px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400">Projects</span>
-                                <span class="text-xs px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400">Job Strategy</span>
-                            </div>
-                        </div>
-                        
-                        <div class="mt-6 pt-5 border-t border-white/10 flex items-center justify-between text-sm">
+                        <p class="text-zinc-400 text-[15px] flex-1">Complete step-by-step guide from absolute beginner to job-ready professional. Includes mindset, certifications, projects, and job strategy.</p>
+                        <div class="mt-6 pt-5 border-t border-white/10">
                             <span class="text-emerald-400 font-medium group-hover:underline">Open Full Roadmap →</span>
                         </div>
                     </a>
 
-                    <!-- Interactive Master Plan Card -->
+                    <!-- Interactive Master Plan -->
                     <a href="master-plan.html" class="card link-card group rounded-3xl p-7 flex flex-col h-full border border-white/10 hover:border-sky-400/40">
-                        <div class="flex items-start justify-between">
+                        <div class="flex items-center gap-x-3 mb-4">
+                            <div class="w-11 h-11 bg-sky-500/10 rounded-2xl flex items-center justify-center">
+                                <i class="fas fa-tasks text-sky-400 text-2xl"></i>
+                            </div>
                             <div>
-                                <div class="flex items-center gap-x-3">
-                                    <div class="w-11 h-11 bg-sky-500/10 rounded-2xl flex items-center justify-center">
-                                        <i class="fas fa-tasks text-sky-400 text-2xl"></i>
-                                    </div>
-                                    <div>
-                                        <h3 class="font-semibold text-2xl tracking-tight">Interactive Master Plan</h3>
-                                        <p class="text-sky-400 text-sm">Week-by-Week + Daily System</p>
-                                    </div>
-                                </div>
+                                <h3 class="font-semibold text-2xl tracking-tight">Interactive Master Plan</h3>
+                                <p class="text-sky-400 text-sm">Week-by-Week + Daily System</p>
                             </div>
                         </div>
-                        
-                        <div class="flex-1 mt-6">
-                            <p class="text-zinc-400 text-[15px]">Modern interactive version with daily checklist, 12-week breakdown, progress tracking, resource library &amp; India-focused job guidance.</p>
-                            
-                            <div class="flex flex-wrap gap-2 mt-5">
-                                <span class="text-xs px-3 py-1 rounded-full bg-sky-500/10 text-sky-400">Daily Checklist</span>
-                                <span class="text-xs px-3 py-1 rounded-full bg-sky-500/10 text-sky-400">Week 1-12</span>
-                                <span class="text-xs px-3 py-1 rounded-full bg-sky-500/10 text-sky-400">Resources</span>
-                                <span class="text-xs px-3 py-1 rounded-full bg-sky-500/10 text-sky-400">Progress</span>
-                            </div>
-                        </div>
-                        
-                        <div class="mt-6 pt-5 border-t border-white/10 flex items-center justify-between text-sm">
+                        <p class="text-zinc-400 text-[15px] flex-1">Modern interactive version with daily checklist, 12-week breakdown, progress tracking and India-focused guidance.</p>
+                        <div class="mt-6 pt-5 border-t border-white/10">
                             <span class="text-sky-400 font-medium group-hover:underline">Open Interactive Plan →</span>
                         </div>
                     </a>
@@ -408,10 +358,6 @@
                         <i class="fas fa-copy"></i>
                         <span>Copy page URL</span>
                     </button>
-                    <a href="https://github.com" target="_blank" class="hover:text-white transition-colors flex items-center gap-x-1.5">
-                        <i class="fab fa-github"></i>
-                        <span>Host on GitHub</span>
-                    </a>
                 </div>
             </div>
         </div>
@@ -422,7 +368,7 @@
             const clockEl = document.getElementById('clock');
             function tick() {
                 const now = new Date();
-                clockEl.textContent = `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
+                clockEl.textContent = `${now.getHours().toString().padStart(2,'0')}:${now.getMinutes().toString().padStart(2,'0')}`;
             }
             tick();
             setInterval(tick, 30000);
@@ -449,12 +395,6 @@
                 if (e.key === 'Enter' && searchInput.value.trim() !== '') {
                     window.open(`https://www.google.com/search?q=${encodeURIComponent(searchInput.value.trim())}`, '_blank');
                     searchInput.value = '';
-                }
-            });
-            document.addEventListener('keydown', function(e) {
-                if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
-                    e.preventDefault();
-                    searchInput.focus();
                 }
             });
         }
