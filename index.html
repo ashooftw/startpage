@@ -13,9 +13,10 @@
         .font-display { font-family: 'Space Grotesk', 'Inter', sans-serif; font-weight: 600; }
 
         .glass {
-            background: rgba(15, 23, 42, 0.75);
+            background: rgba(15, 23, 42, 0.78);
             backdrop-filter: blur(24px);
-            border: 1px solid rgba(148, 163, 184, 0.12);
+            border: 1px solid rgba(148, 163, 184, 0.1);
+            will-change: transform;
         }
 
         .section-header {
@@ -25,42 +26,28 @@
         }
 
         .card {
-            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1), 
+                        box-shadow 0.4s cubic-bezier(0.23, 1, 0.32, 1),
+                        border-color 0.3s ease;
+            will-change: transform;
+            backface-visibility: hidden;
         }
         
         .card:hover {
-            transform: translateY(-10px) scale(1.02);
+            transform: translateY(-10px) scale(1.015);
             box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.4);
         }
 
-        .neon-cyan { box-shadow: 0 0 25px rgba(103, 232, 249, 0.35); }
-        .neon-violet { box-shadow: 0 0 25px rgba(167, 139, 250, 0.35); }
-        .neon-emerald { box-shadow: 0 0 25px rgba(52, 211, 153, 0.35); }
-
         .cyber-grid {
             background-image: 
-                linear-gradient(rgba(103, 232, 249, 0.035) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(103, 232, 249, 0.035) 1px, transparent 1px);
-            background-size: 48px 48px;
+                linear-gradient(rgba(103, 232, 249, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(103, 232, 249, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
         }
 
         .widget-header {
             font-size: 0.95rem;
             font-weight: 600;
-            color: #e2e8f0;
-        }
-
-        .todo-item {
-            transition: all 0.2s ease;
-        }
-
-        .modal {
-            animation: modalEnter 0.3s cubic-bezier(0.23, 1, 0.32, 1) forwards;
-        }
-
-        @keyframes modalEnter {
-            from { transform: translateY(20px) scale(0.96); opacity: 0; }
-            to { transform: translateY(0) scale(1); opacity: 1; }
         }
 
         .nav-link {
@@ -78,12 +65,8 @@
             background: linear-gradient(to right, #67e8f9, #a78bfa);
         }
 
-        .theme-btn {
-            transition: all 0.2s ease;
-        }
-        .theme-btn.active {
-            border-color: #67e8f9;
-            background-color: rgba(103, 232, 249, 0.1);
+        .smooth {
+            transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
         }
     </style>
 </head>
@@ -92,11 +75,12 @@
     <div class="fixed inset-0 z-0">
         <div class="absolute inset-0 bg-[radial-gradient(#1e2937_0.5px,transparent_1px)] bg-[length:3px_3px]"></div>
         <div class="absolute inset-0 bg-gradient-to-br from-zinc-950 via-zinc-900 to-black"></div>
-        <div class="absolute inset-0 cyber-grid opacity-60"></div>
+        <div class="absolute inset-0 cyber-grid opacity-50"></div>
         <canvas id="particles" class="absolute inset-0 z-10"></canvas>
         
-        <div class="absolute top-16 left-12 w-[420px] h-[420px] bg-cyan-500/10 rounded-full blur-3xl animate-pulse"></div>
-        <div class="absolute bottom-32 right-16 w-[360px] h-[360px] bg-violet-500/10 rounded-full blur-3xl animate-pulse" style="animation-delay: 5s"></div>
+        <!-- Ambient Orbs -->
+        <div class="absolute top-16 left-12 w-[380px] h-[380px] bg-cyan-500/10 rounded-full blur-3xl animate-pulse" style="animation-duration: 8s;"></div>
+        <div class="absolute bottom-32 right-16 w-[340px] h-[340px] bg-violet-500/10 rounded-full blur-3xl animate-pulse" style="animation-duration: 10s; animation-delay: 3s;"></div>
     </div>
 
     <div class="relative z-20 max-w-screen-2xl mx-auto">
@@ -111,7 +95,7 @@
                         </div>
                         <span class="font-display text-3xl font-semibold tracking-tighter">Ashoo</span>
                     </div>
-                    <div class="px-3 py-1 text-xs rounded-full bg-white/5 border border-white/10 text-cyan-400">v2.4</div>
+                    <div class="px-3 py-1 text-xs rounded-full bg-white/5 border border-white/10 text-cyan-400">v2.5</div>
                 </div>
 
                 <div class="hidden md:flex items-center gap-x-7 text-sm">
@@ -123,18 +107,10 @@
                 </div>
 
                 <div class="flex items-center gap-x-3">
-                    <!-- Theme Switcher -->
-                    <div class="flex items-center bg-white/5 border border-white/10 rounded-2xl p-1">
-                        <button onclick="setTheme('cyber')" class="theme-btn px-3 py-1 text-xs rounded-xl active" id="theme-cyber">Cyber</button>
-                        <button onclick="setTheme('neon')" class="theme-btn px-3 py-1 text-xs rounded-xl" id="theme-neon">Neon</button>
-                        <button onclick="setTheme('minimal')" class="theme-btn px-3 py-1 text-xs rounded-xl" id="theme-minimal">Minimal</button>
-                    </div>
-
                     <div onclick="showShortcutsModal()" class="cursor-pointer flex items-center gap-x-2 px-4 py-2 rounded-2xl bg-white/5 hover:bg-white/10 transition-colors text-sm">
                         <i class="fas fa-keyboard"></i>
                         <span class="hidden md:inline text-xs">Shortcuts</span>
                     </div>
-
                     <div class="flex items-center gap-x-2 px-4 py-2 rounded-2xl bg-white/5 border border-white/10">
                         <i class="fas fa-clock text-cyan-400"></i>
                         <span id="clock" class="font-mono text-sm font-medium"></span>
@@ -187,16 +163,16 @@
                         <div id="streak-count" class="text-4xl font-semibold">47</div>
                         <div class="text-emerald-400">days</div>
                     </div>
-                    <button onclick="incrementStreak()" class="mt-3 text-xs px-3 py-1 bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 rounded-2xl">+1 Day</button>
+                    <button onclick="incrementStreak()" class="mt-3 text-xs px-3 py-1 bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 rounded-2xl transition-colors">+1 Day</button>
                 </div>
-                <div class="glass rounded-3xl p-5 border border-white/10"><div class="text-xs text-zinc-400">LABS DONE</div><div class="text-4xl font-semibold mt-1">128</div></div>
+                <div class="glass rounded-3xl p-5 border border-white/10"><div class="text-xs text-zinc-400">LABS COMPLETED</div><div class="text-4xl font-semibold mt-1">128</div></div>
                 <div class="glass rounded-3xl p-5 border border-white/10"><div class="text-xs text-zinc-400">MACHINES ROOTED</div><div class="text-4xl font-semibold mt-1">63</div></div>
                 <div class="glass rounded-3xl p-5 border border-white/10"><div class="text-xs text-zinc-400">CERTS IN PROGRESS</div><div class="text-4xl font-semibold mt-1">2</div></div>
                 <div class="glass rounded-3xl p-5 border border-white/10"><div class="text-xs text-zinc-400">TODAY'S FOCUS</div><div class="text-lg font-medium mt-1">Active Directory</div></div>
             </div>
         </div>
 
-        <!-- Learning + Certs + Roadmaps -->
+        <!-- Main Content -->
         <div class="px-8 space-y-14">
             
             <!-- Learning Platforms -->
@@ -230,7 +206,7 @@
                     </a>
                     <a href="https://www.youtube.com/watch?v=KiEptGbnEBc&list=PLG49S3nxzAnl4QDVqK-hOnoqcSKEIDDuv" target="_blank" class="card glass p-6 rounded-3xl border border-white/10 hover:border-red-400/40 flex gap-x-4">
                         <i class="fab fa-youtube text-red-500 text-5xl mt-1"></i>
-                        <div><h3 class="font-semibold text-2xl">Security+</h3><p class="text-zinc-400">121 lesions • SY0-701</p></div>
+                        <div><h3 class="font-semibold text-2xl">Security+</h3><p class="text-zinc-400">121 lessons • SY0-701</p></div>
                     </a>
                 </div>
             </div>
@@ -262,7 +238,7 @@
                     <div class="lg:col-span-5 glass rounded-3xl p-6 border border-white/10">
                         <div class="flex justify-between items-center mb-4">
                             <h3 class="widget-header">Daily Tasks</h3>
-                            <button onclick="addTodo()" class="text-xs px-3 py-1 bg-white/10 hover:bg-white/20 rounded-2xl">+ Add</button>
+                            <button onclick="addTodo()" class="text-xs px-3 py-1 bg-white/10 hover:bg-white/20 rounded-2xl transition-colors">+ Add</button>
                         </div>
                         <div id="todo-list" class="space-y-2 max-h-72 overflow-auto text-sm"></div>
                     </div>
@@ -271,18 +247,15 @@
                     <div class="lg:col-span-4 glass rounded-3xl p-6 border border-white/10">
                         <h3 class="widget-header mb-3">Quick Notes</h3>
                         <textarea id="quick-note" placeholder="Write a quick note..." class="w-full h-40 bg-zinc-900 border border-white/10 rounded-2xl p-3 text-sm resize-none"></textarea>
-                        <button onclick="saveNote()" class="mt-3 px-4 py-2 text-xs bg-white/10 hover:bg-white/20 rounded-2xl">Save Note</button>
+                        <button onclick="saveNote()" class="mt-3 px-4 py-2 text-xs bg-white/10 hover:bg-white/20 rounded-2xl transition-colors">Save Note</button>
                     </div>
 
                     <!-- Mini Calendar + Quote -->
                     <div class="lg:col-span-3 space-y-5">
-                        <!-- Mini Calendar -->
                         <div class="glass rounded-3xl p-5 border border-white/10">
                             <h3 class="widget-header mb-3">Calendar</h3>
                             <div id="mini-calendar" class="text-sm"></div>
                         </div>
-
-                        <!-- Daily Quote -->
                         <div class="glass rounded-3xl p-5 border border-white/10">
                             <h3 class="widget-header mb-2">Daily Quote</h3>
                             <div id="daily-quote" class="text-sm text-zinc-300 italic"></div>
@@ -326,12 +299,10 @@
     </div>
 
     <script>
-        // Tailwind
         function initTailwind() {
             document.documentElement.style.setProperty('--accent', '#67e8f9');
         }
 
-        // Clock
         function updateClock() {
             const el = document.getElementById('clock');
             function tick() {
@@ -344,26 +315,19 @@
 
         // Theme Switcher
         function setTheme(theme) {
-            const root = document.documentElement;
             document.querySelectorAll('.theme-btn').forEach(btn => btn.classList.remove('active'));
             document.getElementById(`theme-${theme}`).classList.add('active');
-
-            if (theme === 'neon') {
-                root.style.setProperty('--accent', '#a78bfa');
-            } else if (theme === 'minimal') {
-                root.style.setProperty('--accent', '#e2e8f0');
-            } else {
-                root.style.setProperty('--accent', '#67e8f9');
-            }
             localStorage.setItem('theme', theme);
         }
 
         function loadTheme() {
             const saved = localStorage.getItem('theme') || 'cyber';
-            setTheme(saved);
+            if (document.getElementById(`theme-${saved}`)) {
+                setTheme(saved);
+            }
         }
 
-        // Learning Streak
+        // Streak Counter
         let streak = parseInt(localStorage.getItem('streak')) || 47;
         
         function updateStreakDisplay() {
@@ -374,17 +338,15 @@
             streak++;
             localStorage.setItem('streak', streak);
             updateStreakDisplay();
-            
-            // Small animation
             const el = document.getElementById('streak-count');
-            el.style.transform = 'scale(1.3)';
-            setTimeout(() => el.style.transform = 'scale(1)', 200);
+            el.style.transform = 'scale(1.4)';
+            setTimeout(() => el.style.transform = 'scale(1)', 180);
         }
 
         // Search
         function setupSearch() {
             const input = document.getElementById('search-input');
-            const engineSelect = document.getElementById('search-engine');
+            const engine = document.getElementById('search-engine');
 
             document.addEventListener('keydown', function(e) {
                 if (e.key === '/' && document.activeElement.tagName === 'BODY') {
@@ -405,45 +367,49 @@
                 if (e.key === 'Enter' && input.value.trim()) {
                     const q = encodeURIComponent(input.value.trim());
                     let url = '';
-                    const engine = engineSelect.value;
-                    
-                    if (engine === 'ddg') url = `https://duckduckgo.com/?q=${q}`;
-                    else if (engine === 'youtube') url = `https://www.youtube.com/results?search_query=${q}`;
-                    else if (engine === 'github') url = `https://github.com/search?q=${q}`;
-                    else url = `https://www.google.com/search?q=${q}`;
-                    
+                    switch(engine.value) {
+                        case 'ddg': url = `https://duckduckgo.com/?q=${q}`; break;
+                        case 'youtube': url = `https://www.youtube.com/results?search_query=${q}`; break;
+                        case 'github': url = `https://github.com/search?q=${q}`; break;
+                        default: url = `https://www.google.com/search?q=${q}`;
+                    }
                     window.open(url, '_blank');
                     input.value = '';
                 }
             });
         }
 
-        // Particles
+        // Optimized Particle System (Smooth 60fps)
         function initParticles() {
             const canvas = document.getElementById('particles');
-            const ctx = canvas.getContext('2d', { alpha: true });
+            const ctx = canvas.getContext('2d', { alpha: true, desynchronized: true });
             
-            function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
-            window.addEventListener('resize', resize);
+            let width, height;
+            function resize() {
+                width = canvas.width = window.innerWidth;
+                height = canvas.height = window.innerHeight;
+            }
+            window.addEventListener('resize', resize, { passive: true });
             resize();
 
             const particles = [];
-            const count = Math.min(95, Math.floor(window.innerWidth / 18));
+            const particleCount = Math.min(65, Math.floor(width / 22)); // Optimized count
 
             class Particle {
-                constructor() { this.reset(); }
-                reset() {
-                    this.x = Math.random() * canvas.width;
-                    this.y = Math.random() * canvas.height;
-                    this.size = Math.random() * 2.6 + 0.6;
-                    this.speedX = (Math.random() - 0.5) * 0.38;
-                    this.speedY = (Math.random() - 0.5) * 0.38;
-                    this.alpha = Math.random() * 0.55 + 0.18;
+                constructor() {
+                    this.x = Math.random() * width;
+                    this.y = Math.random() * height;
+                    this.size = Math.random() * 2.3 + 0.7;
+                    this.speedX = (Math.random() - 0.5) * 0.32;
+                    this.speedY = (Math.random() - 0.5) * 0.32;
+                    this.alpha = Math.random() * 0.45 + 0.2;
                 }
                 update() {
-                    this.x += this.speedX; this.y += this.speedY;
-                    if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
-                    if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+                    this.x += this.speedX;
+                    this.y += this.speedY;
+
+                    if (this.x < 0 || this.x > width) this.speedX *= -1;
+                    if (this.y < 0 || this.y > height) this.speedY *= -1;
                 }
                 draw() {
                     ctx.fillStyle = `rgba(103, 232, 249, ${this.alpha})`;
@@ -453,33 +419,53 @@
                 }
             }
 
-            for (let i = 0; i < count; i++) particles.push(new Particle());
+            for (let i = 0; i < particleCount; i++) {
+                particles.push(new Particle());
+            }
 
-            function connect() {
-                for (let i = 0; i < particles.length; i++) {
-                    for (let j = i + 1; j < particles.length; j++) {
-                        const dx = particles[i].x - particles[j].x;
-                        const dy = particles[i].y - particles[j].y;
-                        const dist = Math.sqrt(dx * dx + dy * dy);
-                        if (dist < 135) {
-                            ctx.strokeStyle = `rgba(103, 232, 249, ${(1 - dist / 135) * 0.13})`;
-                            ctx.lineWidth = 0.65;
-                            ctx.beginPath();
-                            ctx.moveTo(particles[i].x, particles[i].y);
-                            ctx.lineTo(particles[j].x, particles[j].y);
-                            ctx.stroke();
+            let lastTime = 0;
+            const targetFPS = 60;
+            const frameInterval = 1000 / targetFPS;
+
+            function animate(currentTime) {
+                if (!lastTime) lastTime = currentTime;
+                const delta = currentTime - lastTime;
+
+                if (delta > frameInterval) {
+                    ctx.clearRect(0, 0, width, height);
+
+                    // Update & draw particles
+                    for (let i = 0; i < particles.length; i++) {
+                        const p = particles[i];
+                        p.update();
+                        p.draw();
+                    }
+
+                    // Draw connections (optimized)
+                    ctx.strokeStyle = 'rgba(103, 232, 249, 0.08)';
+                    ctx.lineWidth = 0.6;
+
+                    for (let i = 0; i < particles.length; i++) {
+                        for (let j = i + 1; j < particles.length; j++) {
+                            const dx = particles[i].x - particles[j].x;
+                            const dy = particles[i].y - particles[j].y;
+                            const dist = Math.sqrt(dx * dx + dy * dy);
+
+                            if (dist < 120) {
+                                ctx.beginPath();
+                                ctx.moveTo(particles[i].x, particles[i].y);
+                                ctx.lineTo(particles[j].x, particles[j].y);
+                                ctx.stroke();
+                            }
                         }
                     }
-                }
-            }
 
-            function animate() {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                for (let p of particles) { p.update(); p.draw(); }
-                connect();
+                    lastTime = currentTime;
+                }
                 requestAnimationFrame(animate);
             }
-            animate();
+
+            requestAnimationFrame(animate);
         }
 
         // Todo List
@@ -488,25 +474,29 @@
         function renderTodos() {
             const container = document.getElementById('todo-list');
             container.innerHTML = '';
+            
             todos.forEach((todo, index) => {
                 const div = document.createElement('div');
                 div.className = `todo-item flex items-center gap-x-3 p-2.5 rounded-2xl hover:bg-white/5 ${todo.done ? 'opacity-60' : ''}`;
                 div.innerHTML = `
                     <input type="checkbox" ${todo.done ? 'checked' : ''} class="accent-cyan-400 w-4 h-4">
                     <span class="flex-1 text-sm ${todo.done ? 'line-through text-zinc-400' : ''}">${todo.text}</span>
-                    <button class="text-red-400 hover:text-red-500 px-2 text-sm">×</button>
+                    <button class="text-red-400 hover:text-red-500 px-2">×</button>
                 `;
+                
                 const checkbox = div.querySelector('input');
                 checkbox.onchange = () => {
                     todos[index].done = checkbox.checked;
                     localStorage.setItem('todos', JSON.stringify(todos));
                     renderTodos();
                 };
+                
                 div.querySelector('button').onclick = () => {
                     todos.splice(index, 1);
                     localStorage.setItem('todos', JSON.stringify(todos));
                     renderTodos();
                 };
+                
                 container.appendChild(div);
             });
         }
@@ -520,13 +510,11 @@
             }
         }
 
-        // Quick Notes
         function saveNote() {
-            const val = document.getElementById('quick-note').value;
-            if (val.trim()) {
-                localStorage.setItem('quickNote', val);
-                const btn = event.currentTarget;
-                alert('Note saved successfully!');
+            const note = document.getElementById('quick-note').value;
+            if (note.trim()) {
+                localStorage.setItem('quickNote', note);
+                alert('Note saved!');
             }
         }
 
@@ -535,33 +523,28 @@
             if (saved) document.getElementById('quick-note').value = saved;
         }
 
-        // Daily Quote
         function loadDailyQuote() {
             const quotes = [
                 "The best way to predict the future is to create it.",
                 "Security is a process, not a product.",
                 "Stay curious. The best hackers never stop learning.",
-                "Every expert was once a beginner who refused to give up.",
-                "Consistency beats intensity every single time."
+                "Consistency beats intensity."
             ];
             document.getElementById('daily-quote').innerHTML = `"${quotes[Math.floor(Math.random() * quotes.length)]}"`;
         }
 
-        // Mini Calendar
         function renderMiniCalendar() {
             const container = document.getElementById('mini-calendar');
             const date = new Date();
             const month = date.toLocaleString('default', { month: 'long' });
             const year = date.getFullYear();
             
-            let html = `<div class="text-xs text-zinc-400 mb-2">${month} ${year}</div>`;
-            html += `<div class="grid grid-cols-7 gap-1 text-center text-xs">`;
+            let html = `<div class="text-xs text-zinc-400 mb-2">${month} ${year}</div><div class="grid grid-cols-7 gap-1 text-center text-xs">`;
             
             const firstDay = new Date(date.getFullYear(), date.getMonth(), 1).getDay();
             const daysInMonth = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
             
-            for (let i = 0; i < firstDay; i++) html += `<div class="text-zinc-600"> </div>`;
-            
+            for (let i = 0; i < firstDay; i++) html += `<div></div>`;
             for (let day = 1; day <= daysInMonth; day++) {
                 const isToday = day === date.getDate();
                 html += `<div class="py-0.5 ${isToday ? 'bg-cyan-500 text-black rounded font-medium' : ''}">${day}</div>`;
@@ -570,17 +553,16 @@
             container.innerHTML = html;
         }
 
-        // Modals
         function showShortcutsModal() {
             document.getElementById('shortcuts-modal').classList.remove('hidden');
             document.getElementById('shortcuts-modal').classList.add('flex');
         }
+        
         function hideShortcutsModal() {
             document.getElementById('shortcuts-modal').classList.remove('flex');
             document.getElementById('shortcuts-modal').classList.add('hidden');
         }
 
-        // Initialize
         function init() {
             initTailwind();
             updateClock();
@@ -601,12 +583,10 @@
                 }
             });
 
-            console.log('%c[Ashoo Startpage v2.4] Fully initialized with all features', 'color:#64748b');
+            console.log('%c[Ashoo Startpage] Smooth 60fps version initialized', 'color:#64748b');
         }
 
         window.onload = init;
-
-        // Global functions
         window.addTodo = addTodo;
         window.saveNote = saveNote;
         window.incrementStreak = incrementStreak;
