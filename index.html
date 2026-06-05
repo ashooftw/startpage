@@ -6,6 +6,7 @@
     <title>Ashoo • Quick Access</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@500;600&display=swap');
 
@@ -16,7 +17,6 @@
             background: rgba(15, 23, 42, 0.78);
             backdrop-filter: blur(24px);
             border: 1px solid rgba(148, 163, 184, 0.1);
-            will-change: transform;
         }
 
         .section-header {
@@ -27,10 +27,8 @@
 
         .card {
             transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1), 
-                        box-shadow 0.4s cubic-bezier(0.23, 1, 0.32, 1),
-                        border-color 0.3s ease;
+                        box-shadow 0.4s cubic-bezier(0.23, 1, 0.32, 1);
             will-change: transform;
-            backface-visibility: hidden;
         }
         
         .card:hover {
@@ -50,10 +48,6 @@
             font-weight: 600;
         }
 
-        .nav-link {
-            position: relative;
-            transition: color 0.2s ease;
-        }
         .nav-link:hover { color: #67e8f9; }
         .nav-link.active:after {
             content: '';
@@ -63,10 +57,6 @@
             width: 100%;
             height: 2px;
             background: linear-gradient(to right, #67e8f9, #a78bfa);
-        }
-
-        .smooth {
-            transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
         }
     </style>
 </head>
@@ -78,9 +68,8 @@
         <div class="absolute inset-0 cyber-grid opacity-50"></div>
         <canvas id="particles" class="absolute inset-0 z-10"></canvas>
         
-        <!-- Ambient Orbs -->
-        <div class="absolute top-16 left-12 w-[380px] h-[380px] bg-cyan-500/10 rounded-full blur-3xl animate-pulse" style="animation-duration: 8s;"></div>
-        <div class="absolute bottom-32 right-16 w-[340px] h-[340px] bg-violet-500/10 rounded-full blur-3xl animate-pulse" style="animation-duration: 10s; animation-delay: 3s;"></div>
+        <div class="absolute top-16 left-12 w-[380px] h-[380px] bg-cyan-500/10 rounded-full blur-3xl animate-pulse"></div>
+        <div class="absolute bottom-32 right-16 w-[340px] h-[340px] bg-violet-500/10 rounded-full blur-3xl animate-pulse" style="animation-delay: 4s"></div>
     </div>
 
     <div class="relative z-20 max-w-screen-2xl mx-auto">
@@ -95,7 +84,7 @@
                         </div>
                         <span class="font-display text-3xl font-semibold tracking-tighter">Ashoo</span>
                     </div>
-                    <div class="px-3 py-1 text-xs rounded-full bg-white/5 border border-white/10 text-cyan-400">v2.5</div>
+                    <div class="px-3 py-1 text-xs rounded-full bg-white/5 border border-white/10 text-cyan-400">v2.6</div>
                 </div>
 
                 <div class="hidden md:flex items-center gap-x-7 text-sm">
@@ -154,25 +143,67 @@
             </div>
         </div>
 
-        <!-- Stats + Streak -->
+        <!-- Stats Dashboard -->
         <div class="px-8 pb-12">
             <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
-                <div class="glass rounded-3xl p-5 border border-white/10">
+                <div onclick="incrementStreak()" class="glass rounded-3xl p-5 border border-white/10 cursor-pointer active:scale-[0.985] transition-transform">
                     <div class="text-xs text-zinc-400">CURRENT STREAK</div>
                     <div class="flex items-baseline gap-x-1 mt-1">
                         <div id="streak-count" class="text-4xl font-semibold">47</div>
                         <div class="text-emerald-400">days</div>
                     </div>
-                    <button onclick="incrementStreak()" class="mt-3 text-xs px-3 py-1 bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 rounded-2xl transition-colors">+1 Day</button>
+                    <div class="mt-1 text-[10px] text-emerald-400">Click to +1</div>
                 </div>
-                <div class="glass rounded-3xl p-5 border border-white/10"><div class="text-xs text-zinc-400">LABS COMPLETED</div><div class="text-4xl font-semibold mt-1">128</div></div>
-                <div class="glass rounded-3xl p-5 border border-white/10"><div class="text-xs text-zinc-400">MACHINES ROOTED</div><div class="text-4xl font-semibold mt-1">63</div></div>
-                <div class="glass rounded-3xl p-5 border border-white/10"><div class="text-xs text-zinc-400">CERTS IN PROGRESS</div><div class="text-4xl font-semibold mt-1">2</div></div>
-                <div class="glass rounded-3xl p-5 border border-white/10"><div class="text-xs text-zinc-400">TODAY'S FOCUS</div><div class="text-lg font-medium mt-1">Active Directory</div></div>
+
+                <div onclick="incrementStat('labs')" class="glass rounded-3xl p-5 border border-white/10 cursor-pointer active:scale-[0.985] transition-transform">
+                    <div class="text-xs text-zinc-400">LABS COMPLETED</div>
+                    <div id="labs-count" class="text-4xl font-semibold mt-1">128</div>
+                    <div class="mt-1 text-[10px] text-cyan-400">Click to +1</div>
+                </div>
+
+                <div onclick="incrementStat('machines')" class="glass rounded-3xl p-5 border border-white/10 cursor-pointer active:scale-[0.985] transition-transform">
+                    <div class="text-xs text-zinc-400">MACHINES ROOTED</div>
+                    <div id="machines-count" class="text-4xl font-semibold mt-1">63</div>
+                    <div class="mt-1 text-[10px] text-violet-400">Click to +1</div>
+                </div>
+
+                <div onclick="incrementStat('certs')" class="glass rounded-3xl p-5 border border-white/10 cursor-pointer active:scale-[0.985] transition-transform">
+                    <div class="text-xs text-zinc-400">CERTS IN PROGRESS</div>
+                    <div id="certs-count" class="text-4xl font-semibold mt-1">2</div>
+                    <div class="mt-1 text-[10px] text-amber-400">Click to +1</div>
+                </div>
+
+                <div onclick="editFocus()" class="glass rounded-3xl p-5 border border-white/10 cursor-pointer active:scale-[0.985] transition-transform">
+                    <div class="text-xs text-zinc-400">TODAY'S FOCUS</div>
+                    <div id="focus-text" class="text-lg font-medium mt-2 leading-tight">Active Directory</div>
+                    <div class="mt-1 text-[10px] text-zinc-400">Click to edit</div>
+                </div>
+            </div>
+
+            <div class="flex justify-end mt-3">
+                <button onclick="resetAllStats()" class="text-xs px-4 py-1.5 rounded-2xl bg-white/5 hover:bg-red-500/10 text-zinc-400 hover:text-red-400 transition-colors">
+                    Reset All Stats
+                </button>
+                <button onclick="exportStats()" class="ml-2 text-xs px-4 py-1.5 rounded-2xl bg-white/5 hover:bg-white/10 text-zinc-400 transition-colors">
+                    Export Stats (JSON)
+                </button>
             </div>
         </div>
 
-        <!-- Main Content -->
+        <!-- Weekly Progress Chart -->
+        <div class="px-8 pb-14">
+            <div class="flex items-center justify-between mb-4">
+                <div>
+                    <div class="section-title">Progress Overview</div>
+                    <h2 class="section-header">This Week</h2>
+                </div>
+            </div>
+            <div class="glass rounded-3xl p-6 border border-white/10">
+                <canvas id="weeklyChart" height="90"></canvas>
+            </div>
+        </div>
+
+        <!-- Main Sections -->
         <div class="px-8 space-y-14">
             
             <!-- Learning Platforms -->
@@ -237,8 +268,8 @@
                     <!-- Todo List -->
                     <div class="lg:col-span-5 glass rounded-3xl p-6 border border-white/10">
                         <div class="flex justify-between items-center mb-4">
-                            <h3 class="widget-header">Daily Tasks</h3>
-                            <button onclick="addTodo()" class="text-xs px-3 py-1 bg-white/10 hover:bg-white/20 rounded-2xl transition-colors">+ Add</button>
+                            <h3 class="widget-header">Daily Tasks <span class="text-xs text-emerald-400">(Completing 3 = +1 Lab)</span></h3>
+                            <button onclick="addTodo()" class="text-xs px-3 py-1 bg-white/10 hover:bg-white/20 rounded-2xl">+ Add</button>
                         </div>
                         <div id="todo-list" class="space-y-2 max-h-72 overflow-auto text-sm"></div>
                     </div>
@@ -247,7 +278,7 @@
                     <div class="lg:col-span-4 glass rounded-3xl p-6 border border-white/10">
                         <h3 class="widget-header mb-3">Quick Notes</h3>
                         <textarea id="quick-note" placeholder="Write a quick note..." class="w-full h-40 bg-zinc-900 border border-white/10 rounded-2xl p-3 text-sm resize-none"></textarea>
-                        <button onclick="saveNote()" class="mt-3 px-4 py-2 text-xs bg-white/10 hover:bg-white/20 rounded-2xl transition-colors">Save Note</button>
+                        <button onclick="saveNote()" class="mt-3 px-4 py-2 text-xs bg-white/10 hover:bg-white/20 rounded-2xl">Save Note</button>
                     </div>
 
                     <!-- Mini Calendar + Quote -->
@@ -299,10 +330,12 @@
     </div>
 
     <script>
+        // ==================== TAILWIND & INITIALIZATION ====================
         function initTailwind() {
             document.documentElement.style.setProperty('--accent', '#67e8f9');
         }
 
+        // ==================== CLOCK ====================
         function updateClock() {
             const el = document.getElementById('clock');
             function tick() {
@@ -313,162 +346,114 @@
             setInterval(tick, 30000);
         }
 
-        // Theme Switcher
-        function setTheme(theme) {
-            document.querySelectorAll('.theme-btn').forEach(btn => btn.classList.remove('active'));
-            document.getElementById(`theme-${theme}`).classList.add('active');
-            localStorage.setItem('theme', theme);
+        // ==================== STATS SYSTEM ====================
+        let stats = {
+            streak: parseInt(localStorage.getItem('streak')) || 47,
+            labs: parseInt(localStorage.getItem('labs')) || 128,
+            machines: parseInt(localStorage.getItem('machines')) || 63,
+            certs: parseInt(localStorage.getItem('certs')) || 2,
+            focus: localStorage.getItem('focus') || 'Active Directory'
+        };
+
+        function saveStats() {
+            localStorage.setItem('streak', stats.streak);
+            localStorage.setItem('labs', stats.labs);
+            localStorage.setItem('machines', stats.machines);
+            localStorage.setItem('certs', stats.certs);
+            localStorage.setItem('focus', stats.focus);
         }
 
-        function loadTheme() {
-            const saved = localStorage.getItem('theme') || 'cyber';
-            if (document.getElementById(`theme-${saved}`)) {
-                setTheme(saved);
-            }
+        function updateStatsDisplay() {
+            document.getElementById('streak-count').textContent = stats.streak;
+            document.getElementById('labs-count').textContent = stats.labs;
+            document.getElementById('machines-count').textContent = stats.machines;
+            document.getElementById('certs-count').textContent = stats.certs;
+            document.getElementById('focus-text').textContent = stats.focus;
         }
 
-        // Streak Counter
-        let streak = parseInt(localStorage.getItem('streak')) || 47;
-        
-        function updateStreakDisplay() {
-            document.getElementById('streak-count').textContent = streak;
-        }
-        
         function incrementStreak() {
-            streak++;
-            localStorage.setItem('streak', streak);
-            updateStreakDisplay();
+            stats.streak++;
+            saveStats();
+            updateStatsDisplay();
             const el = document.getElementById('streak-count');
+            el.style.transform = 'scale(1.5)';
+            setTimeout(() => el.style.transform = 'scale(1)', 200);
+        }
+
+        function incrementStat(type) {
+            stats[type]++;
+            saveStats();
+            updateStatsDisplay();
+            const el = document.getElementById(`${type}-count`);
             el.style.transform = 'scale(1.4)';
             setTimeout(() => el.style.transform = 'scale(1)', 180);
         }
 
-        // Search
-        function setupSearch() {
-            const input = document.getElementById('search-input');
-            const engine = document.getElementById('search-engine');
-
-            document.addEventListener('keydown', function(e) {
-                if (e.key === '/' && document.activeElement.tagName === 'BODY') {
-                    e.preventDefault();
-                    input.focus();
-                }
-                if (e.key.toLowerCase() === '?' && document.activeElement.tagName === 'BODY') {
-                    e.preventDefault();
-                    showShortcutsModal();
-                }
-                if (e.key.toLowerCase() === 'n' && document.activeElement.tagName === 'BODY') {
-                    e.preventDefault();
-                    addTodo();
-                }
-            });
-
-            input.addEventListener('keypress', function(e) {
-                if (e.key === 'Enter' && input.value.trim()) {
-                    const q = encodeURIComponent(input.value.trim());
-                    let url = '';
-                    switch(engine.value) {
-                        case 'ddg': url = `https://duckduckgo.com/?q=${q}`; break;
-                        case 'youtube': url = `https://www.youtube.com/results?search_query=${q}`; break;
-                        case 'github': url = `https://github.com/search?q=${q}`; break;
-                        default: url = `https://www.google.com/search?q=${q}`;
-                    }
-                    window.open(url, '_blank');
-                    input.value = '';
-                }
-            });
+        function editFocus() {
+            const newFocus = prompt('What are you focusing on today?', stats.focus);
+            if (newFocus && newFocus.trim()) {
+                stats.focus = newFocus.trim();
+                saveStats();
+                updateStatsDisplay();
+            }
         }
 
-        // Optimized Particle System (Smooth 60fps)
-        function initParticles() {
-            const canvas = document.getElementById('particles');
-            const ctx = canvas.getContext('2d', { alpha: true, desynchronized: true });
+        function resetAllStats() {
+            if (confirm('Reset all stats to default?')) {
+                stats = { streak: 0, labs: 0, machines: 0, certs: 0, focus: 'Active Directory' };
+                saveStats();
+                updateStatsDisplay();
+            }
+        }
+
+        function exportStats() {
+            const dataStr = JSON.stringify(stats, null, 2);
+            const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
             
-            let width, height;
-            function resize() {
-                width = canvas.width = window.innerWidth;
-                height = canvas.height = window.innerHeight;
-            }
-            window.addEventListener('resize', resize, { passive: true });
-            resize();
-
-            const particles = [];
-            const particleCount = Math.min(65, Math.floor(width / 22)); // Optimized count
-
-            class Particle {
-                constructor() {
-                    this.x = Math.random() * width;
-                    this.y = Math.random() * height;
-                    this.size = Math.random() * 2.3 + 0.7;
-                    this.speedX = (Math.random() - 0.5) * 0.32;
-                    this.speedY = (Math.random() - 0.5) * 0.32;
-                    this.alpha = Math.random() * 0.45 + 0.2;
-                }
-                update() {
-                    this.x += this.speedX;
-                    this.y += this.speedY;
-
-                    if (this.x < 0 || this.x > width) this.speedX *= -1;
-                    if (this.y < 0 || this.y > height) this.speedY *= -1;
-                }
-                draw() {
-                    ctx.fillStyle = `rgba(103, 232, 249, ${this.alpha})`;
-                    ctx.beginPath();
-                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                    ctx.fill();
-                }
-            }
-
-            for (let i = 0; i < particleCount; i++) {
-                particles.push(new Particle());
-            }
-
-            let lastTime = 0;
-            const targetFPS = 60;
-            const frameInterval = 1000 / targetFPS;
-
-            function animate(currentTime) {
-                if (!lastTime) lastTime = currentTime;
-                const delta = currentTime - lastTime;
-
-                if (delta > frameInterval) {
-                    ctx.clearRect(0, 0, width, height);
-
-                    // Update & draw particles
-                    for (let i = 0; i < particles.length; i++) {
-                        const p = particles[i];
-                        p.update();
-                        p.draw();
-                    }
-
-                    // Draw connections (optimized)
-                    ctx.strokeStyle = 'rgba(103, 232, 249, 0.08)';
-                    ctx.lineWidth = 0.6;
-
-                    for (let i = 0; i < particles.length; i++) {
-                        for (let j = i + 1; j < particles.length; j++) {
-                            const dx = particles[i].x - particles[j].x;
-                            const dy = particles[i].y - particles[j].y;
-                            const dist = Math.sqrt(dx * dx + dy * dy);
-
-                            if (dist < 120) {
-                                ctx.beginPath();
-                                ctx.moveTo(particles[i].x, particles[i].y);
-                                ctx.lineTo(particles[j].x, particles[j].y);
-                                ctx.stroke();
-                            }
-                        }
-                    }
-
-                    lastTime = currentTime;
-                }
-                requestAnimationFrame(animate);
-            }
-
-            requestAnimationFrame(animate);
+            const exportFileDefaultName = 'ashoo_stats.json';
+            
+            const linkElement = document.createElement('a');
+            linkElement.setAttribute('href', dataUri);
+            linkElement.setAttribute('download', exportFileDefaultName);
+            linkElement.click();
         }
 
-        // Todo List
+        // ==================== WEEKLY CHART ====================
+        let weeklyChart;
+
+        function initWeeklyChart() {
+            const ctx = document.getElementById('weeklyChart');
+            
+            if (weeklyChart) weeklyChart.destroy();
+
+            weeklyChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                    datasets: [{
+                        label: 'Labs Completed',
+                        data: [3, 5, 2, 7, 4, 6, 3],
+                        backgroundColor: 'rgba(103, 232, 249, 0.6)',
+                        borderColor: '#67e8f9',
+                        borderWidth: 2,
+                        borderRadius: 6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: { beginAtZero: true, grid: { color: 'rgba(255,255,255,0.08)' } },
+                        x: { grid: { color: 'rgba(255,255,255,0.08)' } }
+                    },
+                    plugins: {
+                        legend: { display: false }
+                    }
+                }
+            });
+        }
+
+        // ==================== TODO + AUTO INCREMENT ====================
         let todos = JSON.parse(localStorage.getItem('todos')) || [];
 
         function renderTodos() {
@@ -489,6 +474,14 @@
                     todos[index].done = checkbox.checked;
                     localStorage.setItem('todos', JSON.stringify(todos));
                     renderTodos();
+                    
+                    // Auto increment labs when 3 todos are completed
+                    const completed = todos.filter(t => t.done).length;
+                    if (completed % 3 === 0 && completed > 0) {
+                        stats.labs++;
+                        saveStats();
+                        updateStatsDisplay();
+                    }
                 };
                 
                 div.querySelector('button').onclick = () => {
@@ -510,6 +503,7 @@
             }
         }
 
+        // ==================== QUICK NOTES ====================
         function saveNote() {
             const note = document.getElementById('quick-note').value;
             if (note.trim()) {
@@ -523,16 +517,18 @@
             if (saved) document.getElementById('quick-note').value = saved;
         }
 
+        // ==================== DAILY QUOTE ====================
         function loadDailyQuote() {
             const quotes = [
                 "The best way to predict the future is to create it.",
                 "Security is a process, not a product.",
                 "Stay curious. The best hackers never stop learning.",
-                "Consistency beats intensity."
+                "Consistency beats intensity every single time."
             ];
             document.getElementById('daily-quote').innerHTML = `"${quotes[Math.floor(Math.random() * quotes.length)]}"`;
         }
 
+        // ==================== MINI CALENDAR ====================
         function renderMiniCalendar() {
             const container = document.getElementById('mini-calendar');
             const date = new Date();
@@ -553,6 +549,69 @@
             container.innerHTML = html;
         }
 
+        // ==================== PARTICLES (Optimized) ====================
+        function initParticles() {
+            const canvas = document.getElementById('particles');
+            const ctx = canvas.getContext('2d', { alpha: true, desynchronized: true });
+            
+            let width, height;
+            function resize() { width = canvas.width = window.innerWidth; height = canvas.height = window.innerHeight; }
+            window.addEventListener('resize', resize, { passive: true });
+            resize();
+
+            const particles = [];
+            const count = Math.min(60, Math.floor(width / 24));
+
+            class Particle {
+                constructor() {
+                    this.x = Math.random() * width;
+                    this.y = Math.random() * height;
+                    this.size = Math.random() * 2.2 + 0.7;
+                    this.speedX = (Math.random() - 0.5) * 0.32;
+                    this.speedY = (Math.random() - 0.5) * 0.32;
+                    this.alpha = Math.random() * 0.45 + 0.2;
+                }
+                update() {
+                    this.x += this.speedX; this.y += this.speedY;
+                    if (this.x < 0 || this.x > width) this.speedX *= -1;
+                    if (this.y < 0 || this.y > height) this.speedY *= -1;
+                }
+                draw() {
+                    ctx.fillStyle = `rgba(103, 232, 249, ${this.alpha})`;
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            }
+
+            for (let i = 0; i < count; i++) particles.push(new Particle());
+
+            function animate() {
+                ctx.clearRect(0, 0, width, height);
+                for (let p of particles) { p.update(); p.draw(); }
+                
+                // Connections
+                ctx.strokeStyle = 'rgba(103, 232, 249, 0.07)';
+                ctx.lineWidth = 0.6;
+                for (let i = 0; i < particles.length; i++) {
+                    for (let j = i + 1; j < particles.length; j++) {
+                        const dx = particles[i].x - particles[j].x;
+                        const dy = particles[i].y - particles[j].y;
+                        const dist = Math.sqrt(dx * dx + dy * dy);
+                        if (dist < 115) {
+                            ctx.beginPath();
+                            ctx.moveTo(particles[i].x, particles[i].y);
+                            ctx.lineTo(particles[j].x, particles[j].y);
+                            ctx.stroke();
+                        }
+                    }
+                }
+                requestAnimationFrame(animate);
+            }
+            animate();
+        }
+
+        // ==================== KEYBOARD SHORTCUTS ====================
         function showShortcutsModal() {
             document.getElementById('shortcuts-modal').classList.remove('hidden');
             document.getElementById('shortcuts-modal').classList.add('flex');
@@ -563,17 +622,18 @@
             document.getElementById('shortcuts-modal').classList.add('hidden');
         }
 
+        // ==================== INITIALIZATION ====================
         function init() {
             initTailwind();
             updateClock();
-            loadTheme();
-            updateStreakDisplay();
+            updateStatsDisplay();
             setupSearch();
             initParticles();
             renderTodos();
             loadNote();
             loadDailyQuote();
             renderMiniCalendar();
+            initWeeklyChart();
 
             // Keyboard shortcuts
             document.addEventListener('keydown', function(e) {
@@ -583,13 +643,19 @@
                 }
             });
 
-            console.log('%c[Ashoo Startpage] Smooth 60fps version initialized', 'color:#64748b');
+            console.log('%c[Ashoo Startpage v2.6] Fully loaded with all features', 'color:#64748b');
         }
 
         window.onload = init;
+
+        // Make functions global
         window.addTodo = addTodo;
         window.saveNote = saveNote;
         window.incrementStreak = incrementStreak;
+        window.incrementStat = incrementStat;
+        window.editFocus = editFocus;
+        window.resetAllStats = resetAllStats;
+        window.exportStats = exportStats;
     </script>
 </body>
 </html>
