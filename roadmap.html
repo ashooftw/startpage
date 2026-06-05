@@ -1,0 +1,1073 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cybersecurity Career Roadmap — Zero to Professional</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0c0f;
+  --bg2: #10141a;
+  --bg3: #161b24;
+  --bg4: #1c2330;
+  --border: rgba(255,255,255,0.07);
+  --border2: rgba(255,255,255,0.12);
+  --green: #00e87a;
+  --green2: #00b85e;
+  --amber: #f5a623;
+  --red: #ff4d4d;
+  --blue: #4da6ff;
+  --purple: #a78bfa;
+  --teal: #22d3ee;
+  --text: #e8ecf0;
+  --text2: #8b95a1;
+  --text3: #5a6474;
+  --mono: 'JetBrains Mono', monospace;
+  --sans: 'Syne', sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:var(--mono);font-size:14px;line-height:1.7;min-height:100vh;}
+
+/* ─── SCANLINE OVERLAY ─── */
+body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.03) 2px,rgba(0,0,0,0.03) 4px);pointer-events:none;z-index:9999;}
+
+/* ─── HEADER ─── */
+.header{position:relative;overflow:hidden;padding:60px 40px 50px;border-bottom:1px solid var(--border2);}
+.header-grid{display:grid;grid-template-columns:1fr 280px;gap:40px;max-width:1100px;margin:0 auto;align-items:center;}
+.prompt-line{font-size:11px;color:var(--green);letter-spacing:2px;margin-bottom:16px;display:flex;align-items:center;gap:8px;}
+.prompt-line::before{content:'';width:8px;height:8px;background:var(--green);border-radius:50%;display:inline-block;animation:blink 1.4s infinite;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:0.2;}}
+h1{font-family:var(--sans);font-size:38px;font-weight:800;line-height:1.15;color:#fff;letter-spacing:-1px;}
+h1 span{color:var(--green);}
+.header-sub{margin-top:12px;font-size:13px;color:var(--text2);line-height:1.8;max-width:480px;}
+.header-stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.stat-box{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:16px 18px;}
+.stat-num{font-family:var(--sans);font-size:28px;font-weight:800;color:var(--green);letter-spacing:-1px;}
+.stat-label{font-size:10px;color:var(--text3);letter-spacing:1.5px;text-transform:uppercase;margin-top:2px;}
+.warn-header{margin-top:24px;background:rgba(245,166,35,0.08);border:1px solid rgba(245,166,35,0.25);border-radius:8px;padding:12px 16px;font-size:12px;color:var(--amber);line-height:1.7;max-width:680px;}
+.warn-header strong{display:block;margin-bottom:2px;}
+
+/* ─── NAV ─── */
+.nav-wrap{position:sticky;top:0;z-index:100;background:rgba(10,12,15,0.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);}
+.nav{display:flex;gap:0;overflow-x:auto;max-width:1100px;margin:0 auto;padding:0 40px;scrollbar-width:none;}
+.nav::-webkit-scrollbar{display:none;}
+.nav-btn{flex-shrink:0;padding:14px 18px;font-family:var(--mono);font-size:11px;color:var(--text3);background:none;border:none;border-bottom:2px solid transparent;cursor:pointer;transition:all 0.2s;letter-spacing:0.5px;white-space:nowrap;}
+.nav-btn:hover{color:var(--text);}
+.nav-btn.active{color:var(--green);border-bottom-color:var(--green);}
+
+/* ─── MAIN LAYOUT ─── */
+.main{max-width:1100px;margin:0 auto;padding:40px 40px 80px;}
+.section{display:none;}
+.section.active{display:block;animation:fadeUp 0.25s ease;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+.section-header{margin-bottom:32px;}
+.section-eyebrow{font-size:10px;color:var(--green);letter-spacing:3px;text-transform:uppercase;margin-bottom:8px;}
+.section-title{font-family:var(--sans);font-size:28px;font-weight:800;color:#fff;letter-spacing:-0.5px;line-height:1.2;}
+.section-desc{font-size:13px;color:var(--text2);margin-top:8px;max-width:700px;line-height:1.8;}
+
+/* ─── CARDS ─── */
+.card{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:20px 22px;margin-bottom:14px;transition:border-color 0.2s;}
+.card:hover{border-color:var(--border2);}
+.card-head{display:flex;align-items:center;gap:10px;margin-bottom:12px;}
+.card-icon{width:32px;height:32px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;}
+.card-title{font-family:var(--sans);font-size:15px;font-weight:700;color:#fff;}
+.card-subtitle{font-size:11px;color:var(--text3);margin-top:1px;}
+.card-body{font-size:13px;color:var(--text2);line-height:1.8;}
+
+/* ─── GRID LAYOUTS ─── */
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+@media(max-width:700px){.grid-2,.grid-3{grid-template-columns:1fr;}.header-grid{grid-template-columns:1fr;}}
+
+/* ─── LIST STYLES ─── */
+.check-list{list-style:none;margin-top:8px;}
+.check-list li{display:flex;gap:10px;padding:5px 0;font-size:13px;color:var(--text2);line-height:1.65;border-bottom:1px solid var(--border);}
+.check-list li:last-child{border-bottom:none;}
+.check-list li .ck{color:var(--green);flex-shrink:0;margin-top:2px;}
+.check-list li .ck-amber{color:var(--amber);}
+.check-list li .ck-red{color:var(--red);}
+.check-list li strong{color:var(--text);}
+
+/* ─── BADGES ─── */
+.badge{display:inline-flex;align-items:center;font-size:10px;padding:3px 9px;border-radius:20px;font-weight:500;letter-spacing:0.3px;margin:2px;}
+.bg-green{background:rgba(0,232,122,0.1);color:var(--green);border:1px solid rgba(0,232,122,0.2);}
+.bg-amber{background:rgba(245,166,35,0.1);color:var(--amber);border:1px solid rgba(245,166,35,0.2);}
+.bg-red{background:rgba(255,77,77,0.1);color:var(--red);border:1px solid rgba(255,77,77,0.2);}
+.bg-blue{background:rgba(77,166,255,0.1);color:var(--blue);border:1px solid rgba(77,166,255,0.2);}
+.bg-purple{background:rgba(167,139,250,0.1);color:var(--purple);border:1px solid rgba(167,139,250,0.2);}
+.bg-teal{background:rgba(34,211,238,0.1);color:var(--teal);border:1px solid rgba(34,211,238,0.2);}
+.tag-row{display:flex;flex-wrap:wrap;gap:4px;margin-top:10px;}
+
+/* ─── CALLOUT BOXES ─── */
+.callout{border-radius:8px;padding:14px 18px;margin-bottom:16px;font-size:13px;line-height:1.8;}
+.callout-amber{background:rgba(245,166,35,0.07);border-left:3px solid var(--amber);color:rgba(245,166,35,0.9);}
+.callout-green{background:rgba(0,232,122,0.07);border-left:3px solid var(--green);color:rgba(0,232,122,0.9);}
+.callout-red{background:rgba(255,77,77,0.07);border-left:3px solid var(--red);color:rgba(255,77,77,0.85);}
+.callout strong{color:#fff;}
+
+/* ─── PHASE CARDS ─── */
+.phase-card{border-radius:10px;padding:20px 22px;margin-bottom:14px;border:1px solid;}
+.phase-1{background:rgba(0,232,122,0.04);border-color:rgba(0,232,122,0.2);}
+.phase-2{background:rgba(245,166,35,0.04);border-color:rgba(245,166,35,0.2);}
+.phase-3{background:rgba(255,77,77,0.04);border-color:rgba(255,77,77,0.2);}
+.phase-num{font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:4px;}
+.p1 .phase-num{color:var(--green);}
+.p2 .phase-num{color:var(--amber);}
+.p3 .phase-num{color:var(--red);}
+.phase-title{font-family:var(--sans);font-size:18px;font-weight:800;color:#fff;margin-bottom:4px;}
+.phase-range{font-size:11px;color:var(--text3);margin-bottom:12px;}
+
+/* ─── CERT CARDS ─── */
+.cert-card{display:flex;gap:16px;background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:18px 20px;margin-bottom:12px;align-items:flex-start;transition:border-color 0.2s;}
+.cert-card:hover{border-color:var(--border2);}
+.cert-num{font-family:var(--sans);font-size:28px;font-weight:800;width:40px;flex-shrink:0;margin-top:2px;}
+.cert-body{flex:1;}
+.cert-name{font-family:var(--sans);font-size:16px;font-weight:700;color:#fff;margin-bottom:4px;}
+.cert-meta{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0;}
+.cert-desc{font-size:13px;color:var(--text2);line-height:1.7;}
+.progress-track{height:3px;background:var(--bg4);border-radius:2px;margin-top:10px;overflow:hidden;}
+.progress-fill{height:100%;border-radius:2px;}
+
+/* ─── TIMELINE ─── */
+.timeline{position:relative;margin-top:8px;}
+.timeline::before{content:'';position:absolute;left:78px;top:0;bottom:0;width:1px;background:var(--border2);}
+.tl-row{display:flex;gap:24px;margin-bottom:20px;position:relative;}
+.tl-month{flex-shrink:0;width:70px;font-size:10px;font-weight:700;letter-spacing:1px;text-align:right;padding-top:4px;text-transform:uppercase;}
+.tl-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;margin-top:6px;position:relative;z-index:1;}
+.tl-content{flex:1;padding-bottom:4px;}
+.tl-task{font-family:var(--sans);font-size:14px;font-weight:700;color:#fff;margin-bottom:4px;}
+.tl-detail{font-size:12px;color:var(--text2);line-height:1.75;}
+
+/* ─── SKILL BARS ─── */
+.skill-row{margin-bottom:12px;}
+.skill-top{display:flex;justify-content:space-between;margin-bottom:4px;}
+.skill-name{font-size:12px;color:var(--text);}
+.skill-pct{font-size:11px;color:var(--text3);}
+.skill-bar{height:4px;background:var(--bg4);border-radius:2px;overflow:hidden;}
+.skill-fill{height:100%;border-radius:2px;background:var(--green);transition:width 1s ease;}
+
+/* ─── RESOURCE PILLS ─── */
+.resource-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-top:12px;}
+.resource-item{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:12px 14px;}
+.resource-name{font-size:12px;font-weight:500;color:var(--text);margin-bottom:2px;}
+.resource-tag{font-size:10px;color:var(--text3);}
+.resource-free{color:var(--green);font-size:10px;font-weight:700;}
+
+/* ─── INCOME TABLE ─── */
+.inc-table{width:100%;border-collapse:collapse;font-size:13px;}
+.inc-table th{text-align:left;padding:10px 14px;font-size:10px;color:var(--text3);letter-spacing:1.5px;text-transform:uppercase;border-bottom:1px solid var(--border2);font-weight:400;}
+.inc-table td{padding:12px 14px;border-bottom:1px solid var(--border);color:var(--text2);vertical-align:top;}
+.inc-table tr:last-child td{border-bottom:none;}
+.inc-table td:first-child{color:var(--text);font-weight:500;}
+
+/* ─── MILESTONES ─── */
+.milestone-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:0;position:relative;margin:24px 0;}
+.milestone-grid::before{content:'';position:absolute;top:20px;left:10%;right:10%;height:1px;background:var(--border2);z-index:0;}
+.ms-item{text-align:center;position:relative;z-index:1;}
+.ms-dot{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--sans);font-size:13px;font-weight:800;margin:0 auto 8px;border:2px solid;}
+.ms-label{font-size:10px;color:var(--text3);line-height:1.4;}
+@media(max-width:600px){.milestone-grid{grid-template-columns:repeat(3,1fr);}.milestone-grid::before{display:none;}}
+
+/* ─── ROLE CARDS ─── */
+.role-card{background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:16px 18px;}
+.role-title{font-family:var(--sans);font-size:15px;font-weight:700;color:#fff;margin-bottom:6px;}
+.role-salary{font-size:12px;color:var(--green);font-weight:500;margin-bottom:8px;}
+.role-req{font-size:12px;color:var(--text2);line-height:1.65;}
+
+/* ─── FOOTER ─── */
+footer{border-top:1px solid var(--border);padding:30px 40px;text-align:center;font-size:11px;color:var(--text3);}
+footer span{color:var(--green);}
+
+/* ─── SCROLLBAR ─── */
+::-webkit-scrollbar{width:6px;height:6px;}
+::-webkit-scrollbar-track{background:var(--bg);}
+::-webkit-scrollbar-thumb{background:var(--bg4);border-radius:3px;}
+::-webkit-scrollbar-thumb:hover{background:var(--border2);}
+</style>
+</head>
+<body>
+
+<!-- ─── HEADER ─────────────────────────────── -->
+<header class="header">
+  <div class="header-grid">
+    <div>
+      <div class="prompt-line">CYBERSECURITY CAREER ROADMAP 2025–2026</div>
+      <h1>Zero to<br><span>Professional</span><br>in 18 Months.</h1>
+      <p class="header-sub">No degree. No IT background. Class 12 commerce education + a laptop + stable internet. That is enough — but only if you treat this like a full-time job.</p>
+      <div class="warn-header">
+        <strong>⚠ Read this before anything else.</strong>
+        Most people quit around month 3–4 when the dopamine wears off. Paper tigers with certs but no real skills get filtered fast. The people who succeed build proof through projects, writeups, and labs — not just watching videos. You will feel stupid. Push through anyway.
+      </div>
+    </div>
+    <div class="header-stats">
+      <div class="stat-box"><div class="stat-num">18</div><div class="stat-label">months to job</div></div>
+      <div class="stat-box"><div class="stat-num">0</div><div class="stat-label">degree needed</div></div>
+      <div class="stat-box"><div class="stat-num">8–10</div><div class="stat-label">hrs/day focus</div></div>
+      <div class="stat-box"><div class="stat-num">₹0</div><div class="stat-label">to start today</div></div>
+    </div>
+  </div>
+</header>
+
+<!-- ─── NAV ──────────────────────────────────── -->
+<nav class="nav-wrap">
+  <div class="nav">
+    <button class="nav-btn active" onclick="show('mindset',this)">01 · Mindset</button>
+    <button class="nav-btn" onclick="show('technical',this)">02 · Tech Skills</button>
+    <button class="nav-btn" onclick="show('cyberpath',this)">03 · Cyber Path</button>
+    <button class="nav-btn" onclick="show('certs',this)">04 · Certifications</button>
+    <button class="nav-btn" onclick="show('practice',this)">05 · Practice</button>
+    <button class="nav-btn" onclick="show('portfolio',this)">06 · Portfolio</button>
+    <button class="nav-btn" onclick="show('income',this)">07 · Income</button>
+    <button class="nav-btn" onclick="show('jobs',this)">08 · Jobs</button>
+    <button class="nav-btn" onclick="show('timeline',this)">09 · Timeline</button>
+    <button class="nav-btn" onclick="show('growth',this)">10 · Long-Term</button>
+  </div>
+</nav>
+
+<!-- ─── MAIN ──────────────────────────────────── -->
+<main class="main">
+
+<!-- ════════════════════ 01 MINDSET ════════════════════ -->
+<section id="s-mindset" class="section active">
+  <div class="section-header">
+    <div class="section-eyebrow">Section 01</div>
+    <div class="section-title">Mindset & Foundation</div>
+    <p class="section-desc">Install the right mental operating system before writing a single command. Most people who fail aren't stopped by content — they're stopped by their own head. This section is not optional.</p>
+  </div>
+
+  <div class="callout callout-amber">
+    <strong>Brutal honesty upfront:</strong> Cybersecurity is genuinely hard. It rewards obsessive curiosity. If you don't find yourself wanting to go down rabbit holes at 2am, this will feel like a grind. Get honest with yourself about this in week one.
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-head">
+        <div class="card-icon" style="background:rgba(0,232,122,0.1);">🧠</div>
+        <div><div class="card-title">Core Mental Frameworks</div></div>
+      </div>
+      <ul class="check-list">
+        <li><span class="ck">▸</span><span><strong>Growth mindset + ownership:</strong> Every failed CTF or broken lab is data, not a verdict on your intelligence. Treat it like debugging a puzzle.</span></li>
+        <li><span class="ck">▸</span><span><strong>Ethics above everything:</strong> Permission always. These skills can ruin lives or land you in prison. Only test what you're explicitly authorized to test. Non-negotiable.</span></li>
+        <li><span class="ck">▸</span><span><strong>Consistency beats intensity:</strong> 8 focused hours &gt; 12 scattered hours. Use Pomodoro (50/10). Track everything in a daily journal.</span></li>
+        <li><span class="ck">▸</span><span><strong>Imposter syndrome is normal:</strong> Everyone feels it. The cure is shipping projects and publishing writeups.</span></li>
+        <li><span class="ck">▸</span><span><strong>Think like an attacker:</strong> Every system was built by humans. Humans make mistakes. Your job is to find them before the bad guys do.</span></li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-head">
+        <div class="card-icon" style="background:rgba(77,166,255,0.1);">⏱</div>
+        <div><div class="card-title">Daily Habit Stack</div><div class="card-subtitle">8–10 hours, structured</div></div>
+      </div>
+      <ul class="check-list">
+        <li><span class="ck ck-amber">▸</span><span><strong>Morning (3 hrs):</strong> Video + reading. Absorb new theory with zero distractions.</span></li>
+        <li><span class="ck ck-amber">▸</span><span><strong>Afternoon (4 hrs):</strong> Hands-on labs. TryHackMe, HackTheBox, home lab. Do → fail → fix → repeat.</span></li>
+        <li><span class="ck ck-amber">▸</span><span><strong>Evening (2 hrs):</strong> Write up what you learned. Document. Update GitHub or blog.</span></li>
+        <li><span class="ck ck-amber">▸</span><span><strong>Wind-down (1 hr):</strong> Light reading. Krebs on Security, The Hacker News, r/netsec.</span></li>
+        <li><span class="ck ck-amber">▸</span><span><strong>Every day:</strong> One small win. Finish one room, one lesson, one writeup section.</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <div class="card-icon" style="background:rgba(167,139,250,0.1);">🗒</div>
+      <div><div class="card-title">Tools to Install on Day 1</div></div>
+    </div>
+    <div class="grid-3" style="margin-top:8px;">
+      <div style="background:var(--bg3);border-radius:8px;padding:14px;">
+        <div style="color:#fff;font-size:13px;font-weight:500;margin-bottom:4px;">Obsidian</div>
+        <div style="font-size:12px;color:var(--text3);">Free note-taking. Build your personal security wiki. Every concept, command, and writeup.</div>
+        <div class="tag-row"><span class="badge bg-green">Free</span></div>
+      </div>
+      <div style="background:var(--bg3);border-radius:8px;padding:14px;">
+        <div style="color:#fff;font-size:13px;font-weight:500;margin-bottom:4px;">GitHub</div>
+        <div style="font-size:12px;color:var(--text3);">Every script, note, and writeup goes here from Day 1. This is your public proof of work.</div>
+        <div class="tag-row"><span class="badge bg-green">Free</span></div>
+      </div>
+      <div style="background:var(--bg3);border-radius:8px;padding:14px;">
+        <div style="color:#fff;font-size:13px;font-weight:500;margin-bottom:4px;">VirtualBox + Kali</div>
+        <div style="font-size:12px;color:var(--text3);">Your attack machine. Install it this week. Start breaking things in a safe environment.</div>
+        <div class="tag-row"><span class="badge bg-green">Free</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout callout-green">
+    <strong>Commerce background advantage:</strong> You understand business, risk, money, and operations. CISOs care about business impact — not just technical exploits. Most CS graduates lack this lens entirely. It will make you stand out in every interview and on the job.
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <div class="card-icon" style="background:rgba(34,211,238,0.1);">👥</div>
+      <div><div class="card-title">Community — Join on Day 1</div><div class="card-subtitle">Accountability is the difference between month 3 quitters and month 18 job-havers</div></div>
+    </div>
+    <div class="tag-row">
+      <span class="badge bg-teal">TryHackMe Discord</span>
+      <span class="badge bg-teal">HackTheBox Discord</span>
+      <span class="badge bg-blue">r/cybersecurity</span>
+      <span class="badge bg-blue">r/netsec</span>
+      <span class="badge bg-purple">Twitter/X #infosec</span>
+      <span class="badge bg-green">LinkedIn Security Groups</span>
+      <span class="badge bg-amber">null community India</span>
+      <span class="badge bg-amber">OWASP India chapters</span>
+    </div>
+    <div style="margin-top:12px;font-size:12px;color:var(--text2);">Post weekly progress on LinkedIn or a personal blog. Public commitment dramatically reduces quitting. One post per week minimum.</div>
+  </div>
+</section>
+
+<!-- ════════════════════ 02 TECHNICAL ════════════════════ -->
+<section id="s-technical" class="section">
+  <div class="section-header">
+    <div class="section-eyebrow">Section 02</div>
+    <div class="section-title">Core Technical Skills</div>
+    <p class="section-desc">These are prerequisites. The soil everything else grows in. Skip them and you'll waste months later hitting walls you could have prevented. 6–8 weeks of intense focus, then revisit continuously.</p>
+  </div>
+
+  <div class="callout callout-amber">
+    <strong>Timeline:</strong> Months 1–3 are heavy on these foundations while you start light cyber rooms in parallel. Goal: by month 3, you can navigate Linux, subnet a network on paper, and write a 50-line Python script from scratch.
+  </div>
+
+  <div class="phase-card phase-1 p1">
+    <div class="phase-num">Priority 1 — Most Critical</div>
+    <div class="phase-title">Networking Fundamentals</div>
+    <div class="phase-range">Everything in cybersecurity is networking. Without this, you're essentially blind.</div>
+    <ul class="check-list">
+      <li><span class="ck">▸</span><span>OSI model and TCP/IP stack — know every layer and what can go wrong at each one</span></li>
+      <li><span class="ck">▸</span><span>IP addressing, subnetting, CIDR notation — practice until you can subnet in your head</span></li>
+      <li><span class="ck">▸</span><span>Core protocols: DNS, DHCP, HTTP/S, FTP, SSH, SMTP, ARP — how each works AND how each can be attacked</span></li>
+      <li><span class="ck">▸</span><span>Firewalls, routers, switches, VLANs, NAT — understand what controls traffic and why</span></li>
+      <li><span class="ck">▸</span><span>Packet analysis with Wireshark — start this early, it's pre-installed in Kali</span></li>
+    </ul>
+    <div class="resource-grid" style="margin-top:14px;">
+      <div class="resource-item"><div class="resource-name">Professor Messer Network+</div><div class="resource-tag">YouTube full course</div><div class="resource-free">FREE</div></div>
+      <div class="resource-item"><div class="resource-name">Cisco NetAcad</div><div class="resource-tag">netacad.com — Intro to Networking</div><div class="resource-free">FREE</div></div>
+      <div class="resource-item"><div class="resource-name">TryHackMe Pre-Security</div><div class="resource-tag">Networking rooms included</div><div class="resource-free">FREE TIER</div></div>
+      <div class="resource-item"><div class="resource-name">Subnet Practice</div><div class="resource-tag">subnettingpractice.com daily</div><div class="resource-free">FREE</div></div>
+    </div>
+  </div>
+
+  <div class="phase-card phase-1 p1">
+    <div class="phase-num">Priority 2</div>
+    <div class="phase-title">Linux Mastery</div>
+    <div class="phase-range">98% of real security tools run on Linux. Kali will be your daily driver for the next 18 months.</div>
+    <ul class="check-list">
+      <li><span class="ck">▸</span><span>CLI fluency: navigation, file permissions (chmod/chown), users/groups, process management</span></li>
+      <li><span class="ck">▸</span><span>Bash scripting: loops, conditionals, piping, grep/awk/sed — these are daily tools</span></li>
+      <li><span class="ck">▸</span><span>Package management, networking tools: netstat, nmap, curl, wget, ss</span></li>
+      <li><span class="ck">▸</span><span>Log analysis: /var/log, journalctl, reading and parsing system events</span></li>
+      <li><span class="ck">▸</span><span>Virtualization: VirtualBox + Kali Linux + Ubuntu — build and break your own lab VMs</span></li>
+    </ul>
+    <div class="resource-grid" style="margin-top:14px;">
+      <div class="resource-item"><div class="resource-name">OverTheWire: Bandit</div><div class="resource-tag">Levels 0–25+, wargame format</div><div class="resource-free">FREE</div></div>
+      <div class="resource-item"><div class="resource-name">linuxjourney.com</div><div class="resource-tag">Complete interactive course</div><div class="resource-free">FREE</div></div>
+      <div class="resource-item"><div class="resource-name">THM Linux Fundamentals</div><div class="resource-tag">3-part series</div><div class="resource-free">FREE TIER</div></div>
+      <div class="resource-item"><div class="resource-name">The Linux Command Line</div><div class="resource-tag">Free PDF, William Shotts</div><div class="resource-free">FREE</div></div>
+    </div>
+  </div>
+
+  <div class="phase-card phase-2 p2">
+    <div class="phase-num">Priority 3</div>
+    <div class="phase-title">Python for Security</div>
+    <div class="phase-range">You don't need to be a software engineer. You need to write scripts that automate recon, parse outputs, and build simple tools.</div>
+    <ul class="check-list">
+      <li><span class="ck ck-amber">▸</span><span>Variables, loops, functions, file I/O, error handling, classes basics</span></li>
+      <li><span class="ck ck-amber">▸</span><span>Sockets, subprocess, requests library, argparse for CLI tools</span></li>
+      <li><span class="ck ck-amber">▸</span><span>Build a basic port scanner — this is your first real project and it goes on GitHub</span></li>
+      <li><span class="ck ck-amber">▸</span><span>Build a subdomain enumerator, a banner grabber, a simple brute-forcer</span></li>
+      <li><span class="ck ck-amber">▸</span><span>Learn scapy for packet manipulation — important for network security scripting</span></li>
+    </ul>
+    <div class="resource-grid" style="margin-top:14px;">
+      <div class="resource-item"><div class="resource-name">CS50P (Harvard)</div><div class="resource-tag">edX — Python course</div><div class="resource-free">FREE</div></div>
+      <div class="resource-item"><div class="resource-name">Automate the Boring Stuff</div><div class="resource-tag">automatetheboringstuff.com</div><div class="resource-free">FREE</div></div>
+      <div class="resource-item"><div class="resource-name">Python for Hackers</div><span class="resource-tag">TCM Security YouTube</span><div class="resource-free">FREE</div></div>
+      <div class="resource-item"><div class="resource-name">freeCodeCamp Python</div><div class="resource-tag">YouTube full course (6hrs)</div><div class="resource-free">FREE</div></div>
+    </div>
+  </div>
+
+  <div class="phase-card phase-2 p2">
+    <div class="phase-num">Priority 4</div>
+    <div class="phase-title">OS Fundamentals (Windows + Linux Internals)</div>
+    <div class="phase-range">Understand the systems you'll be attacking and defending before you try to attack or defend them.</div>
+    <ul class="check-list">
+      <li><span class="ck ck-amber">▸</span><span>Windows internals: processes, services, registry, file system, Windows Event IDs</span></li>
+      <li><span class="ck ck-amber">▸</span><span>Active Directory basics: domains, DCs, users/groups, GPO, trust relationships</span></li>
+      <li><span class="ck ck-amber">▸</span><span>Build a small AD lab with free Microsoft eval ISOs (Windows Server + Windows 10/11)</span></li>
+      <li><span class="ck ck-amber">▸</span><span>Linux internals: /proc, systemd, PAM, kernel modules, setuid binaries</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ════════════════════ 03 CYBER PATH ════════════════════ -->
+<section id="s-cyberpath" class="section">
+  <div class="section-header">
+    <div class="section-eyebrow">Section 03</div>
+    <div class="section-title">Cybersecurity Learning Path</div>
+    <p class="section-desc">Three distinct phases. Each builds on the last. Do not rush. Interviewers see through shallow knowledge immediately. Depth over speed.</p>
+  </div>
+
+  <div class="phase-card phase-1 p1">
+    <div class="phase-num">Phase 1 — Beginner</div>
+    <div class="phase-title">Months 1–4: Concepts, First Tools, First Flags</div>
+    <div class="phase-range">Build the vocabulary. Understand how attacks work conceptually before trying to execute them.</div>
+    <div class="grid-2" style="margin-top:8px;">
+      <ul class="check-list">
+        <li><span class="ck">▸</span><span>CIA Triad, threat modeling, vulnerability vs exploit</span></li>
+        <li><span class="ck">▸</span><span>Attack lifecycle: recon → weaponize → deliver → exploit → persist → exfil</span></li>
+        <li><span class="ck">▸</span><span>Reconnaissance: Nmap, Shodan, theHarvester, OSINT basics</span></li>
+        <li><span class="ck">▸</span><span>Vulnerability scanning: Nessus Essentials (free), OpenVAS</span></li>
+      </ul>
+      <ul class="check-list">
+        <li><span class="ck">▸</span><span>TryHackMe: Pre-Security + Jr Penetration Tester paths</span></li>
+        <li><span class="ck">▸</span><span>PicoCTF: complete all beginner challenges</span></li>
+        <li><span class="ck">▸</span><span>First 5 GitHub commits: scripts + writeups</span></li>
+        <li><span class="ck">▸</span><span>Start Security+ study simultaneously</span></li>
+      </ul>
+    </div>
+    <div class="tag-row" style="margin-top:12px;">
+      <span class="badge bg-green">SANS Cyber Aces (free)</span>
+      <span class="badge bg-green">Cisco Intro to Cybersecurity (free)</span>
+      <span class="badge bg-green">TryHackMe Free Tier</span>
+      <span class="badge bg-green">PicoCTF (free)</span>
+      <span class="badge bg-blue">Professor Messer Security+ (free)</span>
+    </div>
+  </div>
+
+  <div class="phase-card phase-2 p2">
+    <div class="phase-num">Phase 2 — Intermediate</div>
+    <div class="phase-title">Months 5–10: Real Exploitation, Web Hacking, SOC Skills</div>
+    <div class="phase-range">This is where most of your job-relevant skills are built. Expect this phase to be the hardest.</div>
+    <div class="grid-2" style="margin-top:8px;">
+      <div>
+        <div style="font-size:11px;color:var(--amber);letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;">Offensive</div>
+        <ul class="check-list">
+          <li><span class="ck ck-amber">▸</span><span>OWASP Top 10 — master every vulnerability type</span></li>
+          <li><span class="ck ck-amber">▸</span><span>Burp Suite: intercept, repeat, intruder, scanner</span></li>
+          <li><span class="ck ck-amber">▸</span><span>SQLi, XSS, CSRF, IDOR, SSRF, XXE, RCE</span></li>
+          <li><span class="ck ck-amber">▸</span><span>Network pentesting: Nmap mastery, Metasploit</span></li>
+          <li><span class="ck ck-amber">▸</span><span>Active Directory: BloodHound, Kerberoasting, Pass-the-Hash</span></li>
+        </ul>
+      </div>
+      <div>
+        <div style="font-size:11px;color:var(--teal);letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;">Defensive</div>
+        <ul class="check-list">
+          <li><span class="ck" style="color:var(--teal)">▸</span><span>SIEM basics: Splunk free tier + Wazuh</span></li>
+          <li><span class="ck" style="color:var(--teal)">▸</span><span>Log analysis: Windows Event IDs, Apache/Nginx logs</span></li>
+          <li><span class="ck" style="color:var(--teal)">▸</span><span>Incident response basics: detection → containment → eradication</span></li>
+          <li><span class="ck" style="color:var(--teal)">▸</span><span>Network traffic analysis with Wireshark</span></li>
+          <li><span class="ck" style="color:var(--teal)">▸</span><span>ELK stack deployment for log aggregation</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="callout callout-green" style="margin-top:14px;">
+      <strong>PortSwigger Web Security Academy</strong> is the best free web hacking training that exists. It's completely free, has interactive labs, and covers everything from SQLi to OAuth attacks. Do every single apprentice and practitioner-level lab before month 9.
+    </div>
+    <div class="tag-row">
+      <span class="badge bg-green">PortSwigger Academy (100% free)</span>
+      <span class="badge bg-amber">HackTheBox Free Tier</span>
+      <span class="badge bg-amber">TCM Security PEH (~$30)</span>
+      <span class="badge bg-amber">Splunk Free Training</span>
+      <span class="badge bg-teal">Wazuh SIEM (open source)</span>
+    </div>
+  </div>
+
+  <div class="phase-card phase-3 p3">
+    <div class="phase-num">Phase 3 — Advanced</div>
+    <div class="phase-title">Months 11–18: Red Team, Threat Hunting, OSCP Prep</div>
+    <div class="phase-range">Choose your lane after foundations. Stay broad for the first 9 months, then specialize.</div>
+    <div class="grid-2" style="margin-top:8px;">
+      <div>
+        <div style="font-size:11px;color:var(--red);letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;">Red Team Track</div>
+        <ul class="check-list">
+          <li><span class="ck ck-red">▸</span><span>C2 framework concepts (Cobalt Strike, Havoc, Sliver)</span></li>
+          <li><span class="ck ck-red">▸</span><span>AV/EDR evasion techniques</span></li>
+          <li><span class="ck ck-red">▸</span><span>Lateral movement and privilege escalation</span></li>
+          <li><span class="ck ck-red">▸</span><span>Full kill chain simulations in AD labs</span></li>
+          <li><span class="ck ck-red">▸</span><span>OSCP preparation (PEN-200 course)</span></li>
+        </ul>
+      </div>
+      <div>
+        <div style="font-size:11px;color:var(--blue);letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;">Blue Team Track</div>
+        <ul class="check-list">
+          <li><span class="ck" style="color:var(--blue)">▸</span><span>Threat hunting methodologies</span></li>
+          <li><span class="ck" style="color:var(--blue)">▸</span><span>Detection engineering: Sigma rules, YARA</span></li>
+          <li><span class="ck" style="color:var(--blue)">▸</span><span>Malware analysis basics: static + dynamic</span></li>
+          <li><span class="ck" style="color:var(--blue)">▸</span><span>Digital forensics: Autopsy, Volatility</span></li>
+          <li><span class="ck" style="color:var(--blue)">▸</span><span>CySA+ certification</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════ 04 CERTS ════════════════════ -->
+<section id="s-certs" class="section">
+  <div class="section-header">
+    <div class="section-eyebrow">Section 04</div>
+    <div class="section-title">Certifications Roadmap</div>
+    <p class="section-desc">Theory certs get you past HR filters. Practical certs prove you can actually do the work. Get them in order. Study for free — pay only when you're ready to sit the exam.</p>
+  </div>
+
+  <div class="callout callout-amber">
+    <strong>Golden rule:</strong> Never pay for video courses when free, high-quality alternatives exist (Messer, PortSwigger, TCM YouTube). Spend your money on exam vouchers, not content.
+  </div>
+
+  <div class="cert-card">
+    <div class="cert-num" style="color:var(--green);">01</div>
+    <div class="cert-body">
+      <div class="cert-name">CompTIA Security+ (SY0-701)</div>
+      <div class="cert-meta">
+        <span class="badge bg-green">Start First</span>
+        <span class="badge bg-amber">Month 3–5</span>
+        <span class="badge bg-blue">~$400 USD exam</span>
+      </div>
+      <div class="cert-desc">The industry-standard entry cert. Required or preferred by a large majority of SOC Analyst and IT Security roles. Validates broad foundational knowledge. Widely recognized by non-technical HR staff in India and globally. Study entirely free with Professor Messer's complete video course + practice tests. Supplement with Jason Dion's Udemy course when on sale ($15).</div>
+      <div style="margin-top:10px;"><span class="badge bg-green">Free: Professor Messer YouTube</span><span class="badge bg-green">Free: Messer's study notes</span><span class="badge bg-blue">Free quizzes: examcompass.com</span></div>
+      <div class="progress-track"><div class="progress-fill" style="width:100%;background:var(--green);"></div></div>
+      <div style="font-size:11px;color:var(--text3);margin-top:4px;">Difficulty ★★☆☆☆ · Study time: 6–8 weeks full-time</div>
+    </div>
+  </div>
+
+  <div class="cert-card">
+    <div class="cert-num" style="color:var(--amber);">02</div>
+    <div class="cert-body">
+      <div class="cert-name">eJPT — eLearnSecurity Junior Penetration Tester</div>
+      <div class="cert-meta">
+        <span class="badge bg-amber">Offensive Track</span>
+        <span class="badge bg-amber">Month 6–7</span>
+        <span class="badge bg-blue">~$200 USD</span>
+      </div>
+      <div class="cert-desc">100% hands-on exam. No multiple choice. You get a network to attack and must find flags by actually exploiting systems. Excellent confidence builder for beginners. INE provides free learning content to prepare. Strong recognition in the Indian market, especially at MSSPs and mid-size companies. Far better value than CEH for a beginner offensive track.</div>
+      <div class="progress-track"><div class="progress-fill" style="width:75%;background:var(--amber);"></div></div>
+      <div style="font-size:11px;color:var(--text3);margin-top:4px;">Difficulty ★★★☆☆ · Study time: 6–8 weeks of solid labs</div>
+    </div>
+  </div>
+
+  <div class="cert-card">
+    <div class="cert-num" style="color:var(--teal);">02b</div>
+    <div class="cert-body">
+      <div class="cert-name">CompTIA CySA+ — Blue Team Alternative</div>
+      <div class="cert-meta">
+        <span class="badge bg-teal">Defensive Track</span>
+        <span class="badge bg-amber">Month 6–8</span>
+        <span class="badge bg-blue">~$370 USD</span>
+      </div>
+      <div class="cert-desc">If your target is SOC Analyst or threat detection roles rather than pentesting, take CySA+ instead of eJPT. Covers threat and vulnerability management, SIEM operations, incident response, and software security. Very relevant to the SOC L1 → L2 career path. Pairs perfectly with Security+.</div>
+      <div class="progress-track"><div class="progress-fill" style="width:70%;background:var(--teal);"></div></div>
+      <div style="font-size:11px;color:var(--text3);margin-top:4px;">Difficulty ★★★☆☆ · Study time: 8–10 weeks</div>
+    </div>
+  </div>
+
+  <div class="cert-card">
+    <div class="cert-num" style="color:var(--purple);">03</div>
+    <div class="cert-body">
+      <div class="cert-name">PNPT — Practical Network Penetration Tester (TCM Security)</div>
+      <div class="cert-meta">
+        <span class="badge bg-purple">Offensive Track</span>
+        <span class="badge bg-amber">Month 9–10</span>
+        <span class="badge bg-blue">~$399 USD</span>
+      </div>
+      <div class="cert-desc">Realistic, scenario-based practical exam. You conduct a full pentest and write a professional report. Created by TCM Security — a highly respected name in the community. Strong recognition with smaller companies and consultancies. Much closer to real-world pentesting than CEH. Great stepping stone before OSCP.</div>
+      <div class="progress-track"><div class="progress-fill" style="width:55%;background:var(--purple);"></div></div>
+      <div style="font-size:11px;color:var(--text3);margin-top:4px;">Difficulty ★★★★☆ · Study time: TCM PEH course + 3 months of labs</div>
+    </div>
+  </div>
+
+  <div class="cert-card" style="border-color:rgba(255,77,77,0.3);">
+    <div class="cert-num" style="color:var(--red);">04</div>
+    <div class="cert-body">
+      <div class="cert-name">OSCP — Offensive Security Certified Professional</div>
+      <div class="cert-meta">
+        <span class="badge bg-red">Gold Standard</span>
+        <span class="badge bg-red">Month 14–18</span>
+        <span class="badge bg-red">~$1,499 USD</span>
+      </div>
+      <div class="cert-desc">The most respected offensive security certification in the world. 24-hour hands-on practical exam — zero multiple choice, zero theory. You get a network of machines and must root as many as possible, then write a professional report. Having OSCP on your resume is a complete career game-changer. Plan for $1,499 (includes PEN-200 course, 90-day lab access, and 1 exam attempt). Many candidates need 2 attempts. DO NOT rush this — prepare for 3–6 months minimum before attempting.</div>
+      <div class="callout callout-red" style="margin-top:10px;padding:10px 14px;">
+        <strong>Prerequisites for OSCP:</strong> Linux solid, Python scripting comfortable, 30+ HTB machines (including mediums), AD attack basics, manual exploitation (no Metasploit dependency). If you're not there yet, wait.
+      </div>
+      <div class="progress-track"><div class="progress-fill" style="width:30%;background:var(--red);"></div></div>
+      <div style="font-size:11px;color:var(--text3);margin-top:4px;">Difficulty ★★★★★ · Study time: 3–6 months dedicated prep</div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════ 05 PRACTICE ════════════════════ -->
+<section id="s-practice" class="section">
+  <div class="section-header">
+    <div class="section-eyebrow">Section 05</div>
+    <div class="section-title">Hands-On Practice</div>
+    <p class="section-desc">This section matters more than any other. Theory without hands-on practice is worthless. Your hands must know what your brain knows. Target: 50–100+ machines before job hunting.</p>
+  </div>
+
+  <div class="grid-2">
+    <div>
+      <div style="font-size:11px;color:var(--green);letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;">CTF Platforms — Daily Use</div>
+      <div class="card" style="padding:14px 16px;margin-bottom:10px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+          <div style="color:#fff;font-size:13px;font-weight:500;">TryHackMe</div>
+          <span class="badge bg-green">Start Here</span>
+        </div>
+        <div style="font-size:12px;color:var(--text2);">Best for structured beginner → intermediate learning. Guided paths with hints. Free tier has hundreds of rooms. Subscribe ($14/mo) at month 3+ for full access.</div>
+      </div>
+      <div class="card" style="padding:14px 16px;margin-bottom:10px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+          <div style="color:#fff;font-size:13px;font-weight:500;">PicoCTF</div>
+          <span class="badge bg-green">Beginner Friendly</span>
+        </div>
+        <div style="font-size:12px;color:var(--text2);">Annual competition format. Completely free. Excellent for absolute beginners. Great for resume — national competition with ranked results.</div>
+      </div>
+      <div class="card" style="padding:14px 16px;margin-bottom:10px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+          <div style="color:#fff;font-size:13px;font-weight:500;">HackTheBox</div>
+          <span class="badge bg-amber">Month 5+</span>
+        </div>
+        <div style="font-size:12px;color:var(--text2);">More realistic. Less hand-holding. Start with free "Easy" retired machines. This is the best single indicator of actual skill level.</div>
+      </div>
+      <div class="card" style="padding:14px 16px;margin-bottom:10px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+          <div style="color:#fff;font-size:13px;font-weight:500;">PortSwigger Academy</div>
+          <span class="badge bg-blue">Web Hacking</span>
+        </div>
+        <div style="font-size:12px;color:var(--text2);">100% free. Best web security training on the planet. Do every single apprentice and practitioner lab.</div>
+      </div>
+      <div class="card" style="padding:14px 16px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+          <div style="color:#fff;font-size:13px;font-weight:500;">CTFtime.org + VulnHub</div>
+          <span class="badge bg-purple">Ongoing</span>
+        </div>
+        <div style="font-size:12px;color:var(--text2);">CTFtime for live competition calendar. VulnHub for free downloadable vulnerable VMs to run locally.</div>
+      </div>
+    </div>
+
+    <div>
+      <div style="font-size:11px;color:var(--green);letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;">Home Lab — Build Month 1–2</div>
+      <div class="card">
+        <ul class="check-list">
+          <li><span class="ck">▸</span><span><strong>Hypervisor:</strong> VirtualBox (free) or VMware Workstation Player (free for personal)</span></li>
+          <li><span class="ck">▸</span><span><strong>Attack machine:</strong> Kali Linux — your daily driver with 600+ pre-installed tools</span></li>
+          <li><span class="ck">▸</span><span><strong>Vulnerable targets:</strong> Metasploitable 2/3 (free), DVWA via Docker, OWASP Juice Shop</span></li>
+          <li><span class="ck">▸</span><span><strong>Active Directory lab:</strong> Windows Server eval ISO + Windows 10/11 eval (free 180-day trials)</span></li>
+          <li><span class="ck">▸</span><span><strong>Network isolation:</strong> Host-only / internal VMnet — never expose vulnerable VMs to the internet</span></li>
+          <li><span class="ck">▸</span><span><strong>Firewall (later):</strong> pfSense VM for advanced traffic analysis and security practice</span></li>
+          <li><span class="ck">▸</span><span><strong>Blue team:</strong> Wazuh SIEM or ELK stack for log monitoring and detection practice</span></li>
+        </ul>
+        <div class="callout callout-amber" style="margin-top:12px;">
+          All of this is free. A mid-range laptop with 8GB RAM and 200GB free storage can run this lab. If RAM is tight, run 2 VMs at a time max.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top:20px;font-size:11px;color:var(--green);letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;">12-Month Practice Milestones</div>
+  <div class="milestone-grid">
+    <div class="ms-item">
+      <div class="ms-dot" style="background:rgba(0,232,122,0.1);border-color:var(--green);color:var(--green);">M1</div>
+      <div class="ms-label">Pre-Security path done. Lab installed. 5 PicoCTF flags.</div>
+    </div>
+    <div class="ms-item">
+      <div class="ms-dot" style="background:rgba(0,232,122,0.1);border-color:var(--green);color:var(--green);">M3</div>
+      <div class="ms-label">Jr Pentester THM path. Kali fluency. 3 GitHub projects.</div>
+    </div>
+    <div class="ms-item">
+      <div class="ms-dot" style="background:rgba(245,166,35,0.1);border-color:var(--amber);color:var(--amber);">M5</div>
+      <div class="ms-label">First HTB Easy machine. Full writeup published.</div>
+    </div>
+    <div class="ms-item">
+      <div class="ms-dot" style="background:rgba(245,166,35,0.1);border-color:var(--amber);color:var(--amber);">M7</div>
+      <div class="ms-label">All PortSwigger apprentice labs. First bug bounty attempt.</div>
+    </div>
+    <div class="ms-item">
+      <div class="ms-dot" style="background:rgba(255,77,77,0.1);border-color:var(--red);color:var(--red);">M9</div>
+      <div class="ms-label">Live CTF competition. AD lab compromised. eJPT passed.</div>
+    </div>
+    <div class="ms-item">
+      <div class="ms-dot" style="background:rgba(255,77,77,0.1);border-color:var(--red);color:var(--red);">M12</div>
+      <div class="ms-label">50+ HTB machines. First bounty payout. Portfolio live.</div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:14px;">
+    <div class="card-title" style="margin-bottom:10px;">Portfolio-Grade Project Ideas</div>
+    <ul class="check-list">
+      <li><span class="ck">▸</span><span><strong>Full pentest report on Juice Shop or DVWA</strong> — Professional format with executive summary, technical findings, CVSS scores, and remediation steps</span></li>
+      <li><span class="ck">▸</span><span><strong>Automated Python recon tool</strong> — Subdomain enumeration + port scanning + banner grabbing in one script, on GitHub with full documentation</span></li>
+      <li><span class="ck">▸</span><span><strong>Active Directory compromise simulation</strong> — Multi-VM lab: domain join → Kerberoasting → BloodHound paths → DA → full report with defenses</span></li>
+      <li><span class="ck">▸</span><span><strong>SIEM deployment with custom detection rules</strong> — Wazuh/ELK → simulate attacks → write detection rules → document everything</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ════════════════════ 06 PORTFOLIO ════════════════════ -->
+<section id="s-portfolio" class="section">
+  <div class="section-header">
+    <div class="section-eyebrow">Section 06</div>
+    <div class="section-title">Portfolio Building</div>
+    <p class="section-desc">No degree? Your portfolio is your degree. Start building in month 3. It should be publicly live and fully navigable by month 6. Recruiters will look — make it easy for them.</p>
+  </div>
+
+  <div class="callout callout-green">
+    <strong>The single most important truth:</strong> A self-taught candidate with 3 documented, well-written projects beats a degree holder with zero proof of work. Every time. Make your work visible.
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-head">
+        <div class="card-icon" style="background:rgba(0,232,122,0.1);">📁</div>
+        <div><div class="card-title">GitHub — Your Proof of Work</div></div>
+      </div>
+      <ul class="check-list">
+        <li><span class="ck">▸</span><span><strong>5–10 Python security tools:</strong> port scanner, password cracker, log analyzer, packet sniffer, recon automation</span></li>
+        <li><span class="ck">▸</span><span><strong>CTF writeups in Markdown</strong> for every major machine you root — show your methodology</span></li>
+        <li><span class="ck">▸</span><span><strong>Vulnerability reports</strong> from your own lab environments</span></li>
+        <li><span class="ck">▸</span><span><strong>A professional pentest report</strong> — your capstone piece</span></li>
+        <li><span class="ck">▸</span><span>Every repo has a professional README with context, usage, and screenshots</span></li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-head">
+        <div class="card-icon" style="background:rgba(77,166,255,0.1);">✍️</div>
+        <div><div class="card-title">Security Blog</div><div class="card-subtitle">GitHub Pages, Hashnode, or Dev.to — all free</div></div>
+      </div>
+      <ul class="check-list">
+        <li><span class="ck">▸</span><span>HackTheBox writeups after official walkthroughs release (common, respected practice)</span></li>
+        <li><span class="ck">▸</span><span>"I found my first SQL injection — and how to prevent it in production"</span></li>
+        <li><span class="ck">▸</span><span>"How I built my home cybersecurity lab on a budget"</span></li>
+        <li><span class="ck">▸</span><span>CVE breakdowns — explain a public vulnerability in plain language</span></li>
+        <li><span class="ck">▸</span><span>Tool comparisons, setup guides — these rank on Google and prove expertise</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title" style="margin-bottom:10px;">Writeup Structure That Impresses</div>
+    <div class="card-body">
+      <div class="resource-grid">
+        <div class="resource-item"><div class="resource-name">Background</div><div class="resource-tag">What is this target? What was the scope?</div></div>
+        <div class="resource-item"><div class="resource-name">Reconnaissance</div><div class="resource-tag">Every command run. Every finding noted.</div></div>
+        <div class="resource-item"><div class="resource-name">Exploitation</div><div class="resource-tag">Step-by-step. Screenshots. Command output.</div></div>
+        <div class="resource-item"><div class="resource-name">Post-Exploitation</div><div class="resource-tag">What did you access? What could an attacker do?</div></div>
+        <div class="resource-item"><div class="resource-name">Findings</div><div class="resource-tag">CVSS severity rating for each vulnerability</div></div>
+        <div class="resource-item"><div class="resource-name">Remediation</div><div class="resource-tag">Specific, actionable fixes for every finding</div></div>
+        <div class="resource-item"><div class="resource-name">Lessons Learned</div><div class="resource-tag">What did you learn? What would you do differently?</div></div>
+        <div class="resource-item"><div class="resource-name">References</div><div class="resource-tag">CVEs, tool docs, writeups that helped</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title" style="margin-bottom:10px;">Public Proof Links (put on your resume)</div>
+    <div class="tag-row">
+      <span class="badge bg-green">TryHackMe profile URL</span>
+      <span class="badge bg-amber">HackTheBox profile URL</span>
+      <span class="badge bg-blue">GitHub profile URL</span>
+      <span class="badge bg-purple">Personal blog URL</span>
+      <span class="badge bg-teal">HackerOne/Bugcrowd activity</span>
+      <span class="badge bg-red">CTFtime.org team profile</span>
+    </div>
+    <div style="margin-top:12px;font-size:12px;color:var(--text2);">All of these are linkable, verifiable, and show real activity over time. This timeline of consistent work is extremely compelling to technical hiring managers.</div>
+  </div>
+</section>
+
+<!-- ════════════════════ 07 INCOME ════════════════════ -->
+<section id="s-income" class="section">
+  <div class="section-header">
+    <div class="section-eyebrow">Section 07</div>
+    <div class="section-title">Freelancing & Early Income</div>
+    <p class="section-desc">Realistic about timelines. You can start earning in months 6–8 — well before landing a full-time job. Treat early income as skill-building and portfolio evidence first, cash second.</p>
+  </div>
+
+  <div class="callout callout-red">
+    <strong>Legal non-negotiable:</strong> Only test systems you own or have explicit written authorization to test. Bug bounty programs give you this permission formally. Unauthorized testing is a criminal offense under India's IT Act 2000 (Section 66) and can result in 3–7 years imprisonment. No exceptions.
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-head">
+        <div class="card-icon" style="background:rgba(255,77,77,0.1);">🐛</div>
+        <div><div class="card-title">Bug Bounty Hunting</div><div class="card-subtitle">Start at month 6</div></div>
+      </div>
+      <ul class="check-list">
+        <li><span class="ck">▸</span><span><strong>HackerOne, Bugcrowd, Intigriti</strong> — Start with public VDP programs (no payout but legal, good practice)</span></li>
+        <li><span class="ck">▸</span><span>Target small, newer programs with fewer researchers — less competition</span></li>
+        <li><span class="ck">▸</span><span>Focus first on IDOR, XSS, open redirects — highest frequency for beginners</span></li>
+        <li><span class="ck">▸</span><span>Free recon tools: subfinder, amass, nuclei, httpx, gau</span></li>
+        <li><span class="ck">▸</span><span>Write high-quality reports — clarity pays better than quantity</span></li>
+        <li><span class="ck ck-amber">▸</span><span>Expect $0 for the first 2–4 months. This is normal. It's education with potential upside.</span></li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-head">
+        <div class="card-icon" style="background:rgba(245,166,35,0.1);">💼</div>
+        <div><div class="card-title">Freelance Platforms</div><div class="card-subtitle">Month 6+ with clear scope</div></div>
+      </div>
+      <ul class="check-list">
+        <li><span class="ck ck-amber">▸</span><span><strong>Fiverr/Upwork:</strong> "Basic website vulnerability assessment using open-source tools + written report"</span></li>
+        <li><span class="ck ck-amber">▸</span><span>Start cheap (₹1,500–₹4,000/gig) to build reviews and testimonials</span></li>
+        <li><span class="ck ck-amber">▸</span><span>Be explicit in your listing: "This is not a comprehensive professional pentest"</span></li>
+        <li><span class="ck ck-amber">▸</span><span>Always get written scope agreement before starting any assessment</span></li>
+        <li><span class="ck ck-amber">▸</span><span>Target: WordPress site owners, small e-commerce sites, local startups</span></li>
+        <li><span class="ck ck-amber">▸</span><span>YouTube / content creation: document your journey in Hindi or English</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div style="margin-top:20px;font-size:11px;color:var(--green);letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;">Realistic Income Trajectory (India)</div>
+  <table class="inc-table">
+    <thead><tr><th>Phase</th><th>Activity</th><th>Monthly Range</th><th>Notes</th></tr></thead>
+    <tbody>
+      <tr><td>Months 1–5</td><td>Learning only</td><td>₹0</td><td>Focus entirely on skills. No shortcuts.</td></tr>
+      <tr><td>Months 6–8</td><td>First bug bounties + freelance gigs</td><td>₹0–₹15,000</td><td>Education with upside. First payout validates your skill.</td></tr>
+      <tr><td>Months 9–12</td><td>Consistent bug bounties + freelance</td><td>₹10,000–₹40,000</td><td>Use earnings for OSCP fund or hardware upgrade.</td></tr>
+      <tr><td>Month 14–18</td><td>First full-time job (SOC / Jr Pentester)</td><td>₹30,000–₹70,000/month</td><td>₹4–8L/yr starting package in India.</td></tr>
+      <tr><td>Year 3–5</td><td>Senior role + moonlighting</td><td>₹80,000–₹1,50,000/month</td><td>₹10–18L/yr. OSCP + experience = significant leverage.</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ════════════════════ 08 JOBS ════════════════════ -->
+<section id="s-jobs" class="section">
+  <div class="section-header">
+    <div class="section-eyebrow">Section 08</div>
+    <div class="section-title">Job Hunting Strategy</div>
+    <p class="section-desc">The goal isn't the perfect job. It's the first real job that gets you real-world experience. Be strategic, not proud. Rejection is part of the process — volume matters.</p>
+  </div>
+
+  <div class="callout callout-amber">
+    <strong>India context:</strong> Degree preference exists at large enterprises (TCS, Wipro, Infosys) for fresh roles. But startups, MSSPs, product companies, consulting firms, and remote-first global companies care about skills + certs + portfolio. Target those first.
+  </div>
+
+  <div style="font-size:11px;color:var(--green);letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;">Target Roles (First Job)</div>
+  <div class="grid-2">
+    <div class="role-card">
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <div class="role-title">SOC Analyst (Tier 1)</div>
+        <span class="badge bg-green">Easiest Entry</span>
+      </div>
+      <div class="role-salary">₹3.5–6L/yr · High volume of openings</div>
+      <div class="role-req">Monitor alerts, triage incidents, escalate to L2. Security+ usually enough. MSSPs, banks, and large corporates hire heavily. Great real-world experience even if not glamorous. Clear path to L2/L3 and then specialization.</div>
+    </div>
+    <div class="role-card">
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <div class="role-title">Junior Penetration Tester</div>
+        <span class="badge bg-amber">Higher Reward</span>
+      </div>
+      <div class="role-salary">₹5–10L/yr · More competitive</div>
+      <div class="role-req">Higher technical bar. Need eJPT or PNPT + solid CTF history + portfolio. More competitive but significantly better salary growth trajectory. Boutique security firms and MSSPs are your target, not the big 4 IT companies.</div>
+    </div>
+    <div class="role-card">
+      <div class="role-title">Vulnerability Analyst</div>
+      <div class="role-salary">₹4–7L/yr · Good entry point</div>
+      <div class="role-req">Run vulnerability scans, analyze results, prioritize and communicate risk. Security+ + scanning tool knowledge sufficient. Good bridge between SOC and pentesting roles.</div>
+    </div>
+    <div class="role-card">
+      <div class="role-title">IT Security Analyst / GRC Analyst</div>
+      <div class="role-salary">₹3–6L/yr · Commerce background advantage</div>
+      <div class="role-req">Your commerce background actually helps here. Governance, risk, compliance work involves business process understanding. ISO 27001, GDPR, PCI-DSS context. Bridge role with a path toward CISO track.</div>
+    </div>
+  </div>
+
+  <div style="margin-top:20px;" class="card">
+    <div class="card-title" style="margin-bottom:12px;">Skills-First Resume Structure (1 page)</div>
+    <ul class="check-list">
+      <li><span class="ck">▸</span><span><strong>Header:</strong> Name · Email · LinkedIn URL (custom) · GitHub URL · TryHackMe/HTB profile · Blog URL</span></li>
+      <li><span class="ck">▸</span><span><strong>Summary (3 lines):</strong> "Self-taught cybersecurity professional with 18 months of hands-on experience in penetration testing, vulnerability assessment, and incident response. Completed 60+ HackTheBox/TryHackMe machines with documented writeups. CompTIA Security+ certified."</span></li>
+      <li><span class="ck">▸</span><span><strong>Technical Skills (ATS-optimized):</strong> Nmap · Burp Suite · Metasploit · Wireshark · Splunk · Python · Linux · Active Directory · Kali · OWASP · SIEM</span></li>
+      <li><span class="ck">▸</span><span><strong>Projects (most important section):</strong> 3–5 entries with links. "Designed multi-VM AD lab environment, simulated Kerberoasting attack chain, produced professional pentest report with remediation steps."</span></li>
+      <li><span class="ck">▸</span><span><strong>Certifications:</strong> List with exam date. If Security+ score was 800+, include it.</span></li>
+      <li><span class="ck">▸</span><span><strong>Education:</strong> Last. Class 12, Commerce. Don't hide it, don't lead with it.</span></li>
+    </ul>
+  </div>
+
+  <div class="grid-2" style="margin-top:14px;">
+    <div class="card">
+      <div class="card-title" style="margin-bottom:8px;">LinkedIn Strategy</div>
+      <ul class="check-list">
+        <li><span class="ck">▸</span><span>Professional photo. Custom URL. Optimized headline: "Cybersecurity Professional | Security+ | Pentesting | SOC"</span></li>
+        <li><span class="ck">▸</span><span>Post weekly: learning updates, writeup summaries, tool tips — builds audience and recruiter visibility</span></li>
+        <li><span class="ck">▸</span><span>Connect with 10 security recruiters in India per week. DM with a brief, specific message.</span></li>
+        <li><span class="ck">▸</span><span>Comment intelligently on CISO and security leader posts. Be visible.</span></li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title" style="margin-bottom:8px;">Application Strategy</div>
+      <ul class="check-list">
+        <li><span class="ck">▸</span><span>Naukri.com + LinkedIn are primary for India. AngelList for startups. Indeed for coverage.</span></li>
+        <li><span class="ck">▸</span><span>8–15 tailored applications per day. Track in a spreadsheet. Customize keywords to each JD.</span></li>
+        <li><span class="ck">▸</span><span>Realistic expectation: 3–9 months of active applications before first offer. Persistence is the differentiator.</span></li>
+        <li><span class="ck">▸</span><span>Apply even if you're 70% qualified. The "2+ years experience" requirement is often aspirational, not firm.</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════ 09 TIMELINE ════════════════════ -->
+<section id="s-timeline" class="section">
+  <div class="section-header">
+    <div class="section-eyebrow">Section 09</div>
+    <div class="section-title">Month-by-Month Timeline</div>
+    <p class="section-desc">18 months. 8–10 focused hours per day, 6 days per week. This is a realistic schedule, not a motivational fantasy. The pace is aggressive — protect your rest days.</p>
+  </div>
+
+  <div class="callout callout-amber">
+    <strong>Burnout is real:</strong> This pace is aggressive. Build in one full rest day per week non-negotiably. Sustainable 6–8 focused hours consistently beats exhausted 10+ hours with degrading quality. Take it seriously.
+  </div>
+
+  <div class="timeline">
+    <div class="tl-row">
+      <div class="tl-month" style="color:var(--green);">Month<br>1–2</div>
+      <div class="tl-dot" style="background:var(--green);"></div>
+      <div class="tl-content">
+        <div class="tl-task">Foundation — Networking, Linux, Python basics + Lab Setup</div>
+        <div class="tl-detail">TryHackMe Pre-Security path (complete it fully) · Professor Messer Network+ free course · OverTheWire Bandit levels 0–15 · Install VirtualBox + Kali + Metasploitable · Start Security+ study with Messer videos · Python: Automate the Boring Stuff + write first 2 scripts · First 5 GitHub commits · Daily 4hr lab + 4hr theory split</div>
+        <div class="tag-row" style="margin-top:6px;"><span class="badge bg-green">Security+ study begins</span><span class="badge bg-green">Lab online</span><span class="badge bg-green">GitHub active</span></div>
+      </div>
+    </div>
+    <div class="tl-row">
+      <div class="tl-month" style="color:var(--green);">Month<br>3–4</div>
+      <div class="tl-dot" style="background:var(--green);"></div>
+      <div class="tl-content">
+        <div class="tl-task">Security+ Deep Prep + First CTFs + Python Projects</div>
+        <div class="tl-detail">Complete Security+ study → Sit exam in month 4 · TryHackMe Jr Penetration Tester path · First 10 PicoCTF challenges · Python: build port scanner, brute-forcer, recon tool · Push all code to GitHub with proper READMEs · Write first 3 blog posts · Metasploitable lab: run first successful exploitation</div>
+        <div class="tag-row" style="margin-top:6px;"><span class="badge bg-amber">Security+ EXAM ← Month 4</span><span class="badge bg-green">3 GitHub projects live</span></div>
+      </div>
+    </div>
+    <div class="tl-row">
+      <div class="tl-month" style="color:var(--amber);">Month<br>5–6</div>
+      <div class="tl-dot" style="background:var(--amber);"></div>
+      <div class="tl-content">
+        <div class="tl-task">Web Hacking + First HackTheBox + Portfolio v1 Live</div>
+        <div class="tl-detail">PortSwigger Web Academy: all apprentice labs + first 5 practitioner labs · First 5 HTB Easy machines with full writeups · Burp Suite fluency: can intercept, modify, and replay requests blind · Start freelance Fiverr/Upwork profile · First bug bounty reconnaissance on HackerOne public programs · Personal blog live with 5+ posts</div>
+        <div class="tag-row" style="margin-top:6px;"><span class="badge bg-amber">Portfolio v1 live</span><span class="badge bg-amber">First HTB machine</span><span class="badge bg-amber">Freelance profile created</span></div>
+      </div>
+    </div>
+    <div class="tl-row">
+      <div class="tl-month" style="color:var(--amber);">Month<br>7–8</div>
+      <div class="tl-dot" style="background:var(--amber);"></div>
+      <div class="tl-content">
+        <div class="tl-task">Intermediate Exploitation + SOC Skills + eJPT</div>
+        <div class="tl-detail">TCM Security Practical Ethical Hacking course · Active Directory basics: join domain, enumerate, first Kerberoasting · Splunk fundamentals free training + Wazuh SIEM deployment · 20+ HTB machines total · eJPT exam attempt (if offensive track) · First live CTF competition (CTFtime.org) · 8+ blog posts, portfolio showing clear progression</div>
+        <div class="tag-row" style="margin-top:6px;"><span class="badge bg-amber">eJPT EXAM ← Month 7–8</span><span class="badge bg-amber">AD lab compromised</span></div>
+      </div>
+    </div>
+    <div class="tl-row">
+      <div class="tl-month" style="color:var(--amber);">Month<br>9–10</div>
+      <div class="tl-dot" style="background:var(--amber);"></div>
+      <div class="tl-content">
+        <div class="tl-task">Deep Specialization — Choose Your Lane</div>
+        <div class="tl-detail"><strong>Offensive:</strong> HTB Pro Labs / HTB Medium machines / PNPT exam · <strong>Defensive:</strong> CySA+ study / Detection engineering with Sigma rules / Malware analysis basics · First paid freelance security gig (any size) · LinkedIn profile recruiter-visible + 300+ relevant connections · Start applying to junior/IT-adjacent roles — learn the interview process even if not ready</div>
+        <div class="tag-row" style="margin-top:6px;"><span class="badge bg-amber">Track chosen</span><span class="badge bg-blue">First paid gig</span><span class="badge bg-blue">Applying starts</span></div>
+      </div>
+    </div>
+    <div class="tl-row">
+      <div class="tl-month" style="color:var(--red);">Month<br>11–12</div>
+      <div class="tl-dot" style="background:var(--red);"></div>
+      <div class="tl-content">
+        <div class="tl-task">OSCP Prep Begins + Aggressive Job Hunting</div>
+        <div class="tl-detail">Start Offensive Security PEN-200 course (if offensive track) · 40+ HTB machines total (target 50+) · Full portfolio published and polished · Serious LinkedIn outreach: 10 targeted connections per day · Apply 8–15 roles per day with customized applications · Mock interviews with friends or online (Pramp, Exponent) · Target SOC Analyst L1 as pragmatic foot-in-door</div>
+        <div class="tag-row" style="margin-top:6px;"><span class="badge bg-red">OSCP prep begins</span><span class="badge bg-red">100+ applications sent</span></div>
+      </div>
+    </div>
+    <div class="tl-row">
+      <div class="tl-month" style="color:var(--red);">Month<br>13–15</div>
+      <div class="tl-dot" style="background:var(--red);"></div>
+      <div class="tl-content">
+        <div class="tl-task">First Job Offer — Take It</div>
+        <div class="tl-detail">Many candidates land SOC Analyst L1 here. <strong>Take it.</strong> Don't wait for the perfect role. Real-world experience is the most powerful accelerant that exists — nothing in a lab compares. Your job now is to be exceptional and learn everything. Continue side projects and bug bounties. Target the next cert while employed (often employer-sponsored).</div>
+        <div class="tag-row" style="margin-top:6px;"><span class="badge bg-green">🎯 First Offer — Accept It</span></div>
+      </div>
+    </div>
+    <div class="tl-row">
+      <div class="tl-month" style="color:var(--purple);">Month<br>16–18</div>
+      <div class="tl-dot" style="background:var(--purple);"></div>
+      <div class="tl-content">
+        <div class="tl-task">OSCP Exam + Career Acceleration</div>
+        <div class="tl-detail">Sit OSCP exam (attempt 1 or 2) · If employed: negotiate raise at 6-month mark · If still hunting: OSCP + published portfolio = very strong Jr Pentester candidacy at this stage · Income: ₹4–10L/yr depending on role · You are no longer a beginner. You've built something real.</div>
+        <div class="tag-row" style="margin-top:6px;"><span class="badge bg-purple">OSCP EXAM</span><span class="badge bg-green">Not a beginner anymore</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════ 10 GROWTH ════════════════════ -->
+<section id="s-growth" class="section">
+  <div class="section-header">
+    <div class="section-eyebrow">Section 10</div>
+    <div class="section-title">Long-Term Growth</div>
+    <p class="section-desc">First job is just the starting line. Here's how to engineer your trajectory from junior to elite — intentionally, over 5–10 years.</p>
+  </div>
+
+  <div class="phase-card phase-1 p1">
+    <div class="phase-num">Years 1–3</div>
+    <div class="phase-title">First Job → Senior Professional</div>
+    <div class="phase-range">Target: ₹8–18L/yr · Senior Pentester / SOC L2–L3 / Security Engineer</div>
+    <ul class="check-list">
+      <li><span class="ck">▸</span><span>Say yes to everything in your first role. Do the boring work. Learn how real enterprise security operates — it's different from CTFs.</span></li>
+      <li><span class="ck">▸</span><span>Find a mentor inside or outside the company. This is worth more than any certification.</span></li>
+      <li><span class="ck">▸</span><span>Continue HTB and bug bounty work outside working hours — keep the edge sharp.</span></li>
+      <li><span class="ck">▸</span><span>OSCP if not done yet (Year 1). Then look toward OSEP (advanced exploitation) or CRTP (Active Directory) depending on your path.</span></li>
+      <li><span class="ck">▸</span><span>Blue team path: GREM, GCIH, or CySA+ → Senior SOC → Detection Engineering lead.</span></li>
+      <li><span class="ck">▸</span><span>Build internal tools, automate repetitive tasks, write documentation — this is how you become indispensable.</span></li>
+    </ul>
+  </div>
+
+  <div class="phase-card phase-2 p2">
+    <div class="phase-num">Years 3–7</div>
+    <div class="phase-title">Mid-Level → Specialist → Public Reputation</div>
+    <div class="phase-range">Target: ₹18–40L/yr India · $80–130K remote · Principal / Lead / Consultant</div>
+    <ul class="check-list">
+      <li><span class="ck ck-amber">▸</span><span>Specialize deeply: Cloud Security (AWS/GCP/Azure), AppSec, IoT Security, Red Team, Forensics, Threat Intelligence — pick one and own it.</span></li>
+      <li><span class="ck ck-amber">▸</span><span>Submit CFP proposals to security conferences: null meets (India), OWASP chapter talks, c0c0n Kerala, ClubHack, BSides India — start small and build up.</span></li>
+      <li><span class="ck ck-amber">▸</span><span>Publish security research: a CVE, a blog series on a novel technique, a tool that others find useful — this is how you become known beyond your employer.</span></li>
+      <li><span class="ck ck-amber">▸</span><span>Build a public reputation: speak, write, contribute to open-source security tools — GitHub stars, Twitter/X followers, and LinkedIn presence compound dramatically at this stage.</span></li>
+      <li><span class="ck ck-amber">▸</span><span>Consider independent consulting: charge ₹30,000–₹1,00,000/day for specialized assessments once you have the track record.</span></li>
+    </ul>
+  </div>
+
+  <div class="phase-card phase-3 p3">
+    <div class="phase-num">Years 7–15</div>
+    <div class="phase-title">Elite Track — Recognized Expert</div>
+    <div class="phase-range">Target: ₹50L–₹1.5Cr+ India · $150K–$400K+ global remote · Own firm possible</div>
+    <ul class="check-list">
+      <li><span class="ck ck-red">▸</span><span><strong>CISO track:</strong> Add an MBA or executive education. Business skills become paramount. ₹50L–₹1Cr+/yr territory.</span></li>
+      <li><span class="ck ck-red">▸</span><span><strong>Independent consultant:</strong> Boutique firm or solo practice. Specialized expertise + reputation = premium rates.</span></li>
+      <li><span class="ck ck-red">▸</span><span><strong>Bug bounty elite:</strong> Top 100 HackerOne researchers earn $100K–$500K/yr. This takes 5–8 years of serious effort.</span></li>
+      <li><span class="ck ck-red">▸</span><span><strong>Security researcher:</strong> CVEs, Defcon/Blackhat talks, tool contributions, academic collaboration. Your name becomes your brand.</span></li>
+      <li><span class="ck ck-red">▸</span><span><strong>Continuous learning is non-negotiable at every stage:</strong> Read technical blogs, follow researchers, attend virtual events. The moment you stop learning, you start falling behind.</span></li>
+    </ul>
+  </div>
+
+  <div class="callout callout-green" style="margin-top:8px;">
+    <strong>The hidden advantage you already have:</strong> You're starting in 2025–26 in India, which has one of the fastest-growing cybersecurity job markets in the world. The demand-supply gap for skilled professionals is enormous. A self-taught, well-documented, cert-holding security professional with a public portfolio in this market is not disadvantaged — they're rare.
+  </div>
+
+  <div class="card" style="margin-top:14px;border-color:rgba(0,232,122,0.3);">
+    <div class="card-title" style="color:var(--green);margin-bottom:10px;">The Final Truth</div>
+    <div class="card-body" style="font-size:14px;line-height:2;color:var(--text);">
+      There are no shortcuts. The market rewards people who can actually do the work and prove it publicly. You have the map, the time, and the capability.<br><br>
+      The only question is whether you'll execute consistently for the next 12–18 months.<br><br>
+      <strong style="color:var(--green);">Start today. Install VirtualBox. Download Kali. Complete the first lesson on linuxjourney.com. Make your first GitHub commit. In 18 months you'll barely recognize yourself.</strong>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div style="max-width:1100px;margin:0 auto;padding:0 40px;">
+    Built for determined learners starting from zero · <span>Cybersecurity Career Roadmap 2025–2026</span> · All resources listed are free or low-cost · Ethics first, always
+  </div>
+</footer>
+
+<script>
+function show(id, btn) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('s-' + id).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({top: document.querySelector('.nav-wrap').offsetTop - 10, behavior: 'smooth'});
+}
+</script>
+</body>
+</html>
