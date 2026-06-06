@@ -1,982 +1,376 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ashoo • Quick Access</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ashoo • Quick Access</title>
 
-    <style>
-        :root {
-            --cyan: #67e8f9;
-            --violet: #a78bfa;
-            --emerald: #34d399;
-            --glass-bg: rgba(12, 18, 30, 0.72);
-            --glass-border: rgba(255, 255, 255, 0.07);
-            --glass-inner: rgba(255, 255, 255, 0.04);
-            --glow-cyan: rgba(103, 232, 249, 0.18);
-            --glow-emerald: rgba(52, 211, 153, 0.18);
-            --glow-violet: rgba(167, 139, 250, 0.18);
-        }
+  <!-- Preconnects -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-        * { box-sizing: border-box; margin: 0; padding: 0; }
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=DM+Mono:wght@400;500&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
 
-        body {
-            font-family: 'DM Sans', system-ui, sans-serif;
-            background: #07090f;
-            color: #e2e8f0;
-            overflow-x: hidden;
-        }
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-        .font-display {
-            font-family: 'Syne', 'DM Sans', sans-serif;
-            font-weight: 800;
-        }
-
-        /* ─── GLASSMORPHISM ─── */
-        .glass {
-            background: var(--glass-bg);
-            backdrop-filter: blur(28px) saturate(180%);
-            -webkit-backdrop-filter: blur(28px) saturate(180%);
-            border: 1px solid var(--glass-border);
-            box-shadow:
-                0 0 0 0.5px rgba(255,255,255,0.04) inset,
-                0 1px 0 rgba(255,255,255,0.07) inset,
-                0 32px 48px -16px rgba(0,0,0,0.5),
-                0 8px 24px -8px rgba(0,0,0,0.4);
-        }
-
-        .glass-card {
-            background: var(--glass-bg);
-            backdrop-filter: blur(28px) saturate(180%);
-            -webkit-backdrop-filter: blur(28px) saturate(180%);
-            border: 1px solid var(--glass-border);
-            box-shadow:
-                0 0 0 0.5px rgba(255,255,255,0.04) inset,
-                0 1px 0 rgba(255,255,255,0.08) inset,
-                0 40px 64px -24px rgba(0,0,0,0.6),
-                0 8px 24px -8px rgba(0,0,0,0.4);
-            transition: transform 0.45s cubic-bezier(0.23, 1, 0.32, 1),
-                        box-shadow 0.45s cubic-bezier(0.23, 1, 0.32, 1),
-                        border-color 0.3s ease;
-        }
-
-        /* ─── ANIMATED GRADIENT TEXT ─── */
-        @keyframes gradientShift {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-        }
-
-        .gradient-text {
-            background: linear-gradient(
-                135deg,
-                #ffffff 0%,
-                #67e8f9 25%,
-                #a78bfa 50%,
-                #34d399 75%,
-                #ffffff 100%
-            );
-            background-size: 300% 300%;
-            background-clip: text;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: gradientShift 6s ease infinite;
-        }
-
-        @keyframes breathe {
-            0%, 100% { opacity: 0.85; transform: scale(1); }
-            50% { opacity: 1; transform: scale(1.01); }
-        }
-
-        .breath { animation: breathe 4s ease-in-out infinite; }
-
-        /* ─── FLOATING PILL NAVBAR ─── */
-        .nav-pill {
-            position: fixed;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 9999;
-            width: auto;
-            max-width: calc(100vw - 40px);
-            background: rgba(10, 14, 24, 0.88);
-            backdrop-filter: blur(32px) saturate(200%);
-            -webkit-backdrop-filter: blur(32px) saturate(200%);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 9999px;
-            box-shadow:
-                0 0 0 0.5px rgba(255,255,255,0.05) inset,
-                0 1px 0 rgba(255,255,255,0.1) inset,
-                0 20px 40px -12px rgba(0,0,0,0.7),
-                0 0 80px -20px rgba(103,232,249,0.12);
-            padding: 10px 20px;
-            display: flex;
-            align-items: center;
-            gap: 24px;
-            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-            animation: navDrop 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) both;
-        }
-
-        @keyframes navDrop {
-            from { opacity: 0; transform: translateX(-50%) translateY(-24px) scale(0.95); }
-            to   { opacity: 1; transform: translateX(-50%) translateY(0) scale(1); }
-        }
-
-        .nav-pill:hover {
-            box-shadow:
-                0 0 0 0.5px rgba(255,255,255,0.06) inset,
-                0 1px 0 rgba(255,255,255,0.12) inset,
-                0 24px 48px -12px rgba(0,0,0,0.8),
-                0 0 100px -16px rgba(103,232,249,0.2);
-        }
-
-        .nav-link {
-            font-size: 0.8rem;
-            font-weight: 500;
-            color: #94a3b8;
-            text-decoration: none;
-            letter-spacing: 0.02em;
-            transition: color 0.25s ease;
-            white-space: nowrap;
-            position: relative;
-        }
-
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: -3px;
-            left: 0; right: 0;
-            height: 1.5px;
-            background: linear-gradient(to right, var(--cyan), var(--violet));
-            border-radius: 99px;
-            transform: scaleX(0);
-            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-        }
-
-        .nav-link:hover { color: #e2e8f0; }
-        .nav-link:hover::after { transform: scaleX(1); }
-
-        .nav-divider {
-            width: 1px;
-            height: 20px;
-            background: rgba(255,255,255,0.1);
-            flex-shrink: 0;
-        }
-
-        /* ─── STAGGER ANIMATIONS ─── */
-        .fade-up {
-            opacity: 0;
-            transform: translateY(32px);
-            animation: fadeUp 0.7s cubic-bezier(0.23, 1, 0.32, 1) forwards;
-        }
-
-        @keyframes fadeUp {
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Delay classes */
-        .d-0  { animation-delay: 0.0s; }
-        .d-1  { animation-delay: 0.08s; }
-        .d-2  { animation-delay: 0.16s; }
-        .d-3  { animation-delay: 0.24s; }
-        .d-4  { animation-delay: 0.32s; }
-        .d-5  { animation-delay: 0.40s; }
-        .d-6  { animation-delay: 0.48s; }
-        .d-7  { animation-delay: 0.56s; }
-        .d-8  { animation-delay: 0.64s; }
-        .d-9  { animation-delay: 0.72s; }
-        .d-10 { animation-delay: 0.80s; }
-        .d-11 { animation-delay: 0.88s; }
-        .d-12 { animation-delay: 0.96s; }
-
-        /* ─── CARD HOVER GLOWS ─── */
-        .card-cyan:hover {
-            border-color: rgba(103,232,249,0.4) !important;
-            box-shadow:
-                0 0 0 0.5px rgba(255,255,255,0.05) inset,
-                0 1px 0 rgba(255,255,255,0.08) inset,
-                0 24px 48px -12px rgba(0,0,0,0.7),
-                0 0 48px -8px rgba(103,232,249,0.25),
-                0 0 0 1px rgba(103,232,249,0.1);
-            transform: translateY(-6px) scale(1.01);
-        }
-
-        .card-emerald:hover {
-            border-color: rgba(52,211,153,0.4) !important;
-            box-shadow:
-                0 0 0 0.5px rgba(255,255,255,0.05) inset,
-                0 1px 0 rgba(255,255,255,0.08) inset,
-                0 24px 48px -12px rgba(0,0,0,0.7),
-                0 0 48px -8px rgba(52,211,153,0.25),
-                0 0 0 1px rgba(52,211,153,0.1);
-            transform: translateY(-6px) scale(1.01);
-        }
-
-        .card-violet:hover {
-            border-color: rgba(167,139,250,0.4) !important;
-            box-shadow:
-                0 0 0 0.5px rgba(255,255,255,0.05) inset,
-                0 1px 0 rgba(255,255,255,0.08) inset,
-                0 24px 48px -12px rgba(0,0,0,0.7),
-                0 0 48px -8px rgba(167,139,250,0.25),
-                0 0 0 1px rgba(167,139,250,0.1);
-            transform: translateY(-6px) scale(1.01);
-        }
-
-        .card-red:hover {
-            border-color: rgba(248,113,113,0.4) !important;
-            box-shadow:
-                0 0 0 0.5px rgba(255,255,255,0.05) inset,
-                0 1px 0 rgba(255,255,255,0.08) inset,
-                0 24px 48px -12px rgba(0,0,0,0.7),
-                0 0 48px -8px rgba(248,113,113,0.2),
-                0 0 0 1px rgba(248,113,113,0.08);
-            transform: translateY(-6px) scale(1.01);
-        }
-
-        .card-sky:hover {
-            border-color: rgba(56,189,248,0.4) !important;
-            box-shadow:
-                0 0 0 0.5px rgba(255,255,255,0.05) inset,
-                0 1px 0 rgba(255,255,255,0.08) inset,
-                0 24px 48px -12px rgba(0,0,0,0.7),
-                0 0 48px -8px rgba(56,189,248,0.2),
-                0 0 0 1px rgba(56,189,248,0.08);
-            transform: translateY(-6px) scale(1.01);
-        }
-
-        /* Quick-link pill hover */
-        .ql-pill {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 10px 16px;
-            border-radius: 9999px;
-            font-size: 0.8rem;
-            font-weight: 500;
-            color: #94a3b8;
-            text-decoration: none;
-            background: rgba(255,255,255,0.04);
-            border: 1px solid rgba(255,255,255,0.07);
-            backdrop-filter: blur(16px);
-            transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
-        }
-
-        .ql-pill:hover {
-            color: #e2e8f0;
-            background: rgba(255,255,255,0.08);
-            border-color: rgba(255,255,255,0.14);
-            transform: translateY(-2px);
-        }
-
-        /* ─── BIG QUICK-ACCESS CARDS ─── */
-        .qa-card {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            padding: 18px 20px;
-            border-radius: 20px;
-            text-decoration: none;
-            color: #e2e8f0;
-            background: rgba(255,255,255,0.03);
-            border: 1px solid rgba(255,255,255,0.07);
-            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-        }
-
-        .qa-card:hover {
-            background: rgba(255,255,255,0.06);
-            transform: translateY(-4px) scale(1.02);
-        }
-
-        /* ─── SEARCH ─── */
-        .search-wrap {
-            position: relative;
-        }
-
-        .search-glow {
-            position: absolute;
-            inset: -2px;
-            border-radius: 99px;
-            background: linear-gradient(135deg, rgba(103,232,249,0.2), rgba(167,139,250,0.15), rgba(52,211,153,0.15));
-            filter: blur(12px);
-            opacity: 0;
-            transition: opacity 0.4s ease;
-            z-index: 0;
-        }
-
-        .search-wrap:focus-within .search-glow { opacity: 1; }
-
-        .search-inner {
-            position: relative;
-            z-index: 1;
-            display: flex;
-            align-items: center;
-            background: rgba(12,18,30,0.85);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 99px;
-            padding: 6px 8px 6px 20px;
-            backdrop-filter: blur(24px);
-            box-shadow: 0 8px 32px -8px rgba(0,0,0,0.5);
-            transition: border-color 0.3s ease;
-        }
-
-        .search-wrap:focus-within .search-inner {
-            border-color: rgba(103,232,249,0.35);
-        }
-
-        .search-inner input {
-            flex: 1;
-            background: transparent;
-            border: none;
-            outline: none;
-            font-size: 1rem;
-            font-family: 'DM Sans', sans-serif;
-            color: #e2e8f0;
-            padding: 8px 12px;
-        }
-
-        .search-inner input::placeholder { color: #4b5563; }
-
-        .search-inner select {
-            background: rgba(255,255,255,0.06);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 99px;
-            padding: 6px 14px;
-            font-size: 0.78rem;
-            color: #94a3b8;
-            font-family: 'DM Sans', sans-serif;
-            cursor: pointer;
-            outline: none;
-        }
-
-        /* ─── NOISE TEXTURE ─── */
-        body::before {
-            content: '';
-            position: fixed;
-            inset: 0;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
-            opacity: 0.025;
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        /* ─── SECTION LABELS ─── */
-        .section-eyebrow {
-            font-size: 0.72rem;
-            font-weight: 600;
-            letter-spacing: 0.14em;
-            text-transform: uppercase;
-            color: var(--cyan);
-            opacity: 0.8;
-            margin-bottom: 6px;
-        }
-
-        .section-title {
-            font-family: 'Syne', sans-serif;
-            font-size: 2rem;
-            font-weight: 800;
-            letter-spacing: -0.04em;
-            line-height: 1.1;
-        }
-
-        /* ─── PULSE BADGE ─── */
-        @keyframes pulseRing {
-            0%   { transform: scale(1); opacity: 0.8; }
-            70%  { transform: scale(2.2); opacity: 0; }
-            100% { transform: scale(1); opacity: 0; }
-        }
-
-        .live-dot {
-            position: relative;
-            width: 8px; height: 8px;
-        }
-
-        .live-dot::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            border-radius: 50%;
-            background: #34d399;
-            animation: pulseRing 2.2s ease-out infinite;
-        }
-
-        .live-dot::after {
-            content: '';
-            position: absolute;
-            inset: 1px;
-            border-radius: 50%;
-            background: #34d399;
-        }
-
-        /* ─── SHORTCUT MODAL ─── */
-        #shortcuts-modal {
-            backdrop-filter: blur(20px);
-        }
-
-        /* ─── SCROLLBAR ─── */
-        ::-webkit-scrollbar { width: 4px; }
-        ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 99px; }
-
-        /* ─── ANIMATIONS for ambient orbs ─── */
-        @keyframes float1 {
-            0%, 100% { transform: translate(0, 0) scale(1); }
-            33%  { transform: translate(60px, -40px) scale(1.1); }
-            66%  { transform: translate(-30px, 50px) scale(0.95); }
-        }
-
-        @keyframes float2 {
-            0%, 100% { transform: translate(0, 0) scale(1); }
-            33%  { transform: translate(-80px, 60px) scale(1.05); }
-            66%  { transform: translate(50px, -30px) scale(0.9); }
-        }
-
-        @keyframes float3 {
-            0%, 100% { transform: translate(0, 0) scale(1); }
-            50%  { transform: translate(40px, -70px) scale(1.08); }
-        }
-
-        .orb {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(80px);
-            pointer-events: none;
-        }
-
-        .orb-1 {
-            width: 600px; height: 600px;
-            top: -200px; left: -150px;
-            background: radial-gradient(circle, rgba(103,232,249,0.06) 0%, transparent 70%);
-            animation: float1 18s ease-in-out infinite;
-        }
-
-        .orb-2 {
-            width: 500px; height: 500px;
-            top: 30%; right: -100px;
-            background: radial-gradient(circle, rgba(167,139,250,0.06) 0%, transparent 70%);
-            animation: float2 22s ease-in-out infinite;
-        }
-
-        .orb-3 {
-            width: 400px; height: 400px;
-            bottom: 10%; left: 30%;
-            background: radial-gradient(circle, rgba(52,211,153,0.05) 0%, transparent 70%);
-            animation: float3 15s ease-in-out infinite;
-        }
-
-        /* ─── WIDGET INNER ─── */
-        .widget-title {
-            font-size: 0.85rem;
-            font-weight: 600;
-            letter-spacing: 0.01em;
-            color: #94a3b8;
-            text-transform: uppercase;
-            font-size: 0.72rem;
-            letter-spacing: 0.1em;
-        }
-
-        /* ─── GRID DOT BG ─── */
-        .dot-grid {
-            background-image: radial-gradient(rgba(255,255,255,0.06) 1px, transparent 1px);
-            background-size: 28px 28px;
-        }
-
-        /* ─── HOMEPAGE PADDING OFFSET FOR FIXED NAV ─── */
-        .page-wrap {
-            padding-top: 90px;
-        }
-
-        /* ─── RESPONSIVE NAV LINKS ─── */
-        @media (max-width: 768px) {
-            .nav-pill { padding: 8px 16px; gap: 12px; }
-            .nav-links-group { display: none; }
-        }
-
-        a { text-decoration: none; color: inherit; }
-    </style>
+  <!-- Styles -->
+  <link rel="stylesheet" href="src/animations.css">
+  <link rel="stylesheet" href="src/main.css">
 </head>
 <body>
 
-    <!-- Ambient Background -->
-    <div class="fixed inset-0 z-0 dot-grid" style="background-color:#07090f"></div>
-    <div class="fixed inset-0 z-0 overflow-hidden pointer-events-none">
-        <div class="orb orb-1"></div>
-        <div class="orb orb-2"></div>
-        <div class="orb orb-3"></div>
-    </div>
-    <canvas id="particles" class="fixed inset-0 z-0"></canvas>
+  <!-- ─── BACKGROUND ─── -->
+  <div class="bg-layer" aria-hidden="true"></div>
 
-    <!-- ─── FLOATING PILL NAV ─── -->
-    <nav class="nav-pill">
-        <!-- Logo -->
-        <div style="display:flex;align-items:center;gap:10px;flex-shrink:0;">
-            <div style="width:34px;height:34px;border-radius:12px;background:linear-gradient(135deg,#67e8f9,#a78bfa,#34d399);display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 0 20px rgba(103,232,249,0.3)">
-                <i class="fas fa-infinity" style="color:white;font-size:13px;"></i>
-            </div>
-            <span style="font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;letter-spacing:-0.03em;">Ashoo</span>
-            <span style="padding:2px 8px;font-size:10px;border-radius:99px;background:rgba(103,232,249,0.1);border:1px solid rgba(103,232,249,0.2);color:#67e8f9;font-weight:600;">v2.6</span>
-        </div>
+  <div class="orbs" aria-hidden="true">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
 
-        <div class="nav-divider nav-links-group"></div>
+  <canvas id="particles" aria-hidden="true"></canvas>
 
-        <!-- Nav links -->
-        <div class="nav-links-group" style="display:flex;align-items:center;gap:20px;">
-            <a href="#learning" class="nav-link">Learning</a>
-            <a href="#certs" class="nav-link">Certs</a>
-            <a href="#roadmaps" class="nav-link">Roadmaps</a>
-            <a href="#tools" class="nav-link">Tools</a>
-            <a href="#quick-access" class="nav-link">Links</a>
-        </div>
 
-        <div class="nav-divider nav-links-group"></div>
+  <!-- ─── NAVIGATION ─── -->
+  <nav class="nav-pill" role="navigation" aria-label="Main navigation">
 
-        <!-- Actions -->
-        <div style="display:flex;align-items:center;gap:8px;flex-shrink:0;">
-            <button onclick="showShortcutsModal()" style="display:flex;align-items:center;gap:6px;padding:6px 14px;border-radius:99px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);color:#94a3b8;font-size:0.78rem;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.2s;">
-                <i class="fas fa-keyboard" style="font-size:10px;"></i>
-                <span class="nav-links-group">Shortcuts</span>
-            </button>
-
-            <div style="display:flex;align-items:center;gap:8px;padding:6px 14px;border-radius:99px;background:rgba(103,232,249,0.08);border:1px solid rgba(103,232,249,0.15);font-size:0.78rem;">
-                <i class="fas fa-clock" style="color:#67e8f9;font-size:11px;"></i>
-                <span id="clock" style="font-family:'DM Mono',monospace;color:#e2e8f0;font-weight:600;"></span>
-            </div>
-        </div>
-    </nav>
-
-    <!-- ─── MAIN CONTENT ─── -->
-    <div class="relative z-10 page-wrap max-w-screen-xl mx-auto px-6 md:px-10">
-
-        <!-- ─── HERO ─── -->
-        <section style="padding: 60px 0 52px;">
-            <div class="fade-up d-0" style="display:inline-flex;align-items:center;gap:8px;padding:6px 16px;border-radius:99px;background:rgba(52,211,153,0.08);border:1px solid rgba(52,211,153,0.18);margin-bottom:24px;">
-                <div class="live-dot"></div>
-                <span style="font-size:0.8rem;font-weight:600;color:#34d399;letter-spacing:0.02em;">Welcome back, Ashoo</span>
-            </div>
-
-            <h1 class="font-display fade-up d-1" style="font-size:clamp(3rem,8vw,5.5rem);letter-spacing:-0.05em;line-height:1;margin-bottom:16px;">
-                Good to see you.<br>
-                <span class="gradient-text breath">Let's make today count.</span>
-            </h1>
-
-            <p class="fade-up d-2" style="font-size:1.1rem;color:#64748b;max-width:440px;line-height:1.7;margin-bottom:40px;">Your personal command center for learning, building, and shipping.</p>
-
-            <!-- Quick Link Pills -->
-            <div class="fade-up d-3" style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:40px;">
-                <a href="https://github.com" class="ql-pill"><i class="fab fa-github"></i> GitHub</a>
-                <a href="https://linkedin.com" class="ql-pill"><i class="fab fa-linkedin" style="color:#38bdf8;"></i> LinkedIn</a>
-                <a href="https://mail.google.com" class="ql-pill"><i class="fas fa-envelope" style="color:#f87171;"></i> Gmail</a>
-                <a href="https://tryhackme.com" class="ql-pill"><i class="fas fa-user-secret" style="color:#34d399;"></i> TryHackMe</a>
-                <a href="https://www.hackthebox.com" class="ql-pill"><i class="fas fa-box" style="color:#34d399;"></i> HackTheBox</a>
-                <a href="https://youtube.com" class="ql-pill"><i class="fab fa-youtube" style="color:#ef4444;"></i> YouTube</a>
-                <a href="https://discord.com" class="ql-pill"><i class="fab fa-discord" style="color:#818cf8;"></i> Discord</a>
-            </div>
-
-            <!-- Search Bar -->
-            <div class="fade-up d-4 search-wrap" style="max-width:600px;">
-                <div class="search-glow"></div>
-                <div class="search-inner">
-                    <i class="fas fa-search" style="color:#4b5563;font-size:14px;"></i>
-                    <input id="search-input" type="text" placeholder="Search anything... (press /)">
-                    <select id="search-engine">
-                        <option value="google">Google</option>
-                        <option value="ddg">DuckDuckGo</option>
-                        <option value="youtube">YouTube</option>
-                        <option value="github">GitHub</option>
-                    </select>
-                </div>
-            </div>
-        </section>
-
-        <!-- ─── LEARNING PLATFORMS ─── -->
-        <section id="learning" style="margin-bottom:64px;">
-            <div class="fade-up d-5" style="margin-bottom:24px;">
-                <div class="section-eyebrow">Learning Platforms</div>
-                <div class="section-title">Level up your skills</div>
-            </div>
-
-            <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;">
-                <a href="https://www.theodinproject.com" target="_blank" class="glass-card card-cyan fade-up d-6" style="padding:28px;border-radius:24px;display:block;">
-                    <div style="width:48px;height:48px;background:rgba(103,232,249,0.1);border-radius:16px;display:flex;align-items:center;justify-content:center;margin-bottom:16px;border:1px solid rgba(103,232,249,0.2);">
-                        <i class="fas fa-gem" style="color:#67e8f9;font-size:20px;"></i>
-                    </div>
-                    <h3 style="font-family:'Syne',sans-serif;font-size:1.35rem;font-weight:700;margin-bottom:6px;">The Odin Project</h3>
-                    <p style="color:#64748b;font-size:0.88rem;line-height:1.6;">Full-stack web dev from scratch — your primary roadmap</p>
-                    <div style="margin-top:14px;display:inline-flex;align-items:center;gap:6px;font-size:0.75rem;color:#67e8f9;font-weight:600;">Open curriculum <i class="fas fa-arrow-right" style="font-size:11px;"></i></div>
-                </a>
-
-                <a href="https://labex.io/learn" target="_blank" class="glass-card card-violet fade-up d-7" style="padding:28px;border-radius:24px;display:block;">
-                    <div style="width:48px;height:48px;background:rgba(167,139,250,0.1);border-radius:16px;display:flex;align-items:center;justify-content:center;margin-bottom:16px;border:1px solid rgba(167,139,250,0.2);">
-                        <i class="fas fa-flask" style="color:#a78bfa;font-size:20px;"></i>
-                    </div>
-                    <h3 style="font-family:'Syne',sans-serif;font-size:1.35rem;font-weight:700;margin-bottom:6px;">LabEx</h3>
-                    <p style="color:#64748b;font-size:0.88rem;line-height:1.6;">Hands-on labs for Linux, DevOps &amp; Security</p>
-                    <div style="margin-top:14px;display:inline-flex;align-items:center;gap:6px;font-size:0.75rem;color:#a78bfa;font-weight:600;">Launch labs <i class="fas fa-arrow-right" style="font-size:11px;"></i></div>
-                </a>
-
-                <a href="https://tryhackme.com/hacktivities" target="_blank" class="glass-card card-emerald fade-up d-8" style="padding:28px;border-radius:24px;display:block;">
-                    <div style="width:48px;height:48px;background:rgba(52,211,153,0.1);border-radius:16px;display:flex;align-items:center;justify-content:center;margin-bottom:16px;border:1px solid rgba(52,211,153,0.2);">
-                        <i class="fas fa-user-secret" style="color:#34d399;font-size:20px;"></i>
-                    </div>
-                    <h3 style="font-family:'Syne',sans-serif;font-size:1.35rem;font-weight:700;margin-bottom:6px;">TryHackMe</h3>
-                    <p style="color:#64748b;font-size:0.88rem;line-height:1.6;">Gamified cybersecurity training &amp; CTF challenges</p>
-                    <div style="margin-top:14px;display:inline-flex;align-items:center;gap:6px;font-size:0.75rem;color:#34d399;font-weight:600;">Start hacking <i class="fas fa-arrow-right" style="font-size:11px;"></i></div>
-                </a>
-
-                <a href="https://developer.mozilla.org" target="_blank" class="glass-card card-sky fade-up d-9" style="padding:28px;border-radius:24px;display:block;">
-                    <div style="width:48px;height:48px;background:rgba(56,189,248,0.1);border-radius:16px;display:flex;align-items:center;justify-content:center;margin-bottom:16px;border:1px solid rgba(56,189,248,0.2);">
-                        <i class="fas fa-book-open" style="color:#38bdf8;font-size:20px;"></i>
-                    </div>
-                    <h3 style="font-family:'Syne',sans-serif;font-size:1.35rem;font-weight:700;margin-bottom:6px;">MDN Web Docs</h3>
-                    <p style="color:#64748b;font-size:0.88rem;line-height:1.6;">The definitive reference for HTML, CSS &amp; JavaScript</p>
-                    <div style="margin-top:14px;display:inline-flex;align-items:center;gap:6px;font-size:0.75rem;color:#38bdf8;font-weight:600;">Read docs <i class="fas fa-arrow-right" style="font-size:11px;"></i></div>
-                </a>
-            </div>
-        </section>
-
-        <!-- ─── CERTS ─── -->
-        <section id="certs" style="margin-bottom:64px;">
-            <div class="fade-up d-6" style="margin-bottom:24px;">
-                <div class="section-eyebrow">Certification Prep</div>
-                <div class="section-title">Professor Messer</div>
-            </div>
-
-            <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px;">
-                <a href="https://www.youtube.com/watch?v=k7IOn3TiUc8&list=PLG49S3nxzAnl_tQe3kvnmeMid0mjF8Le8" target="_blank" class="glass-card card-red fade-up d-7" style="padding:24px;border-radius:20px;display:flex;align-items:center;gap:18px;">
-                    <div style="width:56px;height:56px;background:rgba(248,113,113,0.1);border-radius:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:1px solid rgba(248,113,113,0.2);">
-                        <i class="fab fa-youtube" style="color:#f87171;font-size:24px;"></i>
-                    </div>
-                    <div>
-                        <h3 style="font-family:'Syne',sans-serif;font-size:1.2rem;font-weight:700;margin-bottom:4px;">Network+</h3>
-                        <p style="color:#64748b;font-size:0.82rem;">87 lessons • N10-009</p>
-                    </div>
-                </a>
-
-                <a href="https://www.youtube.com/watch?v=KiEptGbnEBc&list=PLG49S3nxzAnl4QDVqK-hOnoqcSKEIDDuv" target="_blank" class="glass-card card-red fade-up d-8" style="padding:24px;border-radius:20px;display:flex;align-items:center;gap:18px;">
-                    <div style="width:56px;height:56px;background:rgba(248,113,113,0.1);border-radius:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:1px solid rgba(248,113,113,0.2);">
-                        <i class="fab fa-youtube" style="color:#f87171;font-size:24px;"></i>
-                    </div>
-                    <div>
-                        <h3 style="font-family:'Syne',sans-serif;font-size:1.2rem;font-weight:700;margin-bottom:4px;">Security+</h3>
-                        <p style="color:#64748b;font-size:0.82rem;">121 lessons • SY0-701</p>
-                    </div>
-                </a>
-            </div>
-        </section>
-
-        <!-- ─── ROADMAPS ─── -->
-        <section id="roadmaps" style="margin-bottom:64px;">
-            <div class="fade-up d-7" style="margin-bottom:24px;">
-                <div class="section-eyebrow">Career Acceleration</div>
-                <div class="section-title">Roadmaps &amp; Plans</div>
-            </div>
-
-            <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px;">
-                <a href="roadmap.html" class="glass-card card-emerald fade-up d-8" style="padding:28px;border-radius:20px;display:flex;align-items:center;gap:18px;">
-                    <div style="width:52px;height:52px;background:rgba(52,211,153,0.1);border-radius:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:1px solid rgba(52,211,153,0.2);">
-                        <i class="fas fa-route" style="color:#34d399;font-size:22px;"></i>
-                    </div>
-                    <div>
-                        <h3 style="font-family:'Syne',sans-serif;font-size:1.15rem;font-weight:700;margin-bottom:4px;">Zero to Professional</h3>
-                        <p style="color:#34d399;font-size:0.8rem;font-weight:600;">4-Month Frontend Roadmap</p>
-                    </div>
-                </a>
-
-                <a href="master-plan.html" class="glass-card card-sky fade-up d-9" style="padding:28px;border-radius:20px;display:flex;align-items:center;gap:18px;">
-                    <div style="width:52px;height:52px;background:rgba(56,189,248,0.1);border-radius:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:1px solid rgba(56,189,248,0.2);">
-                        <i class="fas fa-tasks" style="color:#38bdf8;font-size:22px;"></i>
-                    </div>
-                    <div>
-                        <h3 style="font-family:'Syne',sans-serif;font-size:1.15rem;font-weight:700;margin-bottom:4px;">Interactive Master Plan</h3>
-                        <p style="color:#38bdf8;font-size:0.8rem;font-weight:600;">Week-by-Week + Daily System</p>
-                    </div>
-                </a>
-            </div>
-        </section>
-
-        <!-- ─── TOOLS ─── -->
-        <section id="tools" style="margin-bottom:64px;">
-            <div class="fade-up d-8" style="margin-bottom:24px;">
-                <div class="section-eyebrow">Productivity Hub</div>
-                <div class="section-title">Tools &amp; Trackers</div>
-            </div>
-
-            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;" class="fade-up d-9">
-                <!-- Todo -->
-                <div class="glass" style="border-radius:20px;padding:24px;grid-column: span 1;">
-                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
-                        <div class="widget-title">Daily Tasks</div>
-                        <button onclick="addTodo()" style="font-size:0.75rem;padding:4px 12px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.1);border-radius:99px;color:#94a3b8;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.12)'" onmouseout="this.style.background='rgba(255,255,255,0.07)'">+ Add</button>
-                    </div>
-                    <div id="todo-list" style="display:flex;flex-direction:column;gap:6px;max-height:240px;overflow-y:auto;font-size:0.85rem;"></div>
-                </div>
-
-                <!-- Notes -->
-                <div class="glass" style="border-radius:20px;padding:24px;">
-                    <div class="widget-title" style="margin-bottom:12px;">Quick Notes</div>
-                    <textarea id="quick-note" placeholder="Write a quick note..." style="width:100%;height:160px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:12px;font-size:0.85rem;color:#e2e8f0;resize:none;font-family:'DM Sans',sans-serif;outline:none;transition:border-color 0.2s;" onfocus="this.style.borderColor='rgba(103,232,249,0.3)'" onblur="this.style.borderColor='rgba(255,255,255,0.08)'"></textarea>
-                    <button onclick="saveNote()" style="margin-top:10px;padding:6px 16px;font-size:0.78rem;background:rgba(103,232,249,0.1);border:1px solid rgba(103,232,249,0.2);border-radius:99px;color:#67e8f9;cursor:pointer;font-family:'DM Sans',sans-serif;font-weight:600;transition:all 0.2s;" onmouseover="this.style.background='rgba(103,232,249,0.18)'" onmouseout="this.style.background='rgba(103,232,249,0.1)'">Save Note</button>
-                </div>
-
-                <!-- Calendar + Quote -->
-                <div style="display:flex;flex-direction:column;gap:16px;">
-                    <div class="glass" style="border-radius:20px;padding:20px;">
-                        <div class="widget-title" style="margin-bottom:10px;">Calendar</div>
-                        <div id="mini-calendar" style="font-size:0.78rem;"></div>
-                    </div>
-                    <div class="glass" style="border-radius:20px;padding:20px;flex:1;">
-                        <div class="widget-title" style="margin-bottom:8px;">Daily Quote</div>
-                        <div id="daily-quote" style="font-size:0.82rem;color:#94a3b8;font-style:italic;line-height:1.6;"></div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Responsive stacked on mobile -->
-            <style>
-                @media (max-width: 768px) {
-                    #tools .widget-grid { grid-template-columns: 1fr !important; }
-                    #tools div[style*="grid-template-columns:1fr 1fr 1fr"] { grid-template-columns: 1fr !important; }
-                }
-            </style>
-        </section>
-
-        <!-- ─── QUICK ACCESS ─── -->
-        <section id="quick-access" style="margin-bottom:80px;">
-            <div class="fade-up d-10" style="margin-bottom:24px;">
-                <div class="section-eyebrow">Quick Access</div>
-                <div class="section-title">Everything you need</div>
-            </div>
-
-            <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;" class="fade-up d-11">
-                <a href="https://github.com" class="qa-card card-cyan glass-card"><i class="fab fa-github" style="font-size:22px;flex-shrink:0;"></i><div style="font-weight:600;font-size:0.9rem;">GitHub</div></a>
-                <a href="https://reddit.com" class="qa-card glass-card" style="--glow:rgba(251,146,60,0.2);" onmouseover="this.style.borderColor='rgba(251,146,60,0.3)';this.style.boxShadow='0 0 40px -8px rgba(251,146,60,0.2)';this.style.transform='translateY(-4px) scale(1.02)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.07)';this.style.boxShadow='';this.style.transform=''"><i class="fab fa-reddit" style="font-size:22px;color:#fb923c;flex-shrink:0;"></i><div style="font-weight:600;font-size:0.9rem;">Reddit</div></a>
-                <a href="https://linkedin.com" class="qa-card card-sky glass-card"><i class="fab fa-linkedin" style="font-size:22px;color:#38bdf8;flex-shrink:0;"></i><div style="font-weight:600;font-size:0.9rem;">LinkedIn</div></a>
-                <a href="https://discord.com" class="qa-card card-violet glass-card"><i class="fab fa-discord" style="font-size:22px;color:#a78bfa;flex-shrink:0;"></i><div style="font-weight:600;font-size:0.9rem;">Discord</div></a>
-                <a href="https://x.com" class="qa-card glass-card" onmouseover="this.style.borderColor='rgba(255,255,255,0.2)';this.style.transform='translateY(-4px) scale(1.02)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.07)';this.style.transform=''"><i class="fab fa-x-twitter" style="font-size:22px;flex-shrink:0;"></i><div style="font-weight:600;font-size:0.9rem;">X</div></a>
-                <a href="https://youtube.com" class="qa-card card-red glass-card"><i class="fab fa-youtube" style="font-size:22px;color:#f87171;flex-shrink:0;"></i><div style="font-weight:600;font-size:0.9rem;">YouTube</div></a>
-                <a href="https://mail.google.com" class="qa-card card-red glass-card"><i class="fas fa-envelope" style="font-size:22px;color:#f87171;flex-shrink:0;"></i><div style="font-weight:600;font-size:0.9rem;">Gmail</div></a>
-                <a href="https://drive.google.com" class="qa-card glass-card" onmouseover="this.style.borderColor='rgba(250,204,21,0.3)';this.style.boxShadow='0 0 40px -8px rgba(250,204,21,0.15)';this.style.transform='translateY(-4px) scale(1.02)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.07)';this.style.boxShadow='';this.style.transform=''"><i class="fas fa-cloud" style="font-size:22px;color:#facc15;flex-shrink:0;"></i><div style="font-weight:600;font-size:0.9rem;">Drive</div></a>
-                <a href="https://www.hackthebox.com" class="qa-card card-emerald glass-card"><i class="fas fa-box" style="font-size:22px;color:#34d399;flex-shrink:0;"></i><div style="font-weight:600;font-size:0.9rem;">Hack The Box</div></a>
-                <a href="https://portswigger.net/web-security" class="qa-card card-violet glass-card"><i class="fas fa-shield-alt" style="font-size:22px;color:#a78bfa;flex-shrink:0;"></i><div style="font-weight:600;font-size:0.9rem;">Web Security Academy</div></a>
-                <a href="https://codepen.io" class="qa-card card-cyan glass-card"><i class="fab fa-codepen" style="font-size:22px;color:#67e8f9;flex-shrink:0;"></i><div style="font-weight:600;font-size:0.9rem;">CodePen</div></a>
-                <a href="https://stackoverflow.com" class="qa-card glass-card" onmouseover="this.style.borderColor='rgba(251,146,60,0.3)';this.style.transform='translateY(-4px) scale(1.02)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.07)';this.style.transform=''"><i class="fab fa-stack-overflow" style="font-size:22px;color:#fb923c;flex-shrink:0;"></i><div style="font-weight:600;font-size:0.9rem;">Stack Overflow</div></a>
-            </div>
-        </section>
-
-    </div><!-- /page-wrap -->
-
-    <!-- ─── SHORTCUTS MODAL ─── -->
-    <div id="shortcuts-modal" onclick="hideShortcutsModal()" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:10000;align-items:center;justify-content:center;backdrop-filter:blur(20px);">
-        <div onclick="event.stopPropagation()" style="background:rgba(10,14,24,0.95);border:1px solid rgba(255,255,255,0.12);border-radius:24px;padding:32px;width:100%;max-width:380px;box-shadow:0 40px 80px -20px rgba(0,0,0,0.8),0 0 80px -30px rgba(103,232,249,0.15);">
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;">
-                <h3 style="font-family:'Syne',sans-serif;font-size:1.15rem;font-weight:700;">Keyboard Shortcuts</h3>
-                <button onclick="hideShortcutsModal()" style="width:28px;height:28px;background:rgba(255,255,255,0.07);border:none;border-radius:8px;color:#94a3b8;cursor:pointer;font-size:16px;">×</button>
-            </div>
-            <div style="display:flex;flex-direction:column;gap:12px;font-size:0.85rem;">
-                <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 14px;background:rgba(255,255,255,0.04);border-radius:10px;">
-                    <span style="color:#94a3b8;">Focus Search</span>
-                    <kbd style="background:rgba(103,232,249,0.1);border:1px solid rgba(103,232,249,0.2);color:#67e8f9;padding:2px 8px;border-radius:6px;font-family:monospace;font-size:0.8rem;">/</kbd>
-                </div>
-                <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 14px;background:rgba(255,255,255,0.04);border-radius:10px;">
-                    <span style="color:#94a3b8;">Add Todo</span>
-                    <kbd style="background:rgba(103,232,249,0.1);border:1px solid rgba(103,232,249,0.2);color:#67e8f9;padding:2px 8px;border-radius:6px;font-family:monospace;font-size:0.8rem;">N</kbd>
-                </div>
-                <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 14px;background:rgba(255,255,255,0.04);border-radius:10px;">
-                    <span style="color:#94a3b8;">Show Shortcuts</span>
-                    <kbd style="background:rgba(103,232,249,0.1);border:1px solid rgba(103,232,249,0.2);color:#67e8f9;padding:2px 8px;border-radius:6px;font-family:monospace;font-size:0.8rem;">?</kbd>
-                </div>
-                <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 14px;background:rgba(255,255,255,0.04);border-radius:10px;">
-                    <span style="color:#94a3b8;">Close Modal</span>
-                    <kbd style="background:rgba(103,232,249,0.1);border:1px solid rgba(103,232,249,0.2);color:#67e8f9;padding:2px 8px;border-radius:6px;font-family:monospace;font-size:0.8rem;">ESC</kbd>
-                </div>
-            </div>
-        </div>
+    <!-- Logo -->
+    <div class="nav-logo">
+      <div class="nav-logo-icon" aria-hidden="true">
+        <i class="fas fa-infinity" style="color:white;font-size:13px;"></i>
+      </div>
+      <span class="nav-logo-name">Ashoo</span>
+      <span class="nav-badge">v2.6</span>
     </div>
 
-    <script>
-        /* ─── CLOCK ─── */
-        function updateClock() {
-            const el = document.getElementById('clock');
-            const tick = () => {
-                el.textContent = new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
-            };
-            tick();
-            setInterval(tick, 10000);
-        }
+    <div class="nav-divider nav-links" aria-hidden="true"></div>
 
-        /* ─── SEARCH ─── */
-        function setupSearch() {
-            const input = document.getElementById('search-input');
-            const engine = document.getElementById('search-engine');
+    <!-- Links -->
+    <div class="nav-links" role="list">
+      <a href="#learning"     class="nav-link" role="listitem">Learning</a>
+      <a href="#certs"        class="nav-link" role="listitem">Certs</a>
+      <a href="#roadmaps"     class="nav-link" role="listitem">Roadmaps</a>
+      <a href="#tools"        class="nav-link" role="listitem">Tools</a>
+      <a href="#quick-access" class="nav-link" role="listitem">Links</a>
+    </div>
 
-            document.addEventListener('keydown', e => {
-                if (e.key === '/' && document.activeElement.tagName === 'BODY') {
-                    e.preventDefault(); input.focus();
-                }
-                if (e.key === 'n' && document.activeElement.tagName === 'BODY') {
-                    e.preventDefault(); addTodo();
-                }
-                if (e.key === '?' && document.activeElement.tagName === 'BODY') {
-                    showShortcutsModal();
-                }
-                if (e.key === 'Escape') hideShortcutsModal();
-            });
+    <div class="nav-divider nav-links" aria-hidden="true"></div>
 
-            input.addEventListener('keypress', e => {
-                if (e.key !== 'Enter' || !input.value.trim()) return;
-                const q = encodeURIComponent(input.value.trim());
-                const urls = {
-                    ddg: `https://duckduckgo.com/?q=${q}`,
-                    youtube: `https://www.youtube.com/results?search_query=${q}`,
-                    github: `https://github.com/search?q=${q}`,
-                    google: `https://www.google.com/search?q=${q}`
-                };
-                window.open(urls[engine.value] || urls.google, '_blank');
-                input.value = '';
-            });
-        }
+    <!-- Actions -->
+    <div class="nav-actions">
+      <button class="nav-btn" onclick="showShortcutsModal()" aria-label="Show keyboard shortcuts">
+        <i class="fas fa-keyboard" style="font-size:10px;" aria-hidden="true"></i>
+        <span class="nav-links">Shortcuts</span>
+      </button>
 
-        /* ─── PARTICLES ─── */
-        function initParticles() {
-            const canvas = document.getElementById('particles');
-            const ctx = canvas.getContext('2d');
+      <div class="nav-clock" role="timer" aria-live="off">
+        <i class="fas fa-clock" style="color:#67e8f9;font-size:11px;" aria-hidden="true"></i>
+        <span id="clock" aria-label="Current time"></span>
+      </div>
+    </div>
+  </nav>
 
-            const resize = () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; };
-            window.addEventListener('resize', resize);
-            resize();
 
-            const count = Math.min(50, Math.floor(window.innerWidth / 28));
-            const particles = Array.from({length: count}, () => ({
-                x: Math.random() * canvas.width,
-                y: Math.random() * canvas.height,
-                r: Math.random() * 1.8 + 0.5,
-                vx: (Math.random() - 0.5) * 0.25,
-                vy: (Math.random() - 0.5) * 0.25,
-                a: Math.random() * 0.35 + 0.1,
-                color: Math.random() > 0.6 ? '103,232,249' : Math.random() > 0.5 ? '167,139,250' : '52,211,153'
-            }));
+  <!-- ─── PAGE CONTENT ─── -->
+  <main class="page-wrap">
 
-            const animate = () => {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                particles.forEach(p => {
-                    p.x += p.vx; p.y += p.vy;
-                    if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
-                    if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
-                    ctx.fillStyle = `rgba(${p.color},${p.a})`;
-                    ctx.beginPath();
-                    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-                    ctx.fill();
-                });
-                requestAnimationFrame(animate);
-            };
-            animate();
-        }
+    <!-- ── HERO ── -->
+    <section class="hero" aria-labelledby="hero-heading">
 
-        /* ─── TODOS ─── */
-        let todos = JSON.parse(localStorage.getItem('todos_v2')) || [];
+      <div class="hero-badge fade-up d-0" aria-label="Status: online">
+        <div class="live-dot" aria-hidden="true"></div>
+        <span>Welcome back, Ashoo</span>
+      </div>
 
-        function renderTodos() {
-            const c = document.getElementById('todo-list');
-            c.innerHTML = '';
-            if (!todos.length) {
-                c.innerHTML = '<div style="color:#4b5563;font-size:0.82rem;padding:8px 4px;">No tasks yet — press N to add one</div>';
-                return;
-            }
-            todos.forEach((t, i) => {
-                const d = document.createElement('div');
-                d.style.cssText = `display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:10px;background:rgba(255,255,255,0.03);opacity:${t.done ? 0.5 : 1};transition:opacity 0.2s;`;
-                d.innerHTML = `
-                    <input type="checkbox" ${t.done ? 'checked' : ''} style="accent-color:#67e8f9;cursor:pointer;width:14px;height:14px;">
-                    <span style="flex:1;font-size:0.83rem;color:#cbd5e1;${t.done ? 'text-decoration:line-through;color:#4b5563;' : ''}">${t.text}</span>
-                    <button style="color:#f87171;background:none;border:none;cursor:pointer;font-size:16px;line-height:1;padding:0 2px;opacity:0.6;transition:opacity 0.2s;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.6">×</button>
-                `;
-                d.querySelector('input').onchange = () => { todos[i].done = !todos[i].done; save(); renderTodos(); };
-                d.querySelector('button').onclick = () => { todos.splice(i, 1); save(); renderTodos(); };
-                c.appendChild(d);
-            });
-        }
+      <h1 class="hero-title fade-up d-1" id="hero-heading">
+        Good to see you.<br>
+        <span class="gradient-text breathe">Let's make today count.</span>
+      </h1>
 
-        function save() { localStorage.setItem('todos_v2', JSON.stringify(todos)); }
+      <p class="hero-sub fade-up d-2">
+        Your personal command center for learning, building, and shipping.
+      </p>
 
-        function addTodo() {
-            const text = prompt('New task:');
-            if (text?.trim()) { todos.push({text: text.trim(), done: false}); save(); renderTodos(); }
-        }
+      <!-- Quick Link Pills -->
+      <div class="pill-row fade-up d-3" role="list" aria-label="Quick links">
+        <a href="https://github.com"          target="_blank" rel="noopener" class="ql-pill" role="listitem"><i class="fab fa-github"          aria-hidden="true"></i> GitHub</a>
+        <a href="https://linkedin.com"        target="_blank" rel="noopener" class="ql-pill" role="listitem"><i class="fab fa-linkedin"        style="color:#38bdf8;" aria-hidden="true"></i> LinkedIn</a>
+        <a href="https://mail.google.com"     target="_blank" rel="noopener" class="ql-pill" role="listitem"><i class="fas fa-envelope"        style="color:#f87171;" aria-hidden="true"></i> Gmail</a>
+        <a href="https://tryhackme.com"       target="_blank" rel="noopener" class="ql-pill" role="listitem"><i class="fas fa-user-secret"     style="color:#34d399;" aria-hidden="true"></i> TryHackMe</a>
+        <a href="https://www.hackthebox.com"  target="_blank" rel="noopener" class="ql-pill" role="listitem"><i class="fas fa-box"             style="color:#34d399;" aria-hidden="true"></i> HackTheBox</a>
+        <a href="https://youtube.com"         target="_blank" rel="noopener" class="ql-pill" role="listitem"><i class="fab fa-youtube"         style="color:#ef4444;" aria-hidden="true"></i> YouTube</a>
+        <a href="https://discord.com"         target="_blank" rel="noopener" class="ql-pill" role="listitem"><i class="fab fa-discord"         style="color:#818cf8;" aria-hidden="true"></i> Discord</a>
+      </div>
 
-        function saveNote() {
-            const v = document.getElementById('quick-note').value;
-            if (v.trim()) { localStorage.setItem('quickNote', v); alert('Note saved ✓'); }
-        }
+      <!-- Search -->
+      <div class="search-wrap fade-up d-4" role="search">
+        <div class="search-glow" aria-hidden="true"></div>
+        <div class="search-inner">
+          <i class="fas fa-search" style="color:#4b5563;font-size:14px;" aria-hidden="true"></i>
+          <input
+            id="search-input"
+            type="search"
+            placeholder="Search anything… (press /)"
+            autocomplete="off"
+            aria-label="Search the web"
+          >
+          <select id="search-engine" aria-label="Search engine">
+            <option value="google">Google</option>
+            <option value="ddg">DuckDuckGo</option>
+            <option value="youtube">YouTube</option>
+            <option value="github">GitHub</option>
+          </select>
+        </div>
+      </div>
 
-        /* ─── CALENDAR ─── */
-        function renderMiniCalendar() {
-            const d = new Date();
-            const mo = d.toLocaleString('default', {month:'long'});
-            const yr = d.getFullYear();
-            const day = d.getDate();
-            const first = new Date(yr, d.getMonth(), 1).getDay();
-            const total = new Date(yr, d.getMonth() + 1, 0).getDate();
+    </section><!-- /hero -->
 
-            let html = `<div style="color:#64748b;font-size:0.72rem;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;margin-bottom:8px;">${mo} ${yr}</div>`;
-            html += `<div style="display:grid;grid-template-columns:repeat(7,1fr);gap:2px;text-align:center;">`;
-            ['S','M','T','W','T','F','S'].forEach(d => {
-                html += `<div style="font-size:0.65rem;color:#4b5563;padding:2px;">${d}</div>`;
-            });
-            for (let i = 0; i < first; i++) html += `<div></div>`;
-            for (let n = 1; n <= total; n++) {
-                const isToday = n === day;
-                html += `<div style="font-size:0.72rem;padding:3px 1px;border-radius:6px;${isToday ? 'background:#67e8f9;color:#07090f;font-weight:700;' : 'color:#64748b;'}">${n}</div>`;
-            }
-            html += `</div>`;
-            document.getElementById('mini-calendar').innerHTML = html;
-        }
 
-        /* ─── QUOTE ─── */
-        function loadQuote() {
-            const quotes = [
-                "The best way to predict the future is to create it.",
-                "Stay curious. The best builders never stop learning.",
-                "Code is like humor. When you have to explain it, it's bad.",
-                "First, solve the problem. Then, write the code.",
-                "Every expert was once a beginner. Ship daily.",
-                "Your portfolio speaks louder than any degree.",
-            ];
-            document.getElementById('daily-quote').textContent = `"${quotes[new Date().getDate() % quotes.length]}"`;
-        }
+    <!-- ── LEARNING PLATFORMS ── -->
+    <section id="learning" class="section" aria-labelledby="learning-title">
+      <div class="section-head fade-up d-5">
+        <div class="section-eyebrow">Learning Platforms</div>
+        <h2 class="section-title" id="learning-title">Level up your skills</h2>
+      </div>
 
-        /* ─── MODAL ─── */
-        function showShortcutsModal() {
-            const m = document.getElementById('shortcuts-modal');
-            m.style.display = 'flex';
-        }
-        function hideShortcutsModal() {
-            document.getElementById('shortcuts-modal').style.display = 'none';
-        }
+      <div class="learning-grid">
 
-        /* ─── LOAD NOTE ─── */
-        function loadNote() {
-            const s = localStorage.getItem('quickNote');
-            if (s) document.getElementById('quick-note').value = s;
-        }
+        <a href="https://www.theodinproject.com" target="_blank" rel="noopener"
+           class="learn-card glass-card card-cyan fade-up d-6">
+          <div class="learn-card-icon" style="background:rgba(103,232,249,0.1);border:1px solid rgba(103,232,249,0.2);">
+            <i class="fas fa-gem" style="color:#67e8f9;" aria-hidden="true"></i>
+          </div>
+          <h3>The Odin Project</h3>
+          <p>Full-stack web dev from scratch — your primary roadmap</p>
+          <div class="learn-card-cta" style="color:#67e8f9;">
+            Open curriculum <i class="fas fa-arrow-right" style="font-size:11px;" aria-hidden="true"></i>
+          </div>
+        </a>
 
-        /* ─── INIT ─── */
-        window.onload = () => {
-            updateClock();
-            setupSearch();
-            initParticles();
-            renderTodos();
-            loadNote();
-            renderMiniCalendar();
-            loadQuote();
-        };
+        <a href="https://labex.io/learn" target="_blank" rel="noopener"
+           class="learn-card glass-card card-violet fade-up d-7">
+          <div class="learn-card-icon" style="background:rgba(167,139,250,0.1);border:1px solid rgba(167,139,250,0.2);">
+            <i class="fas fa-flask" style="color:#a78bfa;" aria-hidden="true"></i>
+          </div>
+          <h3>LabEx</h3>
+          <p>Hands-on labs for Linux, DevOps &amp; Security</p>
+          <div class="learn-card-cta" style="color:#a78bfa;">
+            Launch labs <i class="fas fa-arrow-right" style="font-size:11px;" aria-hidden="true"></i>
+          </div>
+        </a>
 
-        window.addTodo = addTodo;
-        window.saveNote = saveNote;
-        window.showShortcutsModal = showShortcutsModal;
-        window.hideShortcutsModal = hideShortcutsModal;
-    </script>
+        <a href="https://tryhackme.com/hacktivities" target="_blank" rel="noopener"
+           class="learn-card glass-card card-emerald fade-up d-8">
+          <div class="learn-card-icon" style="background:rgba(52,211,153,0.1);border:1px solid rgba(52,211,153,0.2);">
+            <i class="fas fa-user-secret" style="color:#34d399;" aria-hidden="true"></i>
+          </div>
+          <h3>TryHackMe</h3>
+          <p>Gamified cybersecurity training &amp; CTF challenges</p>
+          <div class="learn-card-cta" style="color:#34d399;">
+            Start hacking <i class="fas fa-arrow-right" style="font-size:11px;" aria-hidden="true"></i>
+          </div>
+        </a>
+
+        <a href="https://developer.mozilla.org" target="_blank" rel="noopener"
+           class="learn-card glass-card card-sky fade-up d-9">
+          <div class="learn-card-icon" style="background:rgba(56,189,248,0.1);border:1px solid rgba(56,189,248,0.2);">
+            <i class="fas fa-book-open" style="color:#38bdf8;" aria-hidden="true"></i>
+          </div>
+          <h3>MDN Web Docs</h3>
+          <p>The definitive reference for HTML, CSS &amp; JavaScript</p>
+          <div class="learn-card-cta" style="color:#38bdf8;">
+            Read docs <i class="fas fa-arrow-right" style="font-size:11px;" aria-hidden="true"></i>
+          </div>
+        </a>
+
+      </div>
+    </section>
+
+
+    <!-- ── CERTIFICATION PREP ── -->
+    <section id="certs" class="section" aria-labelledby="certs-title">
+      <div class="section-head fade-up d-6">
+        <div class="section-eyebrow">Certification Prep</div>
+        <h2 class="section-title" id="certs-title">Professor Messer</h2>
+      </div>
+
+      <div class="certs-grid">
+
+        <a href="https://www.youtube.com/watch?v=k7IOn3TiUc8&list=PLG49S3nxzAnl_tQe3kvnmeMid0mjF8Le8"
+           target="_blank" rel="noopener"
+           class="cert-card glass-card card-red fade-up d-7">
+          <div class="cert-icon" style="background:rgba(248,113,113,0.1);border:1px solid rgba(248,113,113,0.2);">
+            <i class="fab fa-youtube" style="color:#f87171;" aria-hidden="true"></i>
+          </div>
+          <div>
+            <h3>Network+</h3>
+            <p>87 lessons • N10-009</p>
+          </div>
+        </a>
+
+        <a href="https://www.youtube.com/watch?v=KiEptGbnEBc&list=PLG49S3nxzAnl4QDVqK-hOnoqcSKEIDDuv"
+           target="_blank" rel="noopener"
+           class="cert-card glass-card card-red fade-up d-8">
+          <div class="cert-icon" style="background:rgba(248,113,113,0.1);border:1px solid rgba(248,113,113,0.2);">
+            <i class="fab fa-youtube" style="color:#f87171;" aria-hidden="true"></i>
+          </div>
+          <div>
+            <h3>Security+</h3>
+            <p>121 lessons • SY0-701</p>
+          </div>
+        </a>
+
+      </div>
+    </section>
+
+
+    <!-- ── ROADMAPS ── -->
+    <section id="roadmaps" class="section" aria-labelledby="roadmaps-title">
+      <div class="section-head fade-up d-7">
+        <div class="section-eyebrow">Career Acceleration</div>
+        <h2 class="section-title" id="roadmaps-title">Roadmaps &amp; Plans</h2>
+      </div>
+
+      <div class="roadmaps-grid">
+
+        <a href="roadmap.html" class="roadmap-card glass-card card-emerald fade-up d-8">
+          <div class="roadmap-icon" style="background:rgba(52,211,153,0.1);border:1px solid rgba(52,211,153,0.2);">
+            <i class="fas fa-route" style="color:#34d399;" aria-hidden="true"></i>
+          </div>
+          <div>
+            <h3>Zero to Professional</h3>
+            <p style="color:#34d399;font-size:0.8rem;font-weight:600;">4-Month Frontend Roadmap</p>
+          </div>
+        </a>
+
+        <a href="master-plan.html" class="roadmap-card glass-card card-sky fade-up d-9">
+          <div class="roadmap-icon" style="background:rgba(56,189,248,0.1);border:1px solid rgba(56,189,248,0.2);">
+            <i class="fas fa-tasks" style="color:#38bdf8;" aria-hidden="true"></i>
+          </div>
+          <div>
+            <h3>Interactive Master Plan</h3>
+            <p style="color:#38bdf8;font-size:0.8rem;font-weight:600;">Week-by-Week + Daily System</p>
+          </div>
+        </a>
+
+      </div>
+    </section>
+
+
+    <!-- ── TOOLS & TRACKERS ── -->
+    <section id="tools" class="section" aria-labelledby="tools-title">
+      <div class="section-head fade-up d-8">
+        <div class="section-eyebrow">Productivity Hub</div>
+        <h2 class="section-title" id="tools-title">Tools &amp; Trackers</h2>
+      </div>
+
+      <div class="tools-grid fade-up d-9">
+
+        <!-- Todo -->
+        <div class="glass" style="border-radius:20px;padding:24px;">
+          <div class="todo-header">
+            <div class="widget-label">Daily Tasks</div>
+            <button class="btn-add-todo" onclick="addTodo()" aria-label="Add new task">+ Add</button>
+          </div>
+          <div id="todo-list" role="list" aria-label="Task list"></div>
+        </div>
+
+        <!-- Notes -->
+        <div class="glass" style="border-radius:20px;padding:24px;">
+          <div class="widget-label">Quick Notes</div>
+          <textarea
+            id="quick-note"
+            placeholder="Write a quick note…"
+            aria-label="Quick notes"
+          ></textarea>
+          <button class="btn-save-note" onclick="saveNote()">Save Note</button>
+        </div>
+
+        <!-- Calendar + Quote -->
+        <div class="cal-quote-col">
+          <div class="glass" style="border-radius:20px;padding:20px;">
+            <div class="widget-label">Calendar</div>
+            <div id="mini-calendar" aria-label="Mini calendar"></div>
+          </div>
+          <div class="glass" style="border-radius:20px;padding:20px;flex:1;">
+            <div class="widget-label">Daily Quote</div>
+            <blockquote id="daily-quote" aria-live="polite"></blockquote>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ── QUICK ACCESS ── -->
+    <section id="quick-access" class="section" style="margin-bottom:80px;" aria-labelledby="qa-title">
+      <div class="section-head fade-up d-10">
+        <div class="section-eyebrow">Quick Access</div>
+        <h2 class="section-title" id="qa-title">Everything you need</h2>
+      </div>
+
+      <div class="qa-grid fade-up d-11" role="list" aria-label="Quick access links">
+
+        <a href="https://github.com"                        target="_blank" rel="noopener" class="qa-card glass-card card-cyan"    role="listitem"><i class="fab fa-github"        aria-hidden="true"></i> <span>GitHub</span></a>
+        <a href="https://reddit.com"                        target="_blank" rel="noopener" class="qa-card glass-card"              role="listitem" style="--accent:rgba(251,146,60,0.3);"
+           onmouseover="this.style.borderColor='rgba(251,146,60,0.3)';this.style.boxShadow='var(--shadow-card),0 0 40px -8px rgba(251,146,60,0.2)'"
+           onmouseout ="this.style.borderColor='';this.style.boxShadow=''">
+           <i class="fab fa-reddit" style="color:#fb923c;" aria-hidden="true"></i> <span>Reddit</span></a>
+        <a href="https://linkedin.com"                      target="_blank" rel="noopener" class="qa-card glass-card card-sky"     role="listitem"><i class="fab fa-linkedin"      style="color:#38bdf8;" aria-hidden="true"></i> <span>LinkedIn</span></a>
+        <a href="https://discord.com"                       target="_blank" rel="noopener" class="qa-card glass-card card-violet"  role="listitem"><i class="fab fa-discord"       style="color:#a78bfa;" aria-hidden="true"></i> <span>Discord</span></a>
+        <a href="https://x.com"                             target="_blank" rel="noopener" class="qa-card glass-card"              role="listitem"
+           onmouseover="this.style.borderColor='rgba(255,255,255,0.2)'"
+           onmouseout ="this.style.borderColor=''">
+           <i class="fab fa-x-twitter" aria-hidden="true"></i> <span>X</span></a>
+        <a href="https://youtube.com"                       target="_blank" rel="noopener" class="qa-card glass-card card-red"     role="listitem"><i class="fab fa-youtube"       style="color:#f87171;" aria-hidden="true"></i> <span>YouTube</span></a>
+        <a href="https://mail.google.com"                   target="_blank" rel="noopener" class="qa-card glass-card card-red"     role="listitem"><i class="fas fa-envelope"      style="color:#f87171;" aria-hidden="true"></i> <span>Gmail</span></a>
+        <a href="https://drive.google.com"                  target="_blank" rel="noopener" class="qa-card glass-card"              role="listitem"
+           onmouseover="this.style.borderColor='rgba(250,204,21,0.3)';this.style.boxShadow='var(--shadow-card),0 0 40px -8px rgba(250,204,21,0.15)'"
+           onmouseout ="this.style.borderColor='';this.style.boxShadow=''">
+           <i class="fas fa-cloud" style="color:#facc15;" aria-hidden="true"></i> <span>Drive</span></a>
+        <a href="https://www.hackthebox.com"                target="_blank" rel="noopener" class="qa-card glass-card card-emerald" role="listitem"><i class="fas fa-box"           style="color:#34d399;" aria-hidden="true"></i> <span>Hack The Box</span></a>
+        <a href="https://portswigger.net/web-security"      target="_blank" rel="noopener" class="qa-card glass-card card-violet"  role="listitem"><i class="fas fa-shield-alt"   style="color:#a78bfa;" aria-hidden="true"></i> <span>Web Security Academy</span></a>
+        <a href="https://codepen.io"                        target="_blank" rel="noopener" class="qa-card glass-card card-cyan"    role="listitem"><i class="fab fa-codepen"       style="color:#67e8f9;" aria-hidden="true"></i> <span>CodePen</span></a>
+        <a href="https://stackoverflow.com"                 target="_blank" rel="noopener" class="qa-card glass-card"              role="listitem"
+           onmouseover="this.style.borderColor='rgba(251,146,60,0.3)'"
+           onmouseout ="this.style.borderColor=''">
+           <i class="fab fa-stack-overflow" style="color:#fb923c;" aria-hidden="true"></i> <span>Stack Overflow</span></a>
+
+      </div>
+    </section>
+
+  </main><!-- /page-wrap -->
+
+
+  <!-- ─── SHORTCUTS MODAL ─── -->
+  <div id="shortcuts-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 id="modal-title">Keyboard Shortcuts</h3>
+        <button class="modal-close" onclick="hideShortcutsModal()" aria-label="Close">×</button>
+      </div>
+      <div class="shortcut-list" role="list">
+        <div class="shortcut-row" role="listitem">
+          <span>Focus Search</span> <kbd>/</kbd>
+        </div>
+        <div class="shortcut-row" role="listitem">
+          <span>Add Todo</span> <kbd>N</kbd>
+        </div>
+        <div class="shortcut-row" role="listitem">
+          <span>Show Shortcuts</span> <kbd>?</kbd>
+        </div>
+        <div class="shortcut-row" role="listitem">
+          <span>Close Modal</span> <kbd>ESC</kbd>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ─── SCRIPTS ─── -->
+  <script src="src/app.js" defer></script>
+
 </body>
 </html>
